@@ -5,11 +5,7 @@
   "workspaces": [
     "packages/*"
   ],
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn check:license && lerna run --parallel precommit"
-    }
-  },
+  "husky": {},
   "scripts": {
     "postinstall": "patch-package",
     "start": "lerna run build --scope @opencrvs/components && lerna run --parallel --ignore @opencrvs/mobile-proxy --ignore @opencrvs/integration $OTHER_LERNA_FLAGS start",

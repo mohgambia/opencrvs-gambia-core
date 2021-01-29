@@ -14,8 +14,6 @@ services:
   mongo1:
     image: mongo:3.6
     restart: unless-stopped
-    ports: 
-      - 27017:27017
 
   redis:
     image: redis:5
@@ -62,30 +60,19 @@ services:
       context: .
       dockerfile: ./packages/client/Dockerfile
     restart: unless-stopped
-    ports:
-      - "3000:80"
   login:
     image: opencrvs/ocrvs-login:${VERSION:-latest}
     build:
       context: .
       dockerfile: ./packages/login/Dockerfile
     restart: unless-stopped
-    ports:
-      - "3020:80"
-    environment: 
-      - COUNTRY=zmb
   gateway:
     image: opencrvs/ocrvs-gateway:${VERSION:-latest}
     build:
       context: .
       dockerfile: ./packages/gateway/Dockerfile
     restart: unless-stopped
-    ports:
-      - "7070:7070"
-    volumes:
-      - ".secrets/public-key.pem:/secrets/public-key.pem"
     environment:
-      - CERT_PUBLIC_KEY_PATH=/secrets/public-key.pem
       - NODE_ENV=development
       - FHIR_URL=http://openhim-core:5001/fhir
       - USER_MANAGEMENT_URL=http://user-mgnt:3030/
@@ -103,10 +90,7 @@ services:
       context: .
       dockerfile: ./packages/workflow/Dockerfile
     restart: unless-stopped
-    volumes:
-      - ".secrets/public-key.pem:/secrets/public-key.pem"
     environment:
-      - CERT_PUBLIC_KEY_PATH=/secrets/public-key.pem
       - NODE_ENV=development
       - NOTIFICATION_SERVICE_URL=http://notification:2020/
       - USER_MANAGEMENT_URL=http://user-mgnt:3030/
@@ -122,10 +106,7 @@ services:
       context: .
       dockerfile: ./packages/search/Dockerfile
     restart: unless-stopped
-    volumes:
-      - ".secrets/public-key.pem:/secrets/public-key.pem"
     environment:
-      - CERT_PUBLIC_KEY_PATH=/secrets/public-key.pem
       - NODE_ENV=development
       - USER_MANAGEMENT_URL=http://user-mgnt:3030/
       - ES_HOST=elasticsearch:9200
@@ -138,10 +119,7 @@ services:
       context: .
       dockerfile: ./packages/metrics/Dockerfile
     restart: unless-stopped
-    volumes:
-      - ".secrets/public-key.pem:/secrets/public-key.pem"
     environment:
-      - CERT_PUBLIC_KEY_PATH=/secrets/public-key.pem
       - INFLUX_HOST=influxdb
       - INFLUX_PORT=8086
       - INFLUX_DB=ocrvs
@@ -157,14 +135,7 @@ services:
       context: .
       dockerfile: ./packages/auth/Dockerfile
     restart: unless-stopped
-    ports:
-      - "4040:4040"
-    volumes:
-      - ".secrets/public-key.pem:/secrets/public-key.pem"
-      - ".secrets/private-key.pem:/secrets/private-key.pem"
     environment:
-      - CERT_PUBLIC_KEY_PATH=/secrets/public-key.pem
-      - CERT_PRIVATE_KEY_PATH=/secrets/private-key.pem
       - REDIS_HOST=redis
       - USER_MANAGEMENT_URL=http://user-mgnt:3030/
       - CONFIG_TOKEN_EXPIRY_SECONDS=604800
@@ -176,10 +147,7 @@ services:
       context: .
       dockerfile: ./packages/user-mgnt/Dockerfile
     restart: unless-stopped
-    volumes:
-      - ".secrets/public-key.pem:/secrets/public-key.pem"
     environment:
-      - CERT_PUBLIC_KEY_PATH=/secrets/public-key.pem
       - MONGO_URL=mongodb://mongo1/user-mgnt
       - AUTH_URL=http://auth:4040
       - NOTIFICATION_SERVICE_URL=http://notification:2020/
@@ -192,10 +160,7 @@ services:
       context: .
       dockerfile: ./packages/webhooks/Dockerfile
     restart: unless-stopped
-    volumes:
-      - ".secrets/public-key.pem:/secrets/public-key.pem"
     environment:
-      - CERT_PUBLIC_KEY_PATH=/secrets/public-key.pem
       - REDIS_HOST=redis://redis:6379
       - MONGO_URL=mongodb://mongo1/webhooks
       - AUTH_URL=http://auth:4040
@@ -209,27 +174,9 @@ services:
       context: .
       dockerfile: ./packages/notification/Dockerfile
     restart: unless-stopped
-    volumes:
-      - ".secrets/public-key.pem:/secrets/public-key.pem"
     environment:
-      - CERT_PUBLIC_KEY_PATH=/secrets/public-key.pem
       - AUTH_URL=http://auth:4040
       - COUNTRY=${COUNTRY:-bgd}
       - HOST=0.0.0.0
       - CHECK_INVALID_TOKEN=true
       - RESOURCES_URL=http://resources:3040
-  resources:
-    image: opencrvs/ocrvs-zambia:latest
-    volumes:
-      - ".secrets/public-key.pem:/secrets/public-key.pem"
-    environment:
-      - CERT_PUBLIC_KEY_PATH=/secrets/public-key.pem
-      - MONGO_URL=mongodb://mongo1/user-mgnt
-      - NODE_ENV=development
-      - FHIR_URL=http://hearth:3447/fhir
-      - AUTH_URL=http://auth:4040
-      - OPENHIM_URL=http://openhim-core:5001
-      - CONFIRM_REGISTRATION_URL=http://workflow:5050/confirm/registration
-      - CHECK_INVALID_TOKEN=true
-    ports:
-      - "3040:3040"

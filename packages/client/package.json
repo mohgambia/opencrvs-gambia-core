@@ -87,7 +87,8 @@
     "extract:translations": "bash extract-translations.sh",
     "graphql:codegen": "graphql-codegen --config codegen.yml",
     "build:clean": "rm -rf build",
-    "serve": "node serve-static.js"
+    "serve": "node serve-static.js",
+    "start-zambia": "COUNTRY=zmb BROWSER=none PORT=3000 craco start"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [

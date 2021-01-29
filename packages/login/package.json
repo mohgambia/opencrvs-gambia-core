@@ -57,7 +57,8 @@
     "lint:ts": "eslint --fix './src/**/*.{ts,tsx}'",
     "start:prod": "yarn build && yarn serve -s -l 3020 build",
     "test:compilation": "tsc --noEmit",
-    "build:clean": "rm -rf build"
+    "build:clean": "rm -rf build",
+    "start-zambia": "COUNTRY=zmb BROWSER=none PORT=3020 craco start"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx,json}": [

@@ -1,0 +1,1 @@
+docker-compose -f docker-compose.dev-deps.yml -f docker-compose.deps.yml up -d
