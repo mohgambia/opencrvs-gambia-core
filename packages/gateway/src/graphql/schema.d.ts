@@ -481,6 +481,7 @@ export enum GQLAttendantType {
   MIDWIFE = 'MIDWIFE',
   OTHER_PARAMEDICAL_PERSONNEL = 'OTHER_PARAMEDICAL_PERSONNEL',
   LAYPERSON = 'LAYPERSON',
+  TRADITIONAL_BIRTH_ATTENDANT = 'TRADITIONAL BIRTH ATTENDANT',
   NONE = 'NONE',
   OTHER = 'OTHER'
 }
@@ -1269,7 +1270,7 @@ export interface QueryToListNotificationsArgs {
 export interface QueryToListNotificationsResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (
     parent: TParent,
     args: QueryToListNotificationsArgs,
@@ -1284,7 +1285,7 @@ export interface QueryToFetchBirthRegistrationArgs {
 export interface QueryToFetchBirthRegistrationResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (
     parent: TParent,
     args: QueryToFetchBirthRegistrationArgs,
@@ -1300,7 +1301,7 @@ export interface QueryToSearchBirthRegistrationsArgs {
 export interface QueryToSearchBirthRegistrationsResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (
     parent: TParent,
     args: QueryToSearchBirthRegistrationsArgs,
@@ -1316,7 +1317,7 @@ export interface QueryToSearchDeathRegistrationsArgs {
 export interface QueryToSearchDeathRegistrationsResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (
     parent: TParent,
     args: QueryToSearchDeathRegistrationsArgs,
@@ -1331,7 +1332,7 @@ export interface QueryToQueryRegistrationByIdentifierArgs {
 export interface QueryToQueryRegistrationByIdentifierResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (
     parent: TParent,
     args: QueryToQueryRegistrationByIdentifierArgs,
@@ -1346,7 +1347,7 @@ export interface QueryToQueryPersonByIdentifierArgs {
 export interface QueryToQueryPersonByIdentifierResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (
     parent: TParent,
     args: QueryToQueryPersonByIdentifierArgs,
@@ -1367,7 +1368,7 @@ export interface QueryToListBirthRegistrationsArgs {
 export interface QueryToListBirthRegistrationsResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (
     parent: TParent,
     args: QueryToListBirthRegistrationsArgs,
@@ -1382,7 +1383,7 @@ export interface QueryToFetchDeathRegistrationArgs {
 export interface QueryToFetchDeathRegistrationResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (
     parent: TParent,
     args: QueryToFetchDeathRegistrationArgs,
@@ -1397,7 +1398,7 @@ export interface QueryToFetchEventRegistrationArgs {
 export interface QueryToFetchEventRegistrationResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (
     parent: TParent,
     args: QueryToFetchEventRegistrationArgs,
@@ -1412,7 +1413,7 @@ export interface QueryToFetchRegistrationArgs {
 export interface QueryToFetchRegistrationResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (
     parent: TParent,
     args: QueryToFetchRegistrationArgs,
@@ -1429,7 +1430,7 @@ export interface QueryToQueryPersonByNidIdentifierArgs {
 export interface QueryToQueryPersonByNidIdentifierResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (
     parent: TParent,
     args: QueryToQueryPersonByNidIdentifierArgs,
@@ -1445,7 +1446,7 @@ export interface QueryToFetchRegistrationCountByStatusArgs {
 export interface QueryToFetchRegistrationCountByStatusResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (
     parent: TParent,
     args: QueryToFetchRegistrationCountByStatusArgs,
@@ -1461,7 +1462,7 @@ export interface QueryToLocationsByParentArgs {
 export interface QueryToLocationsByParentResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (
     parent: TParent,
     args: QueryToLocationsByParentArgs,
@@ -1540,7 +1541,7 @@ export interface QueryToSearchFieldAgentsArgs {
 export interface QueryToSearchFieldAgentsResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (
     parent: TParent,
     args: QueryToSearchFieldAgentsArgs,
@@ -1571,7 +1572,7 @@ export interface QueryToFetchRegistrationMetricsArgs {
 export interface QueryToFetchRegistrationMetricsResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (
     parent: TParent,
     args: QueryToFetchRegistrationMetricsArgs,
@@ -1588,7 +1589,7 @@ export interface QueryToGetEventEstimationMetricsArgs {
 export interface QueryToGetEventEstimationMetricsResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (
     parent: TParent,
     args: QueryToGetEventEstimationMetricsArgs,
@@ -1605,7 +1606,7 @@ export interface QueryToGetApplicationsStartedMetricsArgs {
 export interface QueryToGetApplicationsStartedMetricsResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (
     parent: TParent,
     args: QueryToGetApplicationsStartedMetricsArgs,
@@ -1623,7 +1624,7 @@ export interface QueryToFetchMonthWiseEventMetricsArgs {
 export interface QueryToFetchMonthWiseEventMetricsResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (
     parent: TParent,
     args: QueryToFetchMonthWiseEventMetricsArgs,
@@ -1641,7 +1642,7 @@ export interface QueryToFetchLocationWiseEventMetricsArgs {
 export interface QueryToFetchLocationWiseEventMetricsResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (
     parent: TParent,
     args: QueryToFetchLocationWiseEventMetricsArgs,
@@ -1659,7 +1660,7 @@ export interface QueryToFetchTimeLoggedMetricsByPractitionerArgs {
 export interface QueryToFetchTimeLoggedMetricsByPractitionerResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (
     parent: TParent,
     args: QueryToFetchTimeLoggedMetricsByPractitionerArgs,
@@ -1702,7 +1703,7 @@ export interface QueryToGetEventsWithProgressArgs {
 export interface QueryToGetEventsWithProgressResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (
     parent: TParent,
     args: QueryToGetEventsWithProgressArgs,
@@ -1853,7 +1854,7 @@ export interface PersonToNationalityResolver<TParent = any, TResult = any> {
 export interface PersonToEducationalAttainmentResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -2021,14 +2022,14 @@ export interface AttachmentToStatusResolver<TParent = any, TResult = any> {
 export interface AttachmentToOriginalFileNameResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface AttachmentToSystemFileNameResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -2197,140 +2198,140 @@ export interface BirthRegistrationToIdResolver<TParent = any, TResult = any> {
 export interface BirthRegistrationTo_fhirIDMapResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface BirthRegistrationToRegistrationResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface BirthRegistrationToChildResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface BirthRegistrationToMotherResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface BirthRegistrationToFatherResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface BirthRegistrationToInformantResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface BirthRegistrationToEventLocationResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface BirthRegistrationToBirthTypeResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface BirthRegistrationToWeightAtBirthResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface BirthRegistrationToAttendantAtBirthResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface BirthRegistrationToOtherAttendantAtBirthResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface BirthRegistrationToBirthRegistrationTypeResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface BirthRegistrationToPresentAtBirthRegistrationResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface BirthRegistrationToOtherPresentAtBirthRegistrationResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface BirthRegistrationToChildrenBornAliveToMotherResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface BirthRegistrationToFoetalDeathsToMotherResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface BirthRegistrationToLastPreviousLiveBirthResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface BirthRegistrationToPrimaryCaregiverResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface BirthRegistrationToCreatedAtResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface BirthRegistrationToUpdatedAtResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -2374,21 +2375,21 @@ export interface RegistrationToDraftIdResolver<TParent = any, TResult = any> {
 export interface RegistrationToTrackingIdResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface RegistrationToRegistrationNumberResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface RegistrationToPaperFormIDResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -2407,14 +2408,14 @@ export interface RegistrationToContactResolver<TParent = any, TResult = any> {
 export interface RegistrationToContactRelationshipResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface RegistrationToContactPhoneNumberResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -2429,28 +2430,28 @@ export interface RegistrationToTypeResolver<TParent = any, TResult = any> {
 export interface RegistrationToInCompleteFieldsResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface RegistrationToAttachmentsResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface RegistrationToCertificatesResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface RegistrationToDuplicatesResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -2560,7 +2561,7 @@ export interface UserToStatusResolver<TParent = any, TResult = any> {
 export interface UserToUnderInvestigationResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -2605,7 +2606,7 @@ export interface LocalRegistrarToRoleResolver<TParent = any, TResult = any> {
 export interface LocalRegistrarToSignatureResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -2661,7 +2662,7 @@ export interface CertificateToCollectorResolver<TParent = any, TResult = any> {
 export interface CertificateToHasShowedVerifiedDocumentResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -2693,28 +2694,28 @@ export interface RelatedPersonTo_fhirIDResolver<TParent = any, TResult = any> {
 export interface RelatedPersonToRelationshipResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface RelatedPersonToOtherRelationshipResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface RelatedPersonToAffidavitResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface RelatedPersonToIndividualResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -2760,21 +2761,21 @@ export interface GQLPrimaryCaregiverTypeResolver<TParent = any> {
 export interface PrimaryCaregiverToPrimaryCaregiverResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface PrimaryCaregiverToReasonsNotApplyingResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface PrimaryCaregiverToParentDetailsTypeResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -2789,21 +2790,21 @@ export interface GQLReasonsNotApplyingTypeResolver<TParent = any> {
 export interface ReasonsNotApplyingToPrimaryCaregiverTypeResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface ReasonsNotApplyingToReasonNotApplyingResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface ReasonsNotApplyingToIsDeceasedResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -2831,91 +2832,91 @@ export interface DeathRegistrationToIdResolver<TParent = any, TResult = any> {
 export interface DeathRegistrationTo_fhirIDMapResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface DeathRegistrationToRegistrationResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface DeathRegistrationToDeceasedResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface DeathRegistrationToInformantResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface DeathRegistrationToMotherResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface DeathRegistrationToFatherResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface DeathRegistrationToSpouseResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface DeathRegistrationToEventLocationResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface DeathRegistrationToMannerOfDeathResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface DeathRegistrationToCauseOfDeathMethodResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface DeathRegistrationToCauseOfDeathResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface DeathRegistrationToCreatedAtResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface DeathRegistrationToUpdatedAtResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -2927,14 +2928,14 @@ export interface GQLBirthRegResultSetTypeResolver<TParent = any> {
 export interface BirthRegResultSetToResultsResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface BirthRegResultSetToTotalItemsResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -2946,14 +2947,14 @@ export interface GQLRegistrationCountResultTypeResolver<TParent = any> {
 export interface RegistrationCountResultToResultsResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface RegistrationCountResultToTotalResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -2965,14 +2966,14 @@ export interface GQLStatusWiseRegistrationCountTypeResolver<TParent = any> {
 export interface StatusWiseRegistrationCountToStatusResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface StatusWiseRegistrationCountToCountResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -2984,14 +2985,14 @@ export interface GQLSearchUserResultTypeResolver<TParent = any> {
 export interface SearchUserResultToResultsResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface SearchUserResultToTotalItemsResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -3003,14 +3004,14 @@ export interface GQLSearchFieldAgentResultTypeResolver<TParent = any> {
 export interface SearchFieldAgentResultToResultsResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface SearchFieldAgentResultToTotalItemsResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -3038,70 +3039,70 @@ export interface GQLSearchFieldAgentResponseTypeResolver<TParent = any> {
 export interface SearchFieldAgentResponseToPractitionerIdResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface SearchFieldAgentResponseToFullNameResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface SearchFieldAgentResponseToTypeResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface SearchFieldAgentResponseToStatusResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface SearchFieldAgentResponseToPrimaryOfficeIdResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface SearchFieldAgentResponseToCreationDateResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface SearchFieldAgentResponseToTotalNumberOfApplicationStartedResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface SearchFieldAgentResponseToTotalNumberOfInProgressAppStartedResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface SearchFieldAgentResponseToTotalNumberOfRejectedApplicationsResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface SearchFieldAgentResponseToAverageTimeForDeclaredApplicationsResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -3117,28 +3118,28 @@ export interface GQLRegistrationMetricsTypeResolver<TParent = any> {
 export interface RegistrationMetricsToGenderBasisMetricsResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface RegistrationMetricsToTimeFramesResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface RegistrationMetricsToEstimated45DayMetricsResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface RegistrationMetricsToPaymentsResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -3150,14 +3151,14 @@ export interface GQLRegistrationGenderBasisMetricsTypeResolver<TParent = any> {
 export interface RegistrationGenderBasisMetricsToDetailsResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface RegistrationGenderBasisMetricsToTotalResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -3173,42 +3174,42 @@ export interface GQLGenderBasisDetailsMetricsTypeResolver<TParent = any> {
 export interface GenderBasisDetailsMetricsToLocationResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface GenderBasisDetailsMetricsToMaleUnder18Resolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface GenderBasisDetailsMetricsToFemaleUnder18Resolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface GenderBasisDetailsMetricsToMaleOver18Resolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface GenderBasisDetailsMetricsToFemaleOver18Resolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface GenderBasisDetailsMetricsToTotalResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -3223,35 +3224,35 @@ export interface GQLGenderBasisTotalCountTypeResolver<TParent = any> {
 export interface GenderBasisTotalCountToMaleUnder18Resolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface GenderBasisTotalCountToFemaleUnder18Resolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface GenderBasisTotalCountToMaleOver18Resolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface GenderBasisTotalCountToFemaleOver18Resolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface GenderBasisTotalCountToTotalResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -3263,14 +3264,14 @@ export interface GQLRegistrationTimeFrameMetricsTypeResolver<TParent = any> {
 export interface RegistrationTimeFrameMetricsToDetailsResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface RegistrationTimeFrameMetricsToTotalResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -3286,42 +3287,42 @@ export interface GQLTimeFrameDetailMetricsTypeResolver<TParent = any> {
 export interface TimeFrameDetailMetricsToLocationIdResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface TimeFrameDetailMetricsToRegWithin45dResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface TimeFrameDetailMetricsToRegWithin45dTo1yrResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface TimeFrameDetailMetricsToRegWithin1yrTo5yrResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface TimeFrameDetailMetricsToRegOver5yrResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface TimeFrameDetailMetricsToTotalResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -3336,41 +3337,41 @@ export interface GQLTimeFrameTotalCountTypeResolver<TParent = any> {
 export interface TimeFrameTotalCountToRegWithin45dResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface TimeFrameTotalCountToRegWithin45dTo1yrResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface TimeFrameTotalCountToRegWithin1yrTo5yrResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface TimeFrameTotalCountToRegOver5yrResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface TimeFrameTotalCountToTotalResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface GQLRegistration45DayEstimatedMetricsTypeResolver<
   TParent = any
-> {
+  > {
   details?: Registration45DayEstimatedMetricsToDetailsResolver<TParent>
   total?: Registration45DayEstimatedMetricsToTotalResolver<TParent>
 }
@@ -3378,14 +3379,14 @@ export interface GQLRegistration45DayEstimatedMetricsTypeResolver<
 export interface Registration45DayEstimatedMetricsToDetailsResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface Registration45DayEstimatedMetricsToTotalResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -3409,42 +3410,42 @@ export interface GQLEstimated45DayMetricsTypeResolver<TParent = any> {
 export interface Estimated45DayMetricsToLocationIdResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface Estimated45DayMetricsToEstimatedRegistrationResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface Estimated45DayMetricsToRegistrationIn45DayResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface Estimated45DayMetricsToEstimationYearResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface Estimated45DayMetricsToEstimationLocationLevelResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface Estimated45DayMetricsToEstimationPercentageResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -3463,21 +3464,21 @@ export interface GQLEstimate45DayTotalCountTypeResolver<TParent = any> {
 export interface Estimate45DayTotalCountToEstimatedRegistrationResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface Estimate45DayTotalCountToRegistrationIn45DayResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface Estimate45DayTotalCountToEstimationPercentageResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -3489,20 +3490,20 @@ export interface GQLCertificationPaymentMetricsTypeResolver<TParent = any> {
 export interface CertificationPaymentMetricsToDetailsResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface CertificationPaymentMetricsToTotalResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface GQLCertificationPaymentDetailsMetricsTypeResolver<
   TParent = any
-> {
+  > {
   total?: CertificationPaymentDetailsMetricsToTotalResolver<TParent>
   locationId?: CertificationPaymentDetailsMetricsToLocationIdResolver<TParent>
 }
@@ -3510,14 +3511,14 @@ export interface GQLCertificationPaymentDetailsMetricsTypeResolver<
 export interface CertificationPaymentDetailsMetricsToTotalResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface CertificationPaymentDetailsMetricsToLocationIdResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -3528,7 +3529,7 @@ export interface GQLCertificationPaymentTotalCountTypeResolver<TParent = any> {
 export interface CertificationPaymentTotalCountToTotalResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -3540,14 +3541,14 @@ export interface GQLEventEstimationMetricsTypeResolver<TParent = any> {
 export interface EventEstimationMetricsToBirth45DayMetricsResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface EventEstimationMetricsToDeath45DayMetricsResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -3564,35 +3565,35 @@ export interface GQLEstimationMetricsTypeResolver<TParent = any> {
 export interface EstimationMetricsToActualRegistrationResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface EstimationMetricsToEstimatedRegistrationResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface EstimationMetricsToEstimatedPercentageResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface EstimationMetricsToMalePercentageResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface EstimationMetricsToFemalePercentageResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -3611,21 +3612,21 @@ export interface GQLApplicationsStartedMetricsTypeResolver<TParent = any> {
 export interface ApplicationsStartedMetricsToFieldAgentApplicationsResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface ApplicationsStartedMetricsToHospitalApplicationsResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface ApplicationsStartedMetricsToOfficeApplicationsResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -3637,14 +3638,14 @@ export interface GQLMonthWiseEstimationMetricsTypeResolver<TParent = any> {
 export interface MonthWiseEstimationMetricsToDetailsResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface MonthWiseEstimationMetricsToTotalResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -3670,56 +3671,56 @@ export interface GQLMonthWise45DayEstimationTypeResolver<TParent = any> {
 export interface MonthWise45DayEstimationToActualTotalRegistrationResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface MonthWise45DayEstimationToActual45DayRegistrationResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface MonthWise45DayEstimationToEstimatedRegistrationResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface MonthWise45DayEstimationToEstimated45DayPercentageResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface MonthWise45DayEstimationToMonthResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface MonthWise45DayEstimationToYearResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface MonthWise45DayEstimationToStartOfMonthResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface MonthWise45DayEstimationToEndOfMonthResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -3741,28 +3742,28 @@ export interface GQLEventIn45DayEstimationCountTypeResolver<TParent = any> {
 export interface EventIn45DayEstimationCountToActualTotalRegistrationResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface EventIn45DayEstimationCountToActual45DayRegistrationResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface EventIn45DayEstimationCountToEstimatedRegistrationResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface EventIn45DayEstimationCountToEstimated45DayPercentageResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -3774,14 +3775,14 @@ export interface GQLLocationWiseEstimationMetricsTypeResolver<TParent = any> {
 export interface LocationWiseEstimationMetricsToDetailsResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface LocationWiseEstimationMetricsToTotalResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -3805,42 +3806,42 @@ export interface GQLLocationWise45DayEstimationTypeResolver<TParent = any> {
 export interface LocationWise45DayEstimationToActualTotalRegistrationResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface LocationWise45DayEstimationToActual45DayRegistrationResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface LocationWise45DayEstimationToEstimatedRegistrationResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface LocationWise45DayEstimationToEstimated45DayPercentageResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface LocationWise45DayEstimationToLocationIdResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface LocationWise45DayEstimationToLocationNameResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -3852,14 +3853,14 @@ export interface GQLEventSearchResultSetTypeResolver<TParent = any> {
 export interface EventSearchResultSetToResultsResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface EventSearchResultSetToTotalItemsResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -3893,91 +3894,91 @@ export interface GQLRegistrationSearchSetTypeResolver<TParent = any> {
 export interface RegistrationSearchSetToStatusResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface RegistrationSearchSetToContactNumberResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface RegistrationSearchSetToContactRelationshipResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface RegistrationSearchSetToDateOfApplicationResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface RegistrationSearchSetToTrackingIdResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface RegistrationSearchSetToRegistrationNumberResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface RegistrationSearchSetToEventLocationIdResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface RegistrationSearchSetToRegisteredLocationIdResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface RegistrationSearchSetToReasonResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface RegistrationSearchSetToCommentResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface RegistrationSearchSetToDuplicatesResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface RegistrationSearchSetToCreatedAtResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface RegistrationSearchSetToModifiedAtResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -4005,70 +4006,70 @@ export interface GQLOperationHistorySearchSetTypeResolver<TParent = any> {
 export interface OperationHistorySearchSetToOperationTypeResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface OperationHistorySearchSetToOperatedOnResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface OperationHistorySearchSetToOperatorRoleResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface OperationHistorySearchSetToOperatorNameResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface OperationHistorySearchSetToOperatorOfficeNameResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface OperationHistorySearchSetToOperatorOfficeAliasResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface OperationHistorySearchSetToNotificationFacilityNameResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface OperationHistorySearchSetToNotificationFacilityAliasResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface OperationHistorySearchSetToRejectReasonResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface OperationHistorySearchSetToRejectCommentResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -4080,14 +4081,14 @@ export interface GQLEventProgressResultSetTypeResolver<TParent = any> {
 export interface EventProgressResultSetToResultsResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface EventProgressResultSetToTotalItemsResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -4118,35 +4119,35 @@ export interface EventProgressSetToNameResolver<TParent = any, TResult = any> {
 export interface EventProgressSetToDateOfEventResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface EventProgressSetToRegistrationResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface EventProgressSetToStartedByResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface EventProgressSetToStartedByFacilityResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface EventProgressSetToProgressReportResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -4170,42 +4171,42 @@ export interface GQLEventProgressDataTypeResolver<TParent = any> {
 export interface EventProgressDataToTimeInProgressResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface EventProgressDataToTimeInReadyForReviewResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface EventProgressDataToTimeInRequiresUpdatesResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface EventProgressDataToTimeInWaitingForApprovalResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface EventProgressDataToTimeInWaitingForBRISResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface EventProgressDataToTimeInReadyToPrintResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -4267,7 +4268,7 @@ export interface MutationToCreateNotificationArgs {
 export interface MutationToCreateNotificationResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (
     parent: TParent,
     args: MutationToCreateNotificationArgs,
@@ -4282,7 +4283,7 @@ export interface MutationToVoidNotificationArgs {
 export interface MutationToVoidNotificationResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (
     parent: TParent,
     args: MutationToVoidNotificationArgs,
@@ -4297,7 +4298,7 @@ export interface MutationToCreateBirthRegistrationArgs {
 export interface MutationToCreateBirthRegistrationResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (
     parent: TParent,
     args: MutationToCreateBirthRegistrationArgs,
@@ -4313,7 +4314,7 @@ export interface MutationToUpdateBirthRegistrationArgs {
 export interface MutationToUpdateBirthRegistrationResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (
     parent: TParent,
     args: MutationToUpdateBirthRegistrationArgs,
@@ -4329,7 +4330,7 @@ export interface MutationToMarkBirthAsVerifiedArgs {
 export interface MutationToMarkBirthAsVerifiedResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (
     parent: TParent,
     args: MutationToMarkBirthAsVerifiedArgs,
@@ -4345,7 +4346,7 @@ export interface MutationToMarkBirthAsValidatedArgs {
 export interface MutationToMarkBirthAsValidatedResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (
     parent: TParent,
     args: MutationToMarkBirthAsValidatedArgs,
@@ -4361,7 +4362,7 @@ export interface MutationToMarkBirthAsRegisteredArgs {
 export interface MutationToMarkBirthAsRegisteredResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (
     parent: TParent,
     args: MutationToMarkBirthAsRegisteredArgs,
@@ -4377,7 +4378,7 @@ export interface MutationToMarkBirthAsCertifiedArgs {
 export interface MutationToMarkBirthAsCertifiedResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (
     parent: TParent,
     args: MutationToMarkBirthAsCertifiedArgs,
@@ -4394,7 +4395,7 @@ export interface MutationToMarkEventAsVoidedArgs {
 export interface MutationToMarkEventAsVoidedResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (
     parent: TParent,
     args: MutationToMarkEventAsVoidedArgs,
@@ -4422,7 +4423,7 @@ export interface MutationToCreateDeathRegistrationArgs {
 export interface MutationToCreateDeathRegistrationResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (
     parent: TParent,
     args: MutationToCreateDeathRegistrationArgs,
@@ -4438,7 +4439,7 @@ export interface MutationToUpdateDeathRegistrationArgs {
 export interface MutationToUpdateDeathRegistrationResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (
     parent: TParent,
     args: MutationToUpdateDeathRegistrationArgs,
@@ -4454,7 +4455,7 @@ export interface MutationToMarkDeathAsVerifiedArgs {
 export interface MutationToMarkDeathAsVerifiedResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (
     parent: TParent,
     args: MutationToMarkDeathAsVerifiedArgs,
@@ -4470,7 +4471,7 @@ export interface MutationToMarkDeathAsValidatedArgs {
 export interface MutationToMarkDeathAsValidatedResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (
     parent: TParent,
     args: MutationToMarkDeathAsValidatedArgs,
@@ -4486,7 +4487,7 @@ export interface MutationToMarkDeathAsRegisteredArgs {
 export interface MutationToMarkDeathAsRegisteredResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (
     parent: TParent,
     args: MutationToMarkDeathAsRegisteredArgs,
@@ -4502,7 +4503,7 @@ export interface MutationToMarkDeathAsCertifiedArgs {
 export interface MutationToMarkDeathAsCertifiedResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (
     parent: TParent,
     args: MutationToMarkDeathAsCertifiedArgs,
@@ -4517,7 +4518,7 @@ export interface MutationToCreateOrUpdateUserArgs {
 export interface MutationToCreateOrUpdateUserResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (
     parent: TParent,
     args: MutationToCreateOrUpdateUserArgs,
@@ -4548,7 +4549,7 @@ export interface MutationToChangePasswordArgs {
 export interface MutationToChangePasswordResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (
     parent: TParent,
     args: MutationToChangePasswordArgs,
@@ -4578,7 +4579,7 @@ export interface MutationToResendSMSInviteArgs {
 export interface MutationToResendSMSInviteResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (
     parent: TParent,
     args: MutationToResendSMSInviteArgs,
@@ -4596,7 +4597,7 @@ export interface GQLCreatedIdsTypeResolver<TParent = any> {
 export interface CreatedIdsToCompositionIdResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -4607,7 +4608,7 @@ export interface CreatedIdsToTrackingIdResolver<TParent = any, TResult = any> {
 export interface CreatedIdsToRegistrationNumberResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -4635,35 +4636,35 @@ export interface BirthEventSearchSetToIdResolver<TParent = any, TResult = any> {
 export interface BirthEventSearchSetToTypeResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface BirthEventSearchSetToChildNameResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface BirthEventSearchSetToDateOfBirthResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface BirthEventSearchSetToRegistrationResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface BirthEventSearchSetToOperationHistoriesResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
@@ -4683,34 +4684,34 @@ export interface DeathEventSearchSetToIdResolver<TParent = any, TResult = any> {
 export interface DeathEventSearchSetToTypeResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface DeathEventSearchSetToDeceasedNameResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface DeathEventSearchSetToDateOfDeathResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface DeathEventSearchSetToRegistrationResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
 export interface DeathEventSearchSetToOperationHistoriesResolver<
   TParent = any,
   TResult = any
-> {
+  > {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }

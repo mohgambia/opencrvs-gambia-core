@@ -903,6 +903,7 @@ class ReviewSectionComp extends React.Component<FullProps, State> {
 
       let completeValue = values[0]
       values.shift()
+      const delimiter = tagDef[0] ? tagDef[0].delimiter || '<br />' : '<br/>'
       values.forEach(
         value =>
           (completeValue = (
@@ -910,7 +911,7 @@ class ReviewSectionComp extends React.Component<FullProps, State> {
               {completeValue}
               <span
                 dangerouslySetInnerHTML={{
-                  __html: tagDef[0].delimiter || '<br />'
+                  __html: delimiter
                 }}
               ></span>
               {value}

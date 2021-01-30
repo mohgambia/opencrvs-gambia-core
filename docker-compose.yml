@@ -7,14 +7,13 @@
 #
 # Copyright (C) The OpenCRVS Authors. OpenCRVS and the OpenCRVS
 # graphic logo are (registered/a) trademark(s) of Plan International.
-version: "3.3"
+version: '3.3'
 
 services:
-
   mongo1:
     image: mongo:3.6
     restart: unless-stopped
-    ports: 
+    ports:
       - 27017:27017
 
   redis:
@@ -55,7 +54,6 @@ services:
     image: jembi/openhim-console:1.13
     restart: unless-stopped
 
-
   client:
     image: opencrvs/ocrvs-client:${VERSION:-latest}
     build:
@@ -63,7 +61,7 @@ services:
       dockerfile: ./packages/client/Dockerfile
     restart: unless-stopped
     ports:
-      - "3000:80"
+      - '3000:80'
   login:
     image: opencrvs/ocrvs-login:${VERSION:-latest}
     build:
@@ -71,9 +69,10 @@ services:
       dockerfile: ./packages/login/Dockerfile
     restart: unless-stopped
     ports:
-      - "3020:80"
-    environment: 
+      - '3020:80'
+    environment:
       - COUNTRY=zmb
+
   gateway:
     image: opencrvs/ocrvs-gateway:${VERSION:-latest}
     build:
@@ -81,9 +80,9 @@ services:
       dockerfile: ./packages/gateway/Dockerfile
     restart: unless-stopped
     ports:
-      - "7070:7070"
+      - '7070:7070'
     volumes:
-      - ".secrets/public-key.pem:/secrets/public-key.pem"
+      - '.secrets/public-key.pem:/secrets/public-key.pem'
     environment:
       - CERT_PUBLIC_KEY_PATH=/secrets/public-key.pem
       - NODE_ENV=development
@@ -96,6 +95,7 @@ services:
       - NOTIFICATION_URL=http://notification:2020/
       - WORKFLOW_URL=http://workflow:5050/
       - CHECK_INVALID_TOKEN=true
+
   # User facing services
   workflow:
     image: opencrvs/ocrvs-workflow:${VERSION:-latest}
@@ -104,7 +104,7 @@ services:
       dockerfile: ./packages/workflow/Dockerfile
     restart: unless-stopped
     volumes:
-      - ".secrets/public-key.pem:/secrets/public-key.pem"
+      - '.secrets/public-key.pem:/secrets/public-key.pem'
     environment:
       - CERT_PUBLIC_KEY_PATH=/secrets/public-key.pem
       - NODE_ENV=development
@@ -123,7 +123,7 @@ services:
       dockerfile: ./packages/search/Dockerfile
     restart: unless-stopped
     volumes:
-      - ".secrets/public-key.pem:/secrets/public-key.pem"
+      - '.secrets/public-key.pem:/secrets/public-key.pem'
     environment:
       - CERT_PUBLIC_KEY_PATH=/secrets/public-key.pem
       - NODE_ENV=development
@@ -139,7 +139,7 @@ services:
       dockerfile: ./packages/metrics/Dockerfile
     restart: unless-stopped
     volumes:
-      - ".secrets/public-key.pem:/secrets/public-key.pem"
+      - '.secrets/public-key.pem:/secrets/public-key.pem'
     environment:
       - CERT_PUBLIC_KEY_PATH=/secrets/public-key.pem
       - INFLUX_HOST=influxdb
@@ -158,10 +158,10 @@ services:
       dockerfile: ./packages/auth/Dockerfile
     restart: unless-stopped
     ports:
-      - "4040:4040"
+      - '4040:4040'
     volumes:
-      - ".secrets/public-key.pem:/secrets/public-key.pem"
-      - ".secrets/private-key.pem:/secrets/private-key.pem"
+      - '.secrets/public-key.pem:/secrets/public-key.pem'
+      - '.secrets/private-key.pem:/secrets/private-key.pem'
     environment:
       - CERT_PUBLIC_KEY_PATH=/secrets/public-key.pem
       - CERT_PRIVATE_KEY_PATH=/secrets/private-key.pem
@@ -177,7 +177,7 @@ services:
       dockerfile: ./packages/user-mgnt/Dockerfile
     restart: unless-stopped
     volumes:
-      - ".secrets/public-key.pem:/secrets/public-key.pem"
+      - '.secrets/public-key.pem:/secrets/public-key.pem'
     environment:
       - CERT_PUBLIC_KEY_PATH=/secrets/public-key.pem
       - MONGO_URL=mongodb://mongo1/user-mgnt
@@ -193,7 +193,7 @@ services:
       dockerfile: ./packages/webhooks/Dockerfile
     restart: unless-stopped
     volumes:
-      - ".secrets/public-key.pem:/secrets/public-key.pem"
+      - '.secrets/public-key.pem:/secrets/public-key.pem'
     environment:
       - CERT_PUBLIC_KEY_PATH=/secrets/public-key.pem
       - REDIS_HOST=redis://redis:6379
@@ -203,6 +203,7 @@ services:
       - FHIR_URL=http://openhim-core:5001/fhir
       - HOST=0.0.0.0
       - CHECK_INVALID_TOKEN=true
+
   notification:
     image: opencrvs/ocrvs-notification:${VERSION:-latest}
     build:
@@ -210,7 +211,7 @@ services:
       dockerfile: ./packages/notification/Dockerfile
     restart: unless-stopped
     volumes:
-      - ".secrets/public-key.pem:/secrets/public-key.pem"
+      - '.secrets/public-key.pem:/secrets/public-key.pem'
     environment:
       - CERT_PUBLIC_KEY_PATH=/secrets/public-key.pem
       - AUTH_URL=http://auth:4040
@@ -221,7 +222,7 @@ services:
   resources:
     image: opencrvs/ocrvs-zambia:latest
     volumes:
-      - ".secrets/public-key.pem:/secrets/public-key.pem"
+      - '.secrets/public-key.pem:/secrets/public-key.pem'
     environment:
       - CERT_PUBLIC_KEY_PATH=/secrets/public-key.pem
       - MONGO_URL=mongodb://mongo1/user-mgnt
@@ -232,4 +233,4 @@ services:
       - CONFIRM_REGISTRATION_URL=http://workflow:5050/confirm/registration
       - CHECK_INVALID_TOKEN=true
     ports:
-      - "3040:3040"
+      - '3040:3040'
