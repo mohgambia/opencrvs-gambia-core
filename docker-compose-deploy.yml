@@ -156,9 +156,6 @@ services:
   # END User facing services
   auth:
     image: afoone/ocrvs-auth:${VERSION:-latest}
-    build:
-      context: .
-      dockerfile: ./packages/auth/Dockerfile
     restart: unless-stopped
     ports:
       - '4040:4040'
