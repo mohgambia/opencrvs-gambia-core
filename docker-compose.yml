@@ -57,16 +57,19 @@ services:
   client:
     image: opencrvs/ocrvs-client:${VERSION:-latest}
     build:
-      context: .
-      dockerfile: ./packages/client/Dockerfile
+      context: ./packages/client/
+      dockerfile: ./Dockerfile.compiled
+    environment:
+      - COUNTRY=zmb
     restart: unless-stopped
     ports:
       - '3000:80'
+    command: 'serve -l 80 -s /app'
   login:
     image: opencrvs/ocrvs-login:${VERSION:-latest}
     build:
-      context: .
-      dockerfile: ./packages/login/Dockerfile
+      context: ./packages/login/
+      dockerfile: Dockerfile.compiled
     restart: unless-stopped
     ports:
       - '3020:80'

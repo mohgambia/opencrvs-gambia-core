@@ -1,0 +1,6 @@
+FROM node:14
+RUN mkdir /app
+RUN npm i -g serve
+COPY build/ /app/
+CMD [ "serve", "-s", "app", "-l" , "80"]
+

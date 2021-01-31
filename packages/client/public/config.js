@@ -11,7 +11,7 @@
  */
 window.config = {
   BACKGROUND_SYNC_BROADCAST_CHANNEL: 'backgroundSynBroadCastChannel',
-  COUNTRY: 'bgd',
+  COUNTRY: 'zmb',
   COUNTRY_LOGO_FILE: 'logo.png',
   DESKTOP_TIME_OUT_MILLISECONDS: 900000, // 15 mins
   HEALTH_FACILITY_FILTER: 'UPAZILA',
