@@ -10,10 +10,10 @@
  * graphic logo are (registered/a) trademark(s) of Plan International.
  */
 window.config = {
-  AUTH_API_URL: 'http://localhost:4040/',
+  AUTH_API_URL: 'http://draman.iprocuratio.com:4040/',
   COUNTRY: 'zmb',
   LANGUAGES: 'en',
-  CLIENT_APP_URL: 'http://localhost:3000/',
+  CLIENT_APP_URL: 'http://draman.iprocuratio.com:3000/',
   SENTRY: 'https://2ed906a0ba1c4de2ae3f3f898ec9df0b@sentry.io/1774551',
   LOGROCKET: 'opencrvs-foundation/opencrvs-bangladesh'
 }
