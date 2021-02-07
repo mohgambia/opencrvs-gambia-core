@@ -11,7 +11,7 @@
  */
 window.config = {
   BACKGROUND_SYNC_BROADCAST_CHANNEL: 'backgroundSynBroadCastChannel',
-  COUNTRY: 'zmb',
+  COUNTRY: 'gmb',
   COUNTRY_LOGO_FILE: 'logo.png',
   DESKTOP_TIME_OUT_MILLISECONDS: 900000, // 15 mins
   HEALTH_FACILITY_FILTER: 'UPAZILA',
@@ -30,5 +30,5 @@ window.config = {
   APPLICATION_AUDIT_LOCATIONS: 'WARD,UNION',
   EXTERNAL_VALIDATION_WORKQUEUE: true, // this flag will decide whether to show external validation workqueue on registrar home
   SENTRY: 'https://2ed906a0ba1c4de2ae3f3f898ec9df0b@sentry.io/1774551',
-  LOGROCKET: 'opencrvs-foundation/opencrvs-bangladesh'
+  LOGROCKET: 'opencrvs-foundation/opencrvs-gambia'
 }

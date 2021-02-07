@@ -13,6 +13,6 @@
 FROM node:14
 RUN npm install -g serve
 RUN mkdir /app
-ENV COUNTRY=zmb
+ENV COUNTRY=gmb
 COPY --from=opencrvs-build /packages/client/build /app
 CMD ["serve", "-l", "80", "-s", "/app"]
