@@ -13,8 +13,8 @@ services:
   mongo1:
     image: mongo:3.6
     restart: unless-stopped
-    ports:
-      - 27017:27017
+    #    ports:
+    #  - 27017:27017
 
   redis:
     image: redis:5
@@ -60,7 +60,7 @@ services:
       context: ./packages/client/
       dockerfile: ./Dockerfile.compiled
     environment:
-      - COUNTRY=zmb
+      - COUNTRY=gmb
     restart: unless-stopped
     ports:
       - '3000:80'
@@ -74,7 +74,9 @@ services:
     ports:
       - '3020:80'
     environment:
-      - COUNTRY=zmb
+      - COUNTRY=gmb
+      - RESOURCES_URL=http://draman.iprocuratio.com:3040
+
 
   gateway:
     image: opencrvs/ocrvs-gateway:${VERSION:-latest}
@@ -223,7 +225,7 @@ services:
       - CHECK_INVALID_TOKEN=true
       - RESOURCES_URL=http://resources:3040
   resources:
-    image: opencrvs/ocrvs-zambia:latest
+    image: opencrvs/ocrvs-gambia:latest
     volumes:
       - '.secrets/public-key.pem:/secrets/public-key.pem'
     environment:
