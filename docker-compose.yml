@@ -266,6 +266,7 @@ services:
     image: opencrvs/ocrvs-gambia:latest
     volumes:
       - '.secrets/public-key.pem:/secrets/public-key.pem'
+    restart: unless-stopped
     environment:
       - CERT_PUBLIC_KEY_PATH=/secrets/public-key.pem
       - MONGO_URL=mongodb://mongo1/user-mgnt
