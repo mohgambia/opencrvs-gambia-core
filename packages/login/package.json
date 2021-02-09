@@ -1,6 +1,7 @@
 {
   "name": "@opencrvs/login",
   "version": "1.0.0-alpha.3.0",
+  "homepage": ".",
   "description": "OpenCRVS login client application",
   "license": "MPL-2.0",
   "private": true,
@@ -46,7 +47,7 @@
     "postinstall": "patch-package",
     "precommit": "lint-staged",
     "start": "BROWSER=none PORT=3020 craco start",
-    "build": "craco --max_old_space_size=8000 build && yarn gen:sw",
+    "build": "craco --max_old_space_size=4000 build && yarn gen:sw",
     "gen:sw": "workbox generateSW --config workbox-config.js",
     "docker:build": "docker build ../../ -f ../../Dockerfile-login -t ocrvs-login",
     "docker:run": "docker run -it --rm -p 5000:80 --name ocrvs-login ocrvs-login",
@@ -58,7 +59,7 @@
     "start:prod": "yarn build && yarn serve -s -l 3020 build",
     "test:compilation": "tsc --noEmit",
     "build:clean": "rm -rf build",
-    "start-zambia": "COUNTRY=zmb BROWSER=none PORT=3020 craco start"
+    "start-gambia": "COUNTRY=gmb BROWSER=none PORT=3020 craco start"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx,json}": [

@@ -1,32 +1,32 @@
-# This Source Code Form is subject to the terms of the Mozilla Public
-# License, v. 2.0. If a copy of the MPL was not distributed with this
-# file, You can obtain one at https://mozilla.org/MPL/2.0/.
-#
-# OpenCRVS is also distributed under the terms of the Civil Registration
-# & Healthcare Disclaimer located at http://opencrvs.org/license.
-#
-# Copyright (C) The OpenCRVS Authors. OpenCRVS and the OpenCRVS
-# graphic logo are (registered/a) trademark(s) of Plan International.
+# Author: Alfonso Tienda <afoone@hotmail.com>
 version: '3.3'
 
 services:
   mongo1:
     image: mongo:3.6
     restart: unless-stopped
-    #    ports:
-    #  - 27017:27017
+    ports:
+      - 27017:27017
+    networks:
+      kong:
 
   redis:
     image: redis:5
     restart: unless-stopped
+    networks:
+      kong:
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.5.4
     restart: unless-stopped
+    networks:
+      kong:
 
   influxdb:
     image: influxdb:1.7.9
     restart: unless-stopped
+    networks:
+      kong:
 
   hearth:
     image: jembi/hearth:v1.0.0-beta.1
@@ -39,6 +39,8 @@ services:
     depends_on:
       - mongo1
     restart: unless-stopped
+    networks:
+      kong:
 
   openhim-core:
     image: jembi/openhim-core:5
@@ -48,11 +50,21 @@ services:
       - logger_level=error
     depends_on:
       - mongo1
+    ports:
+      - '8080:8080'
+      - '5000:5000'
+      - '5001:5001'
     restart: unless-stopped
+    networks:
+      kong:
 
   openhim-console:
     image: jembi/openhim-console:1.13
     restart: unless-stopped
+    ports:
+      - '8888:80'
+    networks:
+      kong:
 
   client:
     image: opencrvs/ocrvs-client:${VERSION:-latest}
@@ -65,6 +77,9 @@ services:
     ports:
       - '3000:80'
     command: 'serve -l 80 -s /app'
+    networks:
+      kong:
+
   login:
     image: opencrvs/ocrvs-login:${VERSION:-latest}
     build:
@@ -75,8 +90,9 @@ services:
       - '3020:80'
     environment:
       - COUNTRY=gmb
-      - RESOURCES_URL=http://draman.iprocuratio.com:3040
-
+      - RESOURCES_URL=/resources
+    networks:
+      kong:
 
   gateway:
     image: opencrvs/ocrvs-gateway:${VERSION:-latest}
@@ -100,6 +116,8 @@ services:
       - NOTIFICATION_URL=http://notification:2020/
       - WORKFLOW_URL=http://workflow:5050/
       - CHECK_INVALID_TOKEN=true
+    networks:
+      kong:
 
   # User facing services
   workflow:
@@ -121,6 +139,9 @@ services:
       - COUNTRY=${COUNTRY:-bgd} # PEN_TEST change to gbr
       - AUTH_URL=http://auth:4040
       - CHECK_INVALID_TOKEN=true
+    networks:
+      kong:
+
   search:
     image: opencrvs/ocrvs-search:${VERSION:-latest}
     build:
@@ -137,6 +158,9 @@ services:
       - HEARTH_URL=http://hearth:3447/fhir
       - AUTH_URL=http://auth:4040
       - CHECK_INVALID_TOKEN=true
+    networks:
+      kong:
+
   metrics:
     image: opencrvs/ocrvs-metrics:${VERSION:-latest}
     build:
@@ -155,6 +179,9 @@ services:
       - FHIR_URL=http://openhim-core:5001/fhir
       - SEARCH_URL=http://search:9090/
       - CHECK_INVALID_TOKEN=true
+    networks:
+      kong:
+
   # END User facing services
   auth:
     image: afoone/ocrvs-auth:${VERSION:-latest}
@@ -175,6 +202,9 @@ services:
       - CONFIG_TOKEN_EXPIRY_SECONDS=604800
       - CONFIG_SMS_CODE_EXPIRY_SECONDS=600
       - NOTIFICATION_SERVICE_URL=http://notification:2020/
+    networks:
+      kong:
+
   user-mgnt:
     image: opencrvs/ocrvs-user-mgnt:${VERSION:-latest}
     build:
@@ -191,6 +221,9 @@ services:
       - FHIR_URL=http://openhim-core:5001/fhir
       - HOST=0.0.0.0
       - CHECK_INVALID_TOKEN=true
+    networks:
+      kong:
+
   webhooks:
     image: opencrvs/ocrvs-webhooks:${VERSION:-latest}
     build:
@@ -208,6 +241,8 @@ services:
       - FHIR_URL=http://openhim-core:5001/fhir
       - HOST=0.0.0.0
       - CHECK_INVALID_TOKEN=true
+    networks:
+      kong:
 
   notification:
     image: opencrvs/ocrvs-notification:${VERSION:-latest}
@@ -224,6 +259,9 @@ services:
       - HOST=0.0.0.0
       - CHECK_INVALID_TOKEN=true
       - RESOURCES_URL=http://resources:3040
+    networks:
+      kong:
+
   resources:
     image: opencrvs/ocrvs-gambia:latest
     volumes:
@@ -239,3 +277,9 @@ services:
       - CHECK_INVALID_TOKEN=true
     ports:
       - '3040:3040'
+    networks:
+      kong:
+
+networks:
+  kong:
+    external: true

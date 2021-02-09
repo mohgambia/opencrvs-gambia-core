@@ -122,6 +122,8 @@ export default function register(
     window.addEventListener('load', () => {
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`
 
+      console.log('Registering service worker at ', swUrl)
+
       if (isLocalhost) {
         // This is running on localhost. Lets check if a service worker still exists or not.
         checkValidServiceWorker(swUrl, onNewConentAvailable)
@@ -131,7 +133,8 @@ export default function register(
         navigator.serviceWorker.ready.then(() => {
           console.log(
             'This web app is being served cache-first by a service ' +
-              'worker. To learn more, visit https://goo.gl/SC7cgQ'
+              'worker. To learn more, visit https://goo.gl/SC7cgQ',
+            swUrl
           )
         })
       } else {

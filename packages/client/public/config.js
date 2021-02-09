@@ -16,10 +16,10 @@ window.config = {
   DESKTOP_TIME_OUT_MILLISECONDS: 900000, // 15 mins
   HEALTH_FACILITY_FILTER: 'UPAZILA',
   LANGUAGES: 'en,bn',
-  LOGIN_URL: 'http://draman.iprocuratio.com:3020',
-  AUTH_URL: 'http://draman.iprocuratio.com:4040',
+  LOGIN_URL: '/login',
+  AUTH_URL: '/auth',
   API_GATEWAY_URL: 'http://draman.iprocuratio.com:7070/',
-  RESOURCES_URL: 'http://draman.iprocuratio.com:3040/bgd',
+  RESOURCES_URL: '/resources/gmb',
   CERTIFICATE_PRINT_CHARGE_FREE_PERIOD: 45, // days
   CERTIFICATE_PRINT_CHARGE_UP_LIMIT: 1825, // 5 years =  (5 * 365) days
   CERTIFICATE_PRINT_LOWEST_CHARGE: 25, // taka

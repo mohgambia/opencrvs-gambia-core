@@ -1,6 +1,10 @@
-FROM node:14
-RUN mkdir /app
-RUN npm i -g serve
-COPY build/ /app/
-CMD [ "serve", "-s", "app", "-l" , "80"]
+# FROM node:14
+# RUN npm i -g serve
+# RUN mkdir -p /app/login
+# COPY build/ /app/login
+# CMD [ "serve", "-s", "app", "-l" , "80"]
+
+FROM nginx:latest
+RUN mkdir -p /usr/share/nginx/html/login
+COPY build /usr/share/nginx/html/login
 
