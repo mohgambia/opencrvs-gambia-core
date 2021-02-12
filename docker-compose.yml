@@ -76,7 +76,6 @@ services:
     restart: unless-stopped
     ports:
       - '3000:80'
-    command: 'serve -l 80 -s /app'
     networks:
       kong:
 

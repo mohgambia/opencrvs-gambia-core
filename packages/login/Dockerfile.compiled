@@ -7,4 +7,5 @@
 FROM nginx:latest
 RUN mkdir -p /usr/share/nginx/html/login
 COPY build /usr/share/nginx/html/login
+RUN sed -i 's/\/index\.html/\.\/index\.html/g' /usr/share/nginx/html/login/service-worker.js
 

@@ -18,7 +18,7 @@ window.config = {
   LANGUAGES: 'en,bn',
   LOGIN_URL: '/login',
   AUTH_URL: '/auth',
-  API_GATEWAY_URL: 'http://draman.iprocuratio.com:7070/',
+  API_GATEWAY_URL: '/gateway',
   RESOURCES_URL: '/resources/gmb',
   CERTIFICATE_PRINT_CHARGE_FREE_PERIOD: 45, // days
   CERTIFICATE_PRINT_CHARGE_UP_LIMIT: 1825, // 5 years =  (5 * 365) days

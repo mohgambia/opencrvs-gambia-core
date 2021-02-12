@@ -40,7 +40,7 @@ const StyledPage = styled.div<IPage>`
     /* stylelint-disable-next-line opencrvs/no-font-styles */
     font-family: ${({ theme }) => theme.fonts.semiBoldFont};
     src:
-      url('/fonts/notosans-semibold-webfont-en.ttf')
+      url('/login/fonts/notosans-semibold-webfont-en.ttf')
       format('truetype');
   }
 
@@ -48,7 +48,7 @@ const StyledPage = styled.div<IPage>`
     /* stylelint-disable-next-line opencrvs/no-font-styles */
     font-family: ${({ theme }) => theme.fonts.regularFont};
     src:
-    url('/fonts/notosans-regular-webfont-en.ttf')
+    url('/login/fonts/notosans-regular-webfont-en.ttf')
       format('truetype');
   }
 
@@ -56,7 +56,7 @@ const StyledPage = styled.div<IPage>`
     /* stylelint-disable-next-line opencrvs/no-font-styles */
     font-family: ${({ theme }) => theme.fonts.semiBoldFont};
     src:
-      url('/fonts/notosans-semibold-webfont-${languageFromProps}.ttf')
+      url('/login/fonts/notosans-semibold-webfont-${languageFromProps}.ttf')
       format('truetype');
   }
 
@@ -64,7 +64,7 @@ const StyledPage = styled.div<IPage>`
     /* stylelint-disable-next-line opencrvs/no-font-styles */
     font-family: ${({ theme }) => theme.fonts.regularFont};
     src:
-      url('/fonts/notosans-regular-webfont-${languageFromProps}.ttf')
+      url('/login/fonts/notosans-regular-webfont-${languageFromProps}.ttf')
       format('truetype');
   }
 

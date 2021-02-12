@@ -1,5 +1,11 @@
-FROM node:14
-RUN mkdir /app
-RUN npm i -g serve
-COPY build/ /app/
-CMD [ "serve", "-s", "app", "-l" , "80"]
+# FROM node:14
+# RUN mkdir /app
+# RUN npm i -g serve
+# COPY build/ /app/
+# CMD [ "serve", "-s", "app", "-l" , "80"]
+
+FROM nginx:latest
+RUN mkdir -p /usr/share/nginx/html/client
+COPY build /usr/share/nginx/html/client
+
+RUN sed -i 's/\/index\.html/\.\/index\.html/g' /usr/share/nginx/html/client/service-worker.js
