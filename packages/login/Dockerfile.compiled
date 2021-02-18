@@ -1,11 +1,21 @@
-# FROM node:14
-# RUN npm i -g serve
-# RUN mkdir -p /app/login
-# COPY build/ /app/login
-# CMD [ "serve", "-s", "app", "-l" , "80"]
+# This dockerfile only installs dependencies and build all packages
+# # It is used by each packages Dockerfile to copy out build artifacts
+# FROM node:dubnium as compiler
+
+# # Override the base log level (info).
+# ENV NPM_CONFIG_LOGLEVEL warn
+# COPY package.json package.json
+# COPY . .
+# ENV VERSION "$VERSION"
+# ENV COUNTRY "gmb"
+# ENV RESOURCES_URL "THIS_WILL_BE_REPLACED_BY_RUNTIME_ENV_VARIABLE"
+# ENV HOST "{{hostname}}"
+# RUN yarn install
+# RUN yarn build
+
 
 FROM nginx:latest
-RUN mkdir -p /usr/share/nginx/html/login
-COPY build /usr/share/nginx/html/login
-RUN sed -i 's/\/index\.html/\.\/index\.html/g' /usr/share/nginx/html/login/service-worker.js
+RUN mkdir -p /usr/share/nginx/html/
+COPY build /usr/share/nginx/html/
+RUN sed -i 's/\/index\.html/\.\/index\.html/g' /usr/share/nginx/html/service-worker.js
 

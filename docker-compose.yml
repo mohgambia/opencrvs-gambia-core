@@ -67,7 +67,7 @@ services:
       kong:
 
   client:
-    image: opencrvs/ocrvs-client:${VERSION:-latest}
+    image: afoone/ocrvs-client:${VERSION:-latest}
     build:
       context: ./packages/client/
       dockerfile: ./Dockerfile.compiled
@@ -80,7 +80,7 @@ services:
       kong:
 
   login:
-    image: opencrvs/ocrvs-login:${VERSION:-latest}
+    image: afoone/ocrvs-login:${VERSION:-latest}
     build:
       context: ./packages/login/
       dockerfile: Dockerfile.compiled
@@ -89,12 +89,12 @@ services:
       - '3020:80'
     environment:
       - COUNTRY=gmb
-      - RESOURCES_URL=/resources
+      - RESOURCES_URL=http://localhost:3040
     networks:
       kong:
 
   gateway:
-    image: opencrvs/ocrvs-gateway:${VERSION:-latest}
+    image: afoone/ocrvs-gateway:${VERSION:-latest}
     build:
       context: .
       dockerfile: ./packages/gateway/Dockerfile
@@ -120,7 +120,7 @@ services:
 
   # User facing services
   workflow:
-    image: opencrvs/ocrvs-workflow:${VERSION:-latest}
+    image: afoone/ocrvs-workflow:${VERSION:-latest}
     build:
       context: .
       dockerfile: ./packages/workflow/Dockerfile
@@ -142,7 +142,7 @@ services:
       kong:
 
   search:
-    image: opencrvs/ocrvs-search:${VERSION:-latest}
+    image: afoone/ocrvs-search:${VERSION:-latest}
     build:
       context: .
       dockerfile: ./packages/search/Dockerfile
@@ -161,7 +161,7 @@ services:
       kong:
 
   metrics:
-    image: opencrvs/ocrvs-metrics:${VERSION:-latest}
+    image: afoone/ocrvs-metrics:${VERSION:-latest}
     build:
       context: .
       dockerfile: ./packages/metrics/Dockerfile
@@ -205,7 +205,7 @@ services:
       kong:
 
   user-mgnt:
-    image: opencrvs/ocrvs-user-mgnt:${VERSION:-latest}
+    image: afoone/ocrvs-user-mgnt:${VERSION:-latest}
     build:
       context: .
       dockerfile: ./packages/user-mgnt/Dockerfile
@@ -224,7 +224,7 @@ services:
       kong:
 
   webhooks:
-    image: opencrvs/ocrvs-webhooks:${VERSION:-latest}
+    image: afoone/ocrvs-webhooks:${VERSION:-latest}
     build:
       context: .
       dockerfile: ./packages/webhooks/Dockerfile
@@ -244,7 +244,7 @@ services:
       kong:
 
   notification:
-    image: opencrvs/ocrvs-notification:${VERSION:-latest}
+    image: afoone/ocrvs-notification:${VERSION:-latest}
     build:
       context: .
       dockerfile: ./packages/notification/Dockerfile
@@ -262,7 +262,7 @@ services:
       kong:
 
   resources:
-    image: opencrvs/ocrvs-gambia:latest
+    image: afoone/ocrvs-gambia:latest
     volumes:
       - '.secrets/public-key.pem:/secrets/public-key.pem'
     restart: unless-stopped

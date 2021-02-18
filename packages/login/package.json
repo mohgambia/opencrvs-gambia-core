@@ -1,7 +1,6 @@
 {
   "name": "@opencrvs/login",
   "version": "1.0.0-alpha.3.0",
-  "homepage": "/login/",
   "description": "Gambia CRVS login client application",
   "license": "MPL-2.0",
   "private": true,
