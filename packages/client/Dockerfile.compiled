@@ -5,7 +5,7 @@
 # CMD [ "serve", "-s", "app", "-l" , "80"]
 
 FROM nginx:latest
-RUN mkdir -p /usr/share/nginx/html/client
-COPY build /usr/share/nginx/html/client
+RUN mkdir -p /usr/share/nginx/html/
+COPY build /usr/share/nginx/html/
 
-RUN sed -i 's/\/index\.html/\.\/index\.html/g' /usr/share/nginx/html/client/service-worker.js
+RUN sed -i 's/\/index\.html/\.\/index\.html/g' /usr/share/nginx/html/service-worker.js

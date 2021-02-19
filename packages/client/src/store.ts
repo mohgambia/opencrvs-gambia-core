@@ -81,7 +81,7 @@ const enhancedCreateStore = createReduxStore as StoreCreator
 export type AppStore = Store<IStoreState, AnyAction>
 
 export const createStore = (): { store: AppStore; history: History } => {
-  const history = createBrowserHistory({ basename: '/client' })
+  const history = createBrowserHistory()
   const reducers = combineReducers<IStoreState>({
     profile: profileReducer,
     router: connectRouter(history) as any, // @todo
