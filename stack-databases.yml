@@ -90,5 +90,5 @@ services:
 
 networks:
   overlay_net:
-    driver: overlay
-    attachable: true
+    external:
+      name: infrastructure_overlay_net
