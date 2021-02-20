@@ -16,7 +16,7 @@ services:
     restart: unless-stopped
     command: --replSet rs0
     volumes:
-      - '/data/mongo:/data/db'
+      - './data/mongo1:/data/db'
     deploy:
       replicas: 1
     networks:
@@ -27,7 +27,7 @@ services:
     restart: unless-stopped
     command: --replSet rs0
     volumes:
-      - '/data/mongo:/data/db'
+      - './data/mongo2:/data/db'
     deploy:
       replicas: 1
     networks:
@@ -38,7 +38,7 @@ services:
     restart: unless-stopped
     command: --replSet rs0
     volumes:
-      - '/data/mongo:/data/db'
+      - './data/mongo3:/data/db'
     deploy:
       replicas: 1
     networks:
@@ -59,25 +59,25 @@ services:
 
   # Configure redis
   redis:
-    image: mongo:3.6
+    image: redis:5
     restart: unless-stopped
     networks:
       - overlay_net
 
   # Configure elasticsearch
   elasticsearch:
-    image: mongo:3.6
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.5.4
     restart: unless-stopped
     volumes:
-      - '/data/elasticsearch:/usr/share/elasticsearch/data'
-      - '/data/backups/elasticsearch:/data/backups/elasticsearch'
-      - '/tmp/compose/infrastructure/elasticsearch/elasticsearch.yml:/config/elasticsearch.yml'
-      - '/tmp/compose/infrastructure/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml'
+      - './data/elasticsearch:/usr/share/elasticsearch/data'
+      - './data/backups/elasticsearch:/data/backups/elasticsearch'
+      - './infrastructure/elasticsearch/elasticsearch.yml:/config/elasticsearch.yml'
+      - './infrastructure/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml'
     deploy:
       replicas: 1
       placement:
         constraints:
-          - node.labels.data1 == true
+          - node.labels.data-elasticsearch == true
     networks:
       - overlay_net
 
@@ -86,8 +86,8 @@ services:
     image: mongo:3.6
     restart: unless-stopped
     volumes:
-      - '/data/influxdb:/var/lib/influxdb'
-      - '/data/backups/influxdb:/data/backups/influxdb'
+      - './data/influxdb:/var/lib/influxdb'
+      - './data/backups/influxdb:/data/backups/influxdb'
     deploy:
       replicas: 1
       placement:
