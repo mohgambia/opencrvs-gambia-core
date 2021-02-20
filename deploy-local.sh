@@ -46,7 +46,7 @@ echo "Override configuration files with country specific files"
 
 
 echo "Prepare docker-compose.deploy.yml and docker-compose.<COUNTRY>.yml file - rotate secrets etc"
-$RESOURCES_PATH/compose/infrastructure/rotate-secrets.sh $RESOURCES_PATH/compose/docker-compose.deploy.yml $RESOURCES_PATH/compose/docker-compose.prod-deploy.yml $RESOURCES_PATH/compose/docker-compose.resources.deploy.yml | tee -a /tmp/log/rotate-secrets.log
+./infrastructure/rotate-secrets.sh ./docker-compose.deploy.yml ./docker-compose.prod-deploy.yml ./docker-compose.resources.deploy.yml | tee -a /tmp/log/rotate-secrets.log
 
 
 echo "Setup configuration files and compose file for the deployment domain"
