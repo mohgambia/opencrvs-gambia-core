@@ -1,0 +1,214 @@
+version: '3.3'
+
+services:
+  resources:
+    deploy:
+      labels:
+        - 'traefik.enable=true'
+        - 'traefik.frontend.rule=Host: resources.{{hostname}}'
+        - 'traefik.port=3040'
+        - 'traefik.docker.network=opencrvs_overlay_net'
+      replicas: 2
+    networks:
+      - overlay_net
+
+  login:
+    environment:
+      - RESOURCES_URL=https://resources.{{hostname}}
+      - HOST={{hostname}}
+    deploy:
+      labels:
+        - 'traefik.enable=true'
+        - 'traefik.frontend.rule=Host: login.{{hostname}}'
+        - 'traefik.port=80'
+        - 'traefik.docker.network=opencrvs_overlay_net'
+      replicas: 2
+    networks:
+      - overlay_net
+
+  # Configure other service with deployment specifc details
+  auth:
+    secrets:
+      - jwt-public-key
+      - jwt-private-key
+    environment:
+      - CERT_PRIVATE_KEY_PATH=/run/secrets/jwt-private-key
+      - CERT_PUBLIC_KEY_PATH=/run/secrets/jwt-public-key
+    deploy:
+      labels:
+        - 'traefik.enable=true'
+        - 'traefik.frontend.rule=Host: auth.{{hostname}}'
+        - 'traefik.port=4040'
+        - 'traefik.docker.network=opencrvs_overlay_net'
+      replicas: 2
+    networks:
+      - overlay_net
+
+  user-mgnt:
+    secrets:
+      - jwt-public-key
+    environment:
+      - CERT_PUBLIC_KEY_PATH=/run/secrets/jwt-public-key
+      - MONGO_URL=mongodb://mongo1,mongo2,mongo3/user-mgnt?replicaSet=rs0
+    deploy:
+      replicas: 2
+    networks:
+      - overlay_net
+
+  notification:
+    secrets:
+      - jwt-public-key
+    environment:
+      - CERT_PUBLIC_KEY_PATH=/run/secrets/jwt-public-key
+    deploy:
+      replicas: 2
+    networks:
+      - overlay_net
+
+  gateway:
+    secrets:
+      - jwt-public-key
+    volumes:
+      - '.secrets/public-key.pem:/secrets/public-key.pem'
+    environment:
+      - CERT_PUBLIC_KEY_PATH=/run/secrets/jwt-public-key
+    deploy:
+      labels:
+        - 'traefik.enable=true'
+        - 'traefik.frontend.rule=Host: gateway.{{hostname}}'
+        - 'traefik.port=7070'
+        - 'traefik.docker.network=opencrvs_overlay_net'
+      replicas: 2
+    networks:
+      - overlay_net
+
+  workflow:
+    secrets:
+      - jwt-public-key
+    environment:
+      - CERT_PUBLIC_KEY_PATH=/run/secrets/jwt-public-key
+    deploy:
+      replicas: 2
+    networks:
+      - overlay_net
+
+  search:
+    secrets:
+      - jwt-public-key
+    environment:
+      - CERT_PUBLIC_KEY_PATH=/run/secrets/jwt-public-key
+    deploy:
+      replicas: 2
+    networks:
+      - overlay_net
+
+  metrics:
+    secrets:
+      - jwt-public-key
+    environment:
+      - CERT_PUBLIC_KEY_PATH=/run/secrets/jwt-public-key
+    deploy:
+      replicas: 2
+    networks:
+      - overlay_net
+
+  # Configure other dependencies with deployment specifc details
+  hearth:
+    environment:
+      - mongodb__url=mongodb://mongo1,mongo2,mongo3/hearth-dev?replicaSet=rs0
+    depends_on:
+      - mongo1
+      - mongo2
+      - mongo3
+    deploy:
+      replicas: 2
+    secrets:
+      - jwt-public-key
+    configs:
+      - source: hearth-check-dupe-plugin
+        target: /src/hearth/lib/plugins/checkDuplicateTask.js
+      - source: hearth-queryparam-extensions-conf
+        target: /src/hearth/config/queryparam-extensions.json
+    networks:
+      - overlay_net
+
+  openhim-core:
+    environment:
+      - mongo_url=mongodb://mongo1,mongo2,mongo3/openhim-dev?replicaSet=rs0
+      - mongo_atnaUrl=mongodb://mongo1,mongo2,mongo3/openhim-dev?replicaSet=rs0
+    depends_on:
+      - mongo1
+      - mongo2
+      - mongo3
+    deploy:
+      labels:
+        - 'traefik.enable=true'
+        - 'traefik.docker.network=opencrvs_overlay_net'
+        - 'traefik.openhim-api.frontend.rule=Host: openhim-api.{{hostname}}'
+        - 'traefik.openhim-api.protocol=https'
+        - 'traefik.openhim-api.port=8080'
+        - 'traefik.router.frontend.rule=Host: api.{{hostname}}'
+        - 'traefik.router.port=5001'
+      replicas: 2
+    networks:
+      - overlay_net
+
+  openhim-console:
+    deploy:
+      labels:
+        - 'traefik.enable=true'
+        - 'traefik.frontend.rule=Host: openhim.{{hostname}}'
+        - 'traefik.port=80'
+        - 'traefik.docker.network=opencrvs_overlay_net'
+      replicas: 2
+    configs:
+      - source: openhim-console-conf
+        target: /usr/share/nginx/html/config/default.json
+    networks:
+      - overlay_net
+
+  logspout:
+    image: gliderlabs/logspout:latest
+    restart: unless-stopped
+    volumes:
+      - /etc/hostname:/etc/host_hostname:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: syslog://${PAPERTRAIL:-logs5.papertrailapp.com:24584}
+    deploy:
+      mode: global
+      resources:
+        limits:
+          cpus: '0.20'
+          memory: 256M
+        reservations:
+          cpus: '0.10'
+          memory: 128M
+    networks:
+      - overlay_net
+
+  webhooks:
+    secrets:
+      - jwt-public-key
+    environment:
+      - MONGO_URL=mongodb://mongo1,mongo2,mongo3/webhooks?replicaSet=rs0
+      - CERT_PUBLIC_KEY_PATH=/run/secrets/jwt-public-key
+    deploy:
+      labels:
+        - 'traefik.enable=true'
+        - 'traefik.frontend.rule=Host: webhooks.{{hostname}}'
+        - 'traefik.port=2525'
+        - 'traefik.docker.network=opencrvs_overlay_net'
+      replicas: 2
+    networks:
+      - overlay_net
+
+secrets:
+  jwt-public-key:
+    external: true
+  jwt-private-key:
+    external: true
+
+networks:
+  overlay_net:
+    external:
+      name: infrastructure_overlay_net

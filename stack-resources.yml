@@ -1,0 +1,31 @@
+version: '3.3'
+
+services:
+  resources:
+    image: afoone/ocrvs-gambia:latest
+    volumes:
+      - '.secrets/public-key.pem:/secrets/public-key.pem'
+    restart: unless-stopped
+    environment:
+      - CERT_PUBLIC_KEY_PATH=/secrets/public-key.pem
+      - MONGO_URL=mongodb://mongo1/user-mgnt
+      - NODE_ENV=production
+      - FHIR_URL=http://hearth:3447/fhir
+      - AUTH_URL=http://auth:4040
+      - OPENHIM_URL=http://openhim-core:5001
+      - CONFIRM_REGISTRATION_URL=http://workflow:5050/confirm/registration
+      - CHECK_INVALID_TOKEN=true
+    deploy:
+      labels:
+        - 'traefik.enable=true'
+        - 'traefik.frontend.rule=Host: resources.{{hostname}}'
+        - 'traefik.port=3040'
+        - 'traefik.docker.network=opencrvs_overlay_net'
+      replicas: 2
+    networks:
+      - overlay_net
+
+networks:
+  overlay_net:
+    external:
+      name: infrastructure_overlay_net
