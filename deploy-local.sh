@@ -63,3 +63,6 @@ HOSTNAME='draman.iprocuratio.com' VERSION='latest' PAPERTRAIL='$PAPERTRAIL' dock
 
 echo "Deploy the OpenCRVS fhir components onto the swarm"
 HOSTNAME='draman.iprocuratio.com' VERSION='latest' PAPERTRAIL='$PAPERTRAIL' docker stack deploy -c stack-fhir.yml --with-registry-auth fhir
+
+echo "Deploy the OpenCRVS resources component onto the swarm"
+HOSTNAME='draman.iprocuratio.com' VERSION='latest' PAPERTRAIL='$PAPERTRAIL' docker stack deploy -c stack-resources.yml --with-registry-auth resources
