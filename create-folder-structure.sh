@@ -13,5 +13,7 @@ touch $LOG_LOCATION/setup-deploy-config.log
 
 mkdir data/traefik/
 touch data/traefik/acme.json
+sudo chmod 600 data/traefik/acme.json
+
 
 
