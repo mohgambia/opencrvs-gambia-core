@@ -27,28 +27,6 @@ echo
 mkdir -p /tmp/compose/infrastructure/default_backups
 mkdir -p /tmp/compose/infrastructure/default_updates
 
-# echo "Copy selected country default backups to infrastructure default_backups folder"
-# cp $RESOURCES_PATH/backups/hearth-dev.gz /tmp/compose/infrastructure/default_backups/hearth-dev.gz
-# cp $RESOURCES_PATH/backups/openhim-dev.gz /tmp/compose/infrastructure/default_backups/openhim-dev.gz
-# cp $RESOURCES_PATH/backups/user-mgnt.gz /tmp/compose/infrastructure/default_backups/user-mgnt.gz
-
-# echo "Copy selected country default updates to infrastructure default_updates folder"
-# [[ -d $RESOURCES_PATH/updates/generated ]] && cp $RESOURCES_PATH/updates/generated/*.json /tmp/compose/infrastructure/default_updates
-
-# echo "Copy all infrastructure files to the server"
-# rsync -rP docker-compose* infrastructure /tmp/compose/
-
-# echo "Copy all country compose files to the server"
-# rsync -rP $RESOURCES_PATH/docker-compose.resources* infrastructure /tmp/compose/
-
-# echo "Override configuration files with country specific files"
-# rsync -rP /tmp/compose/infrastructure /tmp/compose
-
-
-
-
-# echo "Prepare docker-compose.deploy.yml and docker-compose.<COUNTRY>.yml file - rotate secrets etc"
-# ./infrastructure/rotate-secrets.sh ./composes/docker-compose.deploy.yml ./composes/docker-compose.prod-deploy.yml $RESOURCES_PATH/docker-compose.resources.deploy.yml | tee -a $LOG_LOCATION/rotate-secrets.log
 echo "Creating secrets - `date --iso-8601=ns`"
 
 PRIV_KEY=$(openssl genrsa 2048 2>/dev/null)
@@ -84,4 +62,4 @@ echo "Deploy the OpenCRVS databases onto the swarm"
 HOSTNAME='draman.iprocuratio.com' VERSION='latest' PAPERTRAIL='$PAPERTRAIL' docker stack deploy -c stack-databases.yml --with-registry-auth databases
 
 echo "Deploy the OpenCRVS fhir components onto the swarm"
-HOSTNAME='draman.iprocuratio.com' VERSION='latest' PAPERTRAIL='$PAPERTRAIL' docker stack deploy -c stack-fhir.yml --with-registry-auth databases
+HOSTNAME='draman.iprocuratio.com' VERSION='latest' PAPERTRAIL='$PAPERTRAIL' docker stack deploy -c stack-fhir.yml --with-registry-auth fhir
