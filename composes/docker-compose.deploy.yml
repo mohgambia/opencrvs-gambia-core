@@ -22,7 +22,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - /data/traefik/acme.json:/acme.json
     configs:
-      - source: traefik.{{ts}}
+      - source: traefik.1613814238
         target: /etc/traefik/traefik.toml
     deploy:
       replicas: 1
@@ -47,7 +47,7 @@ services:
       - /sys:/host/sys:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
     configs:
-      - source: netdata-master-stream.{{ts}}
+      - source: netdata-master-stream.1613814238
         target: /etc/netdata/stream.conf
     environment:
       - PGID=999
@@ -80,9 +80,9 @@ services:
       - /sys:/host/sys:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
     configs:
-      - source: netdata-slave.{{ts}}
+      - source: netdata-slave.1613814238
         target: /etc/netdata/netdata.conf
-      - source: netdata-slave-stream.{{ts}}
+      - source: netdata-slave-stream.1613814238
         target: /etc/netdata/stream.conf
     environment:
       - PGID=999
@@ -223,11 +223,11 @@ services:
   # Configure other service with deployment specifc details
   auth:
     secrets:
-      - jwt-public-key.{{ts}}
-      - jwt-private-key.{{ts}}
+      - jwt-public-key.1613814238
+      - jwt-private-key.1613814238
     environment:
-      - CERT_PRIVATE_KEY_PATH=/run/secrets/jwt-private-key.{{ts}}
-      - CERT_PUBLIC_KEY_PATH=/run/secrets/jwt-public-key.{{ts}}
+      - CERT_PRIVATE_KEY_PATH=/run/secrets/jwt-private-key.1613814238
+      - CERT_PUBLIC_KEY_PATH=/run/secrets/jwt-public-key.1613814238
     deploy:
       labels:
         - "traefik.enable=true"
@@ -240,9 +240,9 @@ services:
 
   user-mgnt:
     secrets:
-      - jwt-public-key.{{ts}}
+      - jwt-public-key.1613814238
     environment:
-      - CERT_PUBLIC_KEY_PATH=/run/secrets/jwt-public-key.{{ts}}
+      - CERT_PUBLIC_KEY_PATH=/run/secrets/jwt-public-key.1613814238
       - MONGO_URL=mongodb://mongo1,mongo2,mongo3/user-mgnt?replicaSet=rs0
     deploy:
       replicas: 2
@@ -251,9 +251,9 @@ services:
 
   notification:
     secrets:
-      - jwt-public-key.{{ts}}
+      - jwt-public-key.1613814238
     environment:
-      - CERT_PUBLIC_KEY_PATH=/run/secrets/jwt-public-key.{{ts}}
+      - CERT_PUBLIC_KEY_PATH=/run/secrets/jwt-public-key.1613814238
     deploy:
       replicas: 2
     networks:
@@ -261,9 +261,9 @@ services:
 
   gateway:
     secrets:
-      - jwt-public-key.{{ts}}
+      - jwt-public-key.1613814238
     environment:
-      - CERT_PUBLIC_KEY_PATH=/run/secrets/jwt-public-key.{{ts}}
+      - CERT_PUBLIC_KEY_PATH=/run/secrets/jwt-public-key.1613814238
     deploy:
       labels:
         - "traefik.enable=true"
@@ -276,9 +276,9 @@ services:
 
   workflow:
     secrets:
-      - jwt-public-key.{{ts}}
+      - jwt-public-key.1613814238
     environment:
-      - CERT_PUBLIC_KEY_PATH=/run/secrets/jwt-public-key.{{ts}}
+      - CERT_PUBLIC_KEY_PATH=/run/secrets/jwt-public-key.1613814238
     deploy:
       replicas: 2
     networks:
@@ -286,9 +286,9 @@ services:
 
   search:
     secrets:
-      - jwt-public-key.{{ts}}
+      - jwt-public-key.1613814238
     environment:
-      - CERT_PUBLIC_KEY_PATH=/run/secrets/jwt-public-key.{{ts}}
+      - CERT_PUBLIC_KEY_PATH=/run/secrets/jwt-public-key.1613814238
     deploy:
       replicas: 2
     networks:
@@ -296,9 +296,9 @@ services:
 
   metrics:
     secrets:
-      - jwt-public-key.{{ts}}
+      - jwt-public-key.1613814238
     environment:
-      - CERT_PUBLIC_KEY_PATH=/run/secrets/jwt-public-key.{{ts}}
+      - CERT_PUBLIC_KEY_PATH=/run/secrets/jwt-public-key.1613814238
     deploy:
       replicas: 2
     networks:
@@ -315,11 +315,11 @@ services:
     deploy:
       replicas: 2
     secrets:
-      - jwt-public-key.{{ts}}
+      - jwt-public-key.1613814238
     configs:
-      - source: hearth-check-dupe-plugin.{{ts}}
+      - source: hearth-check-dupe-plugin.1613814238
         target: /src/hearth/lib/plugins/checkDuplicateTask.js
-      - source: hearth-queryparam-extensions-conf.{{ts}}
+      - source: hearth-queryparam-extensions-conf.1613814238
         target: /src/hearth/config/queryparam-extensions.json
     networks:
       - overlay_net
@@ -354,7 +354,7 @@ services:
         - "traefik.docker.network=opencrvs_overlay_net"
       replicas: 2
     configs:
-      - source: openhim-console-conf.{{ts}}
+      - source: openhim-console-conf.1613814238
         target: /usr/share/nginx/html/config/default.json
     networks:
       - overlay_net
@@ -380,10 +380,10 @@ services:
 
   webhooks:
     secrets:
-      - jwt-public-key.{{ts}}
+      - jwt-public-key.1613814238
     environment:
       - MONGO_URL=mongodb://mongo1,mongo2,mongo3/webhooks?replicaSet=rs0
-      - CERT_PUBLIC_KEY_PATH=/run/secrets/jwt-public-key.{{ts}}
+      - CERT_PUBLIC_KEY_PATH=/run/secrets/jwt-public-key.1613814238
     deploy:
       labels:
         - "traefik.enable=true"
@@ -395,25 +395,25 @@ services:
       - overlay_net
 
 secrets:
-  jwt-public-key.{{ts}}:
+  jwt-public-key.1613814238:
     external: true
-  jwt-private-key.{{ts}}:
+  jwt-private-key.1613814238:
     external: true
 
 configs:
-  openhim-console-conf.{{ts}}:
+  openhim-console-conf.1613814238:
     file: ./infrastructure/openhim-console-config.deploy.json
-  traefik.{{ts}}:
+  traefik.1613814238:
     file: ./infrastructure/traefik.toml
-  hearth-check-dupe-plugin.{{ts}}:
+  hearth-check-dupe-plugin.1613814238:
     file: ./infrastructure/hearth-plugins/checkDuplicateTask.js
-  hearth-queryparam-extensions-conf.{{ts}}:
+  hearth-queryparam-extensions-conf.1613814238:
     file: ./infrastructure/hearth-queryparam-extensions.json
-  netdata-master-stream.{{ts}}:
+  netdata-master-stream.1613814238:
     file: ./infrastructure/netdata-master-stream.conf
-  netdata-slave.{{ts}}:
+  netdata-slave.1613814238:
     file: ./infrastructure/netdata-slave.conf
-  netdata-slave-stream.{{ts}}:
+  netdata-slave-stream.1613814238:
     file: ./infrastructure/netdata-slave-stream.conf
 
 networks:
