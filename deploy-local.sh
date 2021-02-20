@@ -48,7 +48,7 @@ mkdir -p /tmp/compose/infrastructure/default_updates
 
 
 echo "Prepare docker-compose.deploy.yml and docker-compose.<COUNTRY>.yml file - rotate secrets etc"
-./infrastructure/rotate-secrets.sh ./composes/docker-compose.deploy.yml ./composes/docker-compose.prod-deploy.yml $RESOURCES_PATH/docker-compose.resources.deploy.yml | tee -a /tmp/log/rotate-secrets.log
+./infrastructure/rotate-secrets.sh ./composes/docker-compose.deploy.yml ./composes/docker-compose.prod-deploy.yml $RESOURCES_PATH/docker-compose.resources.deploy.yml | tee -a $LOG_LOCATION/rotate-secrets.log
 
 
 echo "Setup configuration files and compose file for the deployment domain"
