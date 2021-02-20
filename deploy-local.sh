@@ -52,7 +52,7 @@ echo "Prepare docker-compose.deploy.yml and docker-compose.<COUNTRY>.yml file - 
 
 
 echo "Setup configuration files and compose file for the deployment domain"
-/tmp/compose/infrastructure/setup-deploy-config.sh localhost '$NETDATA_USER_DETAILS_BASE64' | tee -a /tmp/log/setup-deploy-config.log
+/tmp/compose/infrastructure/setup-deploy-config.sh localhost '$NETDATA_USER_DETAILS_BASE64' | tee -a $LOG_LOCATION/setup-deploy-config.log
 
 echo "create fake clickatell system" 
 docker secret rm clickatell-api-id || true
