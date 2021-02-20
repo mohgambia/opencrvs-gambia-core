@@ -1,0 +1,97 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at https://mozilla.org/MPL/2.0/.
+#
+# OpenCRVS is also distributed under the terms of the Civil Registration
+# & Healthcare Disclaimer located at http://opencrvs.org/license.
+#
+# Copyright (C) The OpenCRVS Authors. OpenCRVS and the OpenCRVS
+# graphic logo are (registered/a) trademark(s) of Plan International.
+version: '3.3'
+
+services:
+  # Configure reverse proxy for public endpoints
+  # Note: these published port will override UFW rules as Docker manages it's own iptables
+  # Only publish the exact ports that are required for OpenCRVS to work
+  traefik:
+    image: traefik:1.7.16
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /data/traefik/acme.json:/acme.json
+    configs:
+      - source: traefik.{{ts}}
+        target: /etc/traefik/traefik.toml
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+    networks:
+      - overlay_net
+
+  netdata-master:
+    image: netdata/netdata:v1.19.0
+    hostname: 'master-{{.Node.Hostname}}'
+    restart: always
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - apparmor:unconfined
+    volumes:
+      - /etc/passwd:/host/etc/passwd:ro
+      - /etc/group:/host/etc/group:ro
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    configs:
+      - source: netdata-master-stream.{{ts}}
+        target: /etc/netdata/stream.conf
+    environment:
+      - PGID=999
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      labels:
+        - 'traefik.enable=true'
+        - 'traefik.frontend.rule=Host: monitor.{{hostname}}'
+        - 'traefik.frontend.auth.basic={{netdata_user}}'
+        - 'traefik.port=19999'
+        - 'traefik.docker.network=opencrvs_overlay_net'
+    networks:
+      - overlay_net
+
+  netdata-slave:
+    image: netdata/netdata:v1.19.0
+    hostname: 'slave-{{.Node.Hostname}}'
+    restart: always
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - apparmor:unconfined
+    volumes:
+      - /etc/passwd:/host/etc/passwd:ro
+      - /etc/group:/host/etc/group:ro
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    configs:
+      - source: netdata-slave.{{ts}}
+        target: /etc/netdata/netdata.conf
+      - source: netdata-slave-stream.{{ts}}
+        target: /etc/netdata/stream.conf
+    environment:
+      - PGID=999
+    deploy:
+      mode: global
+    networks:
+      - overlay_net
+
+networks:
+  overlay_net:
+    driver: overlay
+    attachable: true
