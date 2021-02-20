@@ -32,13 +32,13 @@ insecureSkipVerify = true
 [ping]
 
 [docker]
-domain = "{{hostname}}"
+domain = "draman.iprocuratio.com"
 swarmMode = true
 exposedByDefault = false
 watch = true
 
 [acme]
-email = "ryan@jembi.org"
+email = "afoone@hotmail.com"
 storage = "acme.json"
 entryPoint = "https"
 onHostRule = true
@@ -47,9 +47,9 @@ onHostRule = true
 entryPoint = "http"
 
 [[acme.domains]]
-  main = "{{hostname}}"
+  main = "draman.iprocuratio.com"
   sans = [
-    "register.{{hostname}}",
+    "register.draman.iprocuratio.com",
     "login.{{hostname}}",
     "auth.{{hostname}}",
     "gateway.{{hostname}}",
