@@ -34,6 +34,7 @@ docker stack rm fhir
 docker stack rm infrastructure
 docker stack rm resources
 docker stack rm backend
+docker stack rm client
 
 echo "Creating secrets - `date --iso-8601=ns`"
 
