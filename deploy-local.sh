@@ -27,6 +27,12 @@ echo
 mkdir -p /tmp/compose/infrastructure/default_backups
 mkdir -p /tmp/compose/infrastructure/default_updates
 
+
+echo "removing stacks"
+docker stack rm databases
+docker stack rm fhir
+docker stack rm infrastructure
+
 echo "Creating secrets - `date --iso-8601=ns`"
 
 PRIV_KEY=$(openssl genrsa 2048 2>/dev/null)
