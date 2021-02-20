@@ -71,4 +71,4 @@ echo "Deploy the OpenCRVS databases onto the swarm"
 HOSTNAME='draman.iprocuratio.com' VERSION='latest' PAPERTRAIL='$PAPERTRAIL' docker stack deploy -c stack-databases.yml --with-registry-auth databases
 
 echo "Deploy the OpenCRVS fhir components onto the swarm"
-HOSTNAME='draman.iprocuratio.com' VERSION='latest' PAPERTRAIL='$PAPERTRAIL' docker stack deploy -c stack-databases.yml --with-registry-auth databases
+HOSTNAME='draman.iprocuratio.com' VERSION='latest' PAPERTRAIL='$PAPERTRAIL' docker stack deploy -c stack-fhir.yml --with-registry-auth databases
