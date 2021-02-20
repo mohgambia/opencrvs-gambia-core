@@ -50,14 +50,14 @@ entryPoint = "http"
   main = "draman.iprocuratio.com"
   sans = [
     "register.draman.iprocuratio.com",
-    "login.{{hostname}}",
-    "auth.{{hostname}}",
-    "gateway.{{hostname}}",
-    "resources.{{hostname}}",
-    "openhim-api.{{hostname}}",
-    "api.{{hostname}}",
-    "openhim.{{hostname}}",
-    "webhooks.{{hostname}}",
+    "login.draman.iprocuratio.com",
+    "auth.draman.iprocuratio.com",
+    "gateway.draman.iprocuratio.com",
+    "resources.draman.iprocuratio.com",
+    "openhim-api.draman.iprocuratio.com",
+    "api.draman.iprocuratio.com",
+    "openhim.draman.iprocuratio.com",
+    "webhooks.draman.iprocuratio.com",
   ]
 
 [retry]
