@@ -18,7 +18,7 @@ services:
     ports:
       - '80:80'
       - '443:443'
-      - "8080:8080"
+      - '8080:8080'
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./data/traefik/acme.json:/acme.json
@@ -94,8 +94,8 @@ services:
 
 networks:
   overlay_net:
-    driver: overlay
-    attachable: true
+    external:
+      name: opencrvs
 
 configs:
   traefik:

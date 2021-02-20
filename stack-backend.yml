@@ -1,7 +1,6 @@
 version: '3.3'
 
 services:
-
   # Configure other service with deployment specifc details
   auth:
     image: afoone/ocrvs-auth:${VERSION:-latest}
@@ -175,4 +174,4 @@ secrets:
 networks:
   overlay_net:
     external:
-      name: infrastructure_overlay_net
+      name: opencrvs

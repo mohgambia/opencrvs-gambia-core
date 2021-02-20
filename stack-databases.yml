@@ -99,4 +99,4 @@ services:
 networks:
   overlay_net:
     external:
-      name: infrastructure_overlay_net
+      name: opencrvs
