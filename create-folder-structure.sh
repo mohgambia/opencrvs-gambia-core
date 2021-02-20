@@ -11,4 +11,7 @@ touch $LOG_LOCATION/rotate-logs.log
 echo "create log for deploy"
 touch $LOG_LOCATION/setup-deploy-config.log
 
+mkdir data/traefik/
+touch data/traefik/acme.json
+
 
