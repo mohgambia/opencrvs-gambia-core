@@ -7,6 +7,8 @@ sudo chown -R $USER:$USER $LOG_LOCATION
 
 echo "create log for rotate"
 touch $LOG_LOCATION/rotate-logs.log
+
+echo "create log for deploy"
 touch $LOG_LOCATION/setup-deploy-config.log
 
 
