@@ -62,9 +62,6 @@ printf ksdjflasdkjf | docker secret create clickatell-password -
 docker secret rm clickatell-user || true
 printf ksdjflasdkjf | docker secret create clickatell-user -
 
-echo "Deploy the OpenCRVS config the swarm"
-HOSTNAME='opencrvs.local' VERSION='latest' PAPERTRAIL='$PAPERTRAIL' docker stack deploy -c stack-config.yml --with-registry-auth infrastructure
-
 
 echo "Deploy the OpenCRVS infrastructure onto the swarm"
 # HOSTNAME='opencrvs.local' VERSION='latest' PAPERTRAIL='$PAPERTRAIL' docker stack deploy -c docker-compose.deps.yml -c docker-compose.yml -c docker-compose.deploy.single-node.yml  -c docker-compose.prod-deploy.yml -c docker-compose.resources.deploy.yml --with-registry-auth opencrvs

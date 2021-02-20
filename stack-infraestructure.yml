@@ -95,3 +95,13 @@ networks:
   overlay_net:
     driver: overlay
     attachable: true
+
+configs:
+  traefik:
+    file: ./infrastructure/traefik.toml
+  netdata-master-stream:
+    file: ./infrastructure/netdata-master-stream.conf
+  netdata-slave:
+    file: ./infrastructure/netdata-slave.conf
+  netdata-slave-stream:
+    file: ./infrastructure/netdata-slave-stream.conf
