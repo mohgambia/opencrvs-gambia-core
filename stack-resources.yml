@@ -3,11 +3,11 @@ version: '3.3'
 services:
   resources:
     image: afoone/ocrvs-gambia:latest
-    volumes:
-      - '.secrets/public-key.pem:/secrets/public-key.pem'
+    secrets:
+      - jwt-public-key
     restart: unless-stopped
     environment:
-      - CERT_PUBLIC_KEY_PATH=/secrets/public-key.pem
+      - CERT_PUBLIC_KEY_PATH=/run/secrets/jwt-public-key
       - MONGO_URL=mongodb://mongo1/user-mgnt
       - NODE_ENV=production
       - FHIR_URL=http://hearth:3447/fhir
@@ -15,15 +15,20 @@ services:
       - OPENHIM_URL=http://openhim-core:5001
       - CONFIRM_REGISTRATION_URL=http://workflow:5050/confirm/registration
       - CHECK_INVALID_TOKEN=true
+      - HOSTNAME=${HOSTNAME}
     deploy:
       labels:
         - 'traefik.enable=true'
-        - 'traefik.frontend.rule=Host: resources.{{hostname}}'
+        - 'traefik.frontend.rule=Host: resources.${HOSTNAME}'
         - 'traefik.port=3040'
         - 'traefik.docker.network=opencrvs_overlay_net'
       replicas: 2
     networks:
       - overlay_net
+
+secrets:
+  jwt-public-key:
+    external: true
 
 networks:
   overlay_net:
