@@ -47,9 +47,22 @@ mkdir -p /tmp/compose/infrastructure/default_updates
 
 
 
-echo "Prepare docker-compose.deploy.yml and docker-compose.<COUNTRY>.yml file - rotate secrets etc"
-./infrastructure/rotate-secrets.sh ./composes/docker-compose.deploy.yml ./composes/docker-compose.prod-deploy.yml $RESOURCES_PATH/docker-compose.resources.deploy.yml | tee -a $LOG_LOCATION/rotate-secrets.log
+# echo "Prepare docker-compose.deploy.yml and docker-compose.<COUNTRY>.yml file - rotate secrets etc"
+# ./infrastructure/rotate-secrets.sh ./composes/docker-compose.deploy.yml ./composes/docker-compose.prod-deploy.yml $RESOURCES_PATH/docker-compose.resources.deploy.yml | tee -a $LOG_LOCATION/rotate-secrets.log
+echo "Creating secrets - `date --iso-8601=ns`"
 
+PRIV_KEY=$(openssl genrsa 2048 2>/dev/null)
+PUB_KEY=$(echo "$PRIV_KEY" | openssl rsa -pubout 2>/dev/null)
+
+docker secret rm jwt-public-key || true
+docker secret rm jwt-private-key || true
+
+
+echo "$PUB_KEY" | docker secret create jwt-public-key -
+echo "$PRIV_KEY" | docker secret create jwt-private-key -
+
+# sed -i "s/{{ts}}/$UNIX_TS/g" "$@"
+echo "DONE - CREATED KEYS ON `date --iso-8601=ns`"
 
 echo "Setup configuration files and compose file for the deployment domain"
 /tmp/compose/infrastructure/setup-deploy-config.sh localhost '$NETDATA_USER_DETAILS_BASE64' | tee -a $LOG_LOCATION/setup-deploy-config.log
