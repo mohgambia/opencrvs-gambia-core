@@ -3,12 +3,17 @@ version: '3.3'
 services:
   # Configure other dependencies with deployment specifc details
   hearth:
+    image: jembi/hearth:v1.0.0-beta.1
     environment:
       - mongodb__url=mongodb://mongo1,mongo2,mongo3/hearth-dev?replicaSet=rs0
+      - logger__level=error
+      - authentication__type=disabled
+      - idGenerator=uuidv4
+      - server__fhirVersion=stu3
     deploy:
       replicas: 2
     secrets:
-      - jwt-public-key.{{ts}}
+      - jwt-public-key
     configs:
       - source: hearth-check-dupe-plugin
         target: /src/hearth/lib/plugins/checkDuplicateTask.js
@@ -18,9 +23,11 @@ services:
       - overlay_net
 
   openhim-core:
+    image: jembi/openhim-core:5
     environment:
       - mongo_url=mongodb://mongo1,mongo2,mongo3/openhim-dev?replicaSet=rs0
       - mongo_atnaUrl=mongodb://mongo1,mongo2,mongo3/openhim-dev?replicaSet=rs0
+      - logger_level=error
     depends_on:
       - mongo1
       - mongo2
@@ -29,20 +36,21 @@ services:
       labels:
         - 'traefik.enable=true'
         - 'traefik.docker.network=opencrvs_overlay_net'
-        - 'traefik.openhim-api.frontend.rule=Host: openhim-api.{{hostname}}'
+        - 'traefik.openhim-api.frontend.rule=Host: openhim-api.draman.iprocuratio.com'
         - 'traefik.openhim-api.protocol=https'
         - 'traefik.openhim-api.port=8080'
-        - 'traefik.router.frontend.rule=Host: api.{{hostname}}'
+        - 'traefik.router.frontend.rule=Host: api.draman.iprocuratio.com'
         - 'traefik.router.port=5001'
       replicas: 2
     networks:
       - overlay_net
 
   openhim-console:
+    image: jembi/openhim-console:1.13
     deploy:
       labels:
         - 'traefik.enable=true'
-        - 'traefik.frontend.rule=Host: openhim.{{hostname}}'
+        - 'traefik.frontend.rule=Host: openhim.draman.iprocuratio.com'
         - 'traefik.port=80'
         - 'traefik.docker.network=opencrvs_overlay_net'
       replicas: 2
@@ -72,9 +80,7 @@ services:
       - overlay_net
 
 secrets:
-  jwt-public-key.{{ts}}:
-    external: true
-  jwt-private-key.{{ts}}:
+  jwt-public-key:
     external: true
 
 configs:
