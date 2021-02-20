@@ -36,10 +36,10 @@ services:
       labels:
         - 'traefik.enable=true'
         - 'traefik.docker.network=opencrvs_overlay_net'
-        - 'traefik.openhim-api.frontend.rule=Host: openhim-api.{{hostname}}'
+        - 'traefik.openhim-api.frontend.rule=Host: openhim-api.${HOSTNAME}'
         - 'traefik.openhim-api.protocol=https'
         - 'traefik.openhim-api.port=8080'
-        - 'traefik.router.frontend.rule=Host: api.{{hostname}}'
+        - 'traefik.router.frontend.rule=Host: api.${HOSTNAME}'
         - 'traefik.router.port=5001'
       replicas: 2
     networks:
@@ -50,7 +50,7 @@ services:
     deploy:
       labels:
         - 'traefik.enable=true'
-        - 'traefik.frontend.rule=Host: openhim.{{hostname}}'
+        - 'traefik.frontend.rule=Host: openhim.${HOSTNAME}'
         - 'traefik.port=80'
         - 'traefik.docker.network=opencrvs_overlay_net'
       replicas: 2

@@ -59,7 +59,7 @@ services:
           - node.role == manager
       labels:
         - 'traefik.enable=true'
-        - 'traefik.frontend.rule=Host: monitor.{{hostname}}'
+        - 'traefik.frontend.rule=Host: monitor.${HOSTNAME}'
         - 'traefik.frontend.auth.basic={{netdata_user}}'
         - 'traefik.port=19999'
         - 'traefik.docker.network=opencrvs_overlay_net'
