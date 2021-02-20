@@ -32,6 +32,7 @@ echo "removing stacks"
 docker stack rm databases
 docker stack rm fhir
 docker stack rm infrastructure
+docker stack rm resources
 
 echo "Creating secrets - `date --iso-8601=ns`"
 
