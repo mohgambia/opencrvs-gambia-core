@@ -28,25 +28,25 @@ mkdir -p /tmp/compose/infrastructure/default_backups
 mkdir -p /tmp/compose/infrastructure/default_updates
 
 echo "Copy selected country default backups to infrastructure default_backups folder"
-cp $RESOURCES_PATH/backups/hearth-dev.gz /tmp/compose/infrastructure/default_backups/hearth-dev.gz
-cp $RESOURCES_PATH/backups/openhim-dev.gz /tmp/compose/infrastructure/default_backups/openhim-dev.gz
-cp $RESOURCES_PATH/backups/user-mgnt.gz /tmp/compose/infrastructure/default_backups/user-mgnt.gz
+# cp $RESOURCES_PATH/backups/hearth-dev.gz /tmp/compose/infrastructure/default_backups/hearth-dev.gz
+# cp $RESOURCES_PATH/backups/openhim-dev.gz /tmp/compose/infrastructure/default_backups/openhim-dev.gz
+# cp $RESOURCES_PATH/backups/user-mgnt.gz /tmp/compose/infrastructure/default_backups/user-mgnt.gz
 
 echo "Copy selected country default updates to infrastructure default_updates folder"
-[[ -d $RESOURCES_PATH/updates/generated ]] && cp $RESOURCES_PATH/updates/generated/*.json /tmp/compose/infrastructure/default_updates
+# [[ -d $RESOURCES_PATH/updates/generated ]] && cp $RESOURCES_PATH/updates/generated/*.json /tmp/compose/infrastructure/default_updates
 
 echo "Copy all infrastructure files to the server"
-rsync -rP docker-compose* infrastructure /tmp/compose/
+# rsync -rP docker-compose* infrastructure /tmp/compose/
 
 echo "Copy all country compose files to the server"
-rsync -rP $RESOURCES_PATH/docker-compose.resources* infrastructure /tmp/compose/
+# rsync -rP $RESOURCES_PATH/docker-compose.resources* infrastructure /tmp/compose/
 
 echo "Override configuration files with country specific files"
-rsync -rP /tmp/compose/infrastructure /tmp/compose
+# rsync -rP /tmp/compose/infrastructure /tmp/compose
 
 
 echo "Prepare docker-compose.deploy.yml and docker-compose.<COUNTRY>.yml file - rotate secrets etc"
-/tmp/compose/infrastructure/rotate-secrets.sh /tmp/compose/docker-compose.deploy.yml /tmp/compose/docker-compose.prod-deploy.yml /tmp/compose/docker-compose.resources.deploy.yml | tee -a /tmp/log/rotate-secrets.log
+$RESOURCES_PATH/compose/infrastructure/rotate-secrets.sh $RESOURCES_PATH/compose/docker-compose.deploy.yml $RESOURCES_PATH/compose/docker-compose.prod-deploy.yml $RESOURCES_PATH/compose/docker-compose.resources.deploy.yml | tee -a /tmp/log/rotate-secrets.log
 
 
 echo "Setup configuration files and compose file for the deployment domain"
