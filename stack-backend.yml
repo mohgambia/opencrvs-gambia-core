@@ -1,21 +1,6 @@
 version: '3.3'
 
 services:
-  login:
-    image: afoone/ocrvs-login:${VERSION:-latest}
-    environment:
-      - RESOURCES_URL=https://resources.${HOSTNAME}
-      - HOST=${HOSTNAME}
-      - COUNTRY=gmb
-    deploy:
-      labels:
-        - 'traefik.enable=true'
-        - 'traefik.frontend.rule=Host: login.${HOSTNAME}'
-        - 'traefik.port=80'
-        - 'traefik.docker.network=opencrvs_overlay_net'
-      replicas: 2
-    networks:
-      - overlay_net
 
   # Configure other service with deployment specifc details
   auth:
