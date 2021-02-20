@@ -11,7 +11,8 @@ touch $LOG_LOCATION/rotate-logs.log
 echo "create log for deploy"
 touch $LOG_LOCATION/setup-deploy-config.log
 
-mkdir data/traefik/
+echo "create acme.json"
+mkdir -p data/traefik/
 touch data/traefik/acme.json
 sudo chmod 600 data/traefik/acme.json
 
