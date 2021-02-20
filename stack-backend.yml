@@ -2,9 +2,11 @@ version: '3.3'
 
 services:
   login:
+    image: afoone/ocrvs-login:${VERSION:-latest}
     environment:
       - RESOURCES_URL=https://resources.${HOSTNAME}
       - HOST=${HOSTNAME}
+      - COUNTRY=gmb
     deploy:
       labels:
         - 'traefik.enable=true'
@@ -17,12 +19,18 @@ services:
 
   # Configure other service with deployment specifc details
   auth:
+    image: afoone/ocrvs-auth:${VERSION:-latest}
     secrets:
       - jwt-public-key
       - jwt-private-key
     environment:
       - CERT_PRIVATE_KEY_PATH=/run/secrets/jwt-private-key
       - CERT_PUBLIC_KEY_PATH=/run/secrets/jwt-public-key
+      - REDIS_HOST=redis
+      - USER_MANAGEMENT_URL=http://user-mgnt:3030/
+      - CONFIG_TOKEN_EXPIRY_SECONDS=604800
+      - CONFIG_SMS_CODE_EXPIRY_SECONDS=600
+      - NOTIFICATION_SERVICE_URL=http://notification:2020/
     deploy:
       labels:
         - 'traefik.enable=true'
@@ -34,33 +42,56 @@ services:
       - overlay_net
 
   user-mgnt:
+    image: afoone/ocrvs-user-mgnt:${VERSION:-latest}
     secrets:
       - jwt-public-key
     environment:
       - CERT_PUBLIC_KEY_PATH=/run/secrets/jwt-public-key
       - MONGO_URL=mongodb://mongo1,mongo2,mongo3/user-mgnt?replicaSet=rs0
+      - AUTH_URL=http://auth:4040
+      - NOTIFICATION_SERVICE_URL=http://notification:2020/
+      - FHIR_URL=http://openhim-core:5001/fhir
+      - HOST=0.0.0.0
+      - CHECK_INVALID_TOKEN=true
     deploy:
       replicas: 2
     networks:
       - overlay_net
 
   notification:
+    image: afoone/ocrvs-notification:${VERSION:-latest}
     secrets:
       - jwt-public-key
     environment:
       - CERT_PUBLIC_KEY_PATH=/run/secrets/jwt-public-key
+      - AUTH_URL=http://auth:4040
+      - COUNTRY=${COUNTRY:-gmb}
+      - HOST=0.0.0.0
+      - CHECK_INVALID_TOKEN=true
+      - RESOURCES_URL=http://resources:3040
     deploy:
       replicas: 2
     networks:
       - overlay_net
 
   gateway:
+    image: afoone/ocrvs-gateway:${VERSION:-latest}
     secrets:
       - jwt-public-key
     volumes:
       - '.secrets/public-key.pem:/secrets/public-key.pem'
     environment:
       - CERT_PUBLIC_KEY_PATH=/run/secrets/jwt-public-key
+      - NODE_ENV=production
+      - FHIR_URL=http://openhim-core:5001/fhir
+      - USER_MANAGEMENT_URL=http://user-mgnt:3030/
+      - SEARCH_URL=http://search:9090/
+      - METRICS_URL=http://metrics:1050
+      - AUTH_URL=http://auth:4040
+      - RESOURCES_URL=http://resources:3040
+      - NOTIFICATION_URL=http://notification:2020/
+      - WORKFLOW_URL=http://workflow:5050/
+      - CHECK_INVALID_TOKEN=true
     deploy:
       labels:
         - 'traefik.enable=true'
@@ -72,40 +103,74 @@ services:
       - overlay_net
 
   workflow:
+    image: afoone/ocrvs-workflow:${VERSION:-latest}
     secrets:
       - jwt-public-key
     environment:
       - CERT_PUBLIC_KEY_PATH=/run/secrets/jwt-public-key
+      - NODE_ENV=production
+      - NOTIFICATION_SERVICE_URL=http://notification:2020/
+      - USER_MANAGEMENT_URL=http://user-mgnt:3030/
+      - RESOURCE_SERVICE_URL=http://resources:3040/
+      - HEARTH_URL=http://hearth:3447/fhir
+      - OPENHIM_URL=http://openhim-core:5001
+      - COUNTRY=${COUNTRY:-gmb} # PEN_TEST change to gbr
+      - AUTH_URL=http://auth:4040
+      - CHECK_INVALID_TOKEN=true
     deploy:
       replicas: 2
     networks:
       - overlay_net
 
   search:
+    image: afoone/ocrvs-search:${VERSION:-latest}
     secrets:
       - jwt-public-key
     environment:
       - CERT_PUBLIC_KEY_PATH=/run/secrets/jwt-public-key
+      - NODE_ENV=production
+      - USER_MANAGEMENT_URL=http://user-mgnt:3030/
+      - ES_HOST=elasticsearch:9200
+      - HEARTH_URL=http://hearth:3447/fhir
+      - AUTH_URL=http://auth:4040
+      - CHECK_INVALID_TOKEN=true
     deploy:
       replicas: 2
     networks:
       - overlay_net
 
   metrics:
+    image: afoone/ocrvs-metrics:${VERSION:-latest}
     secrets:
       - jwt-public-key
     environment:
       - CERT_PUBLIC_KEY_PATH=/run/secrets/jwt-public-key
+      - INFLUX_HOST=influxdb
+      - INFLUX_PORT=8086
+      - INFLUX_DB=ocrvs
+      - AUTH_URL=http://auth:4040
+      - RESOURCE_URL=http://resources:3040/
+      - FHIR_URL=http://openhim-core:5001/fhir
+      - SEARCH_URL=http://search:9090/
+      - CHECK_INVALID_TOKEN=true
     deploy:
       replicas: 2
     networks:
       - overlay_net
+
   webhooks:
+    image: afoone/ocrvs-webhooks:${VERSION:-latest}
     secrets:
       - jwt-public-key
     environment:
       - MONGO_URL=mongodb://mongo1,mongo2,mongo3/webhooks?replicaSet=rs0
       - CERT_PUBLIC_KEY_PATH=/run/secrets/jwt-public-key
+      - REDIS_HOST=redis://redis:6379
+      - AUTH_URL=http://auth:4040
+      - USER_MANAGEMENT_URL=http://user-mgnt:3030/
+      - FHIR_URL=http://openhim-core:5001/fhir
+      - HOST=0.0.0.0
+      - CHECK_INVALID_TOKEN=true
     deploy:
       labels:
         - 'traefik.enable=true'

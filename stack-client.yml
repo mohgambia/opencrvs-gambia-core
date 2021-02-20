@@ -3,9 +3,11 @@ version: '3.3'
 services:
   # Configure webapps and add traefik config
   client:
+    image: afoone/ocrvs-client:${VERSION:-latest}
     environment:
       - RESOURCES_URL=https://resources.${HOSTNAME}
       - HOST=${HOSTNAME}
+      - COUNTRY=gmb
     deploy:
       labels:
         - 'traefik.enable=true'
@@ -19,7 +21,9 @@ services:
       - overlay_net
 
   login:
+    image: afoone/ocrvs-login:${VERSION:-latest}
     environment:
+      - COUNTRY=gmb
       - RESOURCES_URL=https://resources.${HOSTNAME}
       - HOST=${HOSTNAME}
     deploy:
