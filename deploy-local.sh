@@ -33,6 +33,7 @@ docker stack rm databases
 docker stack rm fhir
 docker stack rm infrastructure
 docker stack rm resources
+docker stack rm backend
 
 echo "Creating secrets - `date --iso-8601=ns`"
 
@@ -73,3 +74,6 @@ HOSTNAME='draman.iprocuratio.com' VERSION='latest' PAPERTRAIL='$PAPERTRAIL' dock
 
 echo "Deploy the OpenCRVS resources component onto the swarm"
 HOSTNAME='draman.iprocuratio.com' VERSION='latest' PAPERTRAIL='$PAPERTRAIL' docker stack deploy -c stack-resources.yml --with-registry-auth resources
+
+echo "Deploy the OpenCRVS backend components onto the swarm"
+HOSTNAME='draman.iprocuratio.com' VERSION='latest' PAPERTRAIL='$PAPERTRAIL' docker stack deploy -c stack-backend.yml --with-registry-auth backend

@@ -1,25 +1,14 @@
 version: '3.3'
 
 services:
-  resources:
-    deploy:
-      labels:
-        - 'traefik.enable=true'
-        - 'traefik.frontend.rule=Host: resources.{{hostname}}'
-        - 'traefik.port=3040'
-        - 'traefik.docker.network=opencrvs_overlay_net'
-      replicas: 2
-    networks:
-      - overlay_net
-
   login:
     environment:
-      - RESOURCES_URL=https://resources.{{hostname}}
-      - HOST={{hostname}}
+      - RESOURCES_URL=https://resources.${HOSTNAME}
+      - HOST=${HOSTNAME}
     deploy:
       labels:
         - 'traefik.enable=true'
-        - 'traefik.frontend.rule=Host: login.{{hostname}}'
+        - 'traefik.frontend.rule=Host: login.${HOSTNAME}'
         - 'traefik.port=80'
         - 'traefik.docker.network=opencrvs_overlay_net'
       replicas: 2
@@ -37,7 +26,7 @@ services:
     deploy:
       labels:
         - 'traefik.enable=true'
-        - 'traefik.frontend.rule=Host: auth.{{hostname}}'
+        - 'traefik.frontend.rule=Host: auth.${HOSTNAME}'
         - 'traefik.port=4040'
         - 'traefik.docker.network=opencrvs_overlay_net'
       replicas: 2
@@ -75,7 +64,7 @@ services:
     deploy:
       labels:
         - 'traefik.enable=true'
-        - 'traefik.frontend.rule=Host: gateway.{{hostname}}'
+        - 'traefik.frontend.rule=Host: gateway.${HOSTNAME}'
         - 'traefik.port=7070'
         - 'traefik.docker.network=opencrvs_overlay_net'
       replicas: 2
@@ -111,81 +100,6 @@ services:
       replicas: 2
     networks:
       - overlay_net
-
-  # Configure other dependencies with deployment specifc details
-  hearth:
-    environment:
-      - mongodb__url=mongodb://mongo1,mongo2,mongo3/hearth-dev?replicaSet=rs0
-    depends_on:
-      - mongo1
-      - mongo2
-      - mongo3
-    deploy:
-      replicas: 2
-    secrets:
-      - jwt-public-key
-    configs:
-      - source: hearth-check-dupe-plugin
-        target: /src/hearth/lib/plugins/checkDuplicateTask.js
-      - source: hearth-queryparam-extensions-conf
-        target: /src/hearth/config/queryparam-extensions.json
-    networks:
-      - overlay_net
-
-  openhim-core:
-    environment:
-      - mongo_url=mongodb://mongo1,mongo2,mongo3/openhim-dev?replicaSet=rs0
-      - mongo_atnaUrl=mongodb://mongo1,mongo2,mongo3/openhim-dev?replicaSet=rs0
-    depends_on:
-      - mongo1
-      - mongo2
-      - mongo3
-    deploy:
-      labels:
-        - 'traefik.enable=true'
-        - 'traefik.docker.network=opencrvs_overlay_net'
-        - 'traefik.openhim-api.frontend.rule=Host: openhim-api.{{hostname}}'
-        - 'traefik.openhim-api.protocol=https'
-        - 'traefik.openhim-api.port=8080'
-        - 'traefik.router.frontend.rule=Host: api.{{hostname}}'
-        - 'traefik.router.port=5001'
-      replicas: 2
-    networks:
-      - overlay_net
-
-  openhim-console:
-    deploy:
-      labels:
-        - 'traefik.enable=true'
-        - 'traefik.frontend.rule=Host: openhim.{{hostname}}'
-        - 'traefik.port=80'
-        - 'traefik.docker.network=opencrvs_overlay_net'
-      replicas: 2
-    configs:
-      - source: openhim-console-conf
-        target: /usr/share/nginx/html/config/default.json
-    networks:
-      - overlay_net
-
-  logspout:
-    image: gliderlabs/logspout:latest
-    restart: unless-stopped
-    volumes:
-      - /etc/hostname:/etc/host_hostname:ro
-      - /var/run/docker.sock:/var/run/docker.sock
-    command: syslog://${PAPERTRAIL:-logs5.papertrailapp.com:24584}
-    deploy:
-      mode: global
-      resources:
-        limits:
-          cpus: '0.20'
-          memory: 256M
-        reservations:
-          cpus: '0.10'
-          memory: 128M
-    networks:
-      - overlay_net
-
   webhooks:
     secrets:
       - jwt-public-key
@@ -195,7 +109,7 @@ services:
     deploy:
       labels:
         - 'traefik.enable=true'
-        - 'traefik.frontend.rule=Host: webhooks.{{hostname}}'
+        - 'traefik.frontend.rule=Host: webhooks.${HOSTNAME}'
         - 'traefik.port=2525'
         - 'traefik.docker.network=opencrvs_overlay_net'
       replicas: 2
