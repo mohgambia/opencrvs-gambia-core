@@ -11,9 +11,9 @@ services:
     deploy:
       labels:
         - 'traefik.enable=true'
-        - 'traefik.frontend.rule=Host: register.${HOSTNAME},${HOSTNAME}'
+        - 'traefik.frontend.rule=Host: signup.${HOSTNAME},${HOSTNAME}'
         - 'traefik.frontend.redirect.regex=^https?://${HOSTNAME}/(.*)'
-        - 'traefik.frontend.redirect.replacement=https://register.${HOSTNAME}/$${1}'
+        - 'traefik.frontend.redirect.replacement=https://signup.${HOSTNAME}/$${1}'
         - 'traefik.port=80'
         - 'traefik.docker.network=opencrvs_overlay_net'
       replicas: 2
