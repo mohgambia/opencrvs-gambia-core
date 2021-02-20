@@ -22,7 +22,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - /data/traefik/acme.json:/acme.json
     configs:
-      - source: traefik.{{ts}}
+      - source: traefik
         target: /etc/traefik/traefik.toml
     deploy:
       replicas: 1
@@ -47,7 +47,7 @@ services:
       - /sys:/host/sys:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
     configs:
-      - source: netdata-master-stream.{{ts}}
+      - source: netdata-master-stream
         target: /etc/netdata/stream.conf
     environment:
       - PGID=999
@@ -80,9 +80,9 @@ services:
       - /sys:/host/sys:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
     configs:
-      - source: netdata-slave.{{ts}}
+      - source: netdata-slave
         target: /etc/netdata/netdata.conf
-      - source: netdata-slave-stream.{{ts}}
+      - source: netdata-slave-stream
         target: /etc/netdata/stream.conf
     environment:
       - PGID=999
