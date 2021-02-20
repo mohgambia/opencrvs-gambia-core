@@ -64,16 +64,19 @@ printf ksdjflasdkjf | docker secret create clickatell-user -
 
 echo "Deploy the OpenCRVS infrastructure onto the swarm"
 # HOSTNAME='opencrvs.local' VERSION='latest' PAPERTRAIL='$PAPERTRAIL' docker stack deploy -c docker-compose.deps.yml -c docker-compose.yml -c docker-compose.deploy.single-node.yml  -c docker-compose.prod-deploy.yml -c docker-compose.resources.deploy.yml --with-registry-auth opencrvs
-HOSTNAME='draman.iprocuratio.com' VERSION='latest' PAPERTRAIL='$PAPERTRAIL' docker stack deploy -c stack-infraestructure.yml --with-registry-auth infrastructure
+VERSION='latest' PAPERTRAIL='$PAPERTRAIL' docker stack deploy -c stack-infraestructure.yml --with-registry-auth infrastructure
 
 echo "Deploy the OpenCRVS databases onto the swarm"
-HOSTNAME='draman.iprocuratio.com' VERSION='latest' PAPERTRAIL='$PAPERTRAIL' docker stack deploy -c stack-databases.yml --with-registry-auth databases
+VERSION='latest' PAPERTRAIL='$PAPERTRAIL' docker stack deploy -c stack-databases.yml --with-registry-auth databases
 
 echo "Deploy the OpenCRVS fhir components onto the swarm"
-HOSTNAME='draman.iprocuratio.com' VERSION='latest' PAPERTRAIL='$PAPERTRAIL' docker stack deploy -c stack-fhir.yml --with-registry-auth fhir
+VERSION='latest' PAPERTRAIL='$PAPERTRAIL' docker stack deploy -c stack-fhir.yml --with-registry-auth fhir
 
 echo "Deploy the OpenCRVS resources component onto the swarm"
-HOSTNAME='draman.iprocuratio.com' VERSION='latest' PAPERTRAIL='$PAPERTRAIL' docker stack deploy -c stack-resources.yml --with-registry-auth resources
+VERSION='latest' PAPERTRAIL='$PAPERTRAIL' docker stack deploy -c stack-resources.yml --with-registry-auth resources
 
 echo "Deploy the OpenCRVS backend components onto the swarm"
-HOSTNAME='draman.iprocuratio.com' VERSION='latest' PAPERTRAIL='$PAPERTRAIL' docker stack deploy -c stack-backend.yml --with-registry-auth backend
+VERSION='latest' PAPERTRAIL='$PAPERTRAIL' docker stack deploy -c stack-backend.yml --with-registry-auth backend
+
+echo "Deploy the OpenCRVS CLIENT components onto the swarm"
+VERSION='latest' PAPERTRAIL='$PAPERTRAIL' docker stack deploy -c stack-client.yml --with-registry-auth client
