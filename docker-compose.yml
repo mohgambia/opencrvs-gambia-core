@@ -7,26 +7,18 @@ services:
     restart: unless-stopped
     ports:
       - 27017:27017
-    networks:
-      kong:
 
   redis:
     image: redis:5
     restart: unless-stopped
-    networks:
-      kong:
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.5.4
     restart: unless-stopped
-    networks:
-      kong:
 
   influxdb:
     image: influxdb:1.7.9
     restart: unless-stopped
-    networks:
-      kong:
 
   hearth:
     image: jembi/hearth:v1.0.0-beta.1
@@ -39,8 +31,6 @@ services:
     depends_on:
       - mongo1
     restart: unless-stopped
-    networks:
-      kong:
 
   openhim-core:
     image: jembi/openhim-core:5
@@ -55,16 +45,12 @@ services:
       - '5000:5000'
       - '5001:5001'
     restart: unless-stopped
-    networks:
-      kong:
 
   openhim-console:
     image: jembi/openhim-console:1.13
     restart: unless-stopped
     ports:
       - '8888:80'
-    networks:
-      kong:
 
   client:
     image: afoone/ocrvs-client:${VERSION:-latest}
@@ -76,8 +62,6 @@ services:
     restart: unless-stopped
     ports:
       - '3000:80'
-    networks:
-      kong:
 
   login:
     image: afoone/ocrvs-login:${VERSION:-latest}
@@ -90,8 +74,6 @@ services:
     environment:
       - COUNTRY=gmb
       - RESOURCES_URL=http://localhost:3040
-    networks:
-      kong:
 
   gateway:
     image: afoone/ocrvs-gateway:${VERSION:-latest}
@@ -115,8 +97,6 @@ services:
       - NOTIFICATION_URL=http://notification:2020/
       - WORKFLOW_URL=http://workflow:5050/
       - CHECK_INVALID_TOKEN=true
-    networks:
-      kong:
 
   # User facing services
   workflow:
@@ -138,8 +118,6 @@ services:
       - COUNTRY=${COUNTRY:-bgd} # PEN_TEST change to gbr
       - AUTH_URL=http://auth:4040
       - CHECK_INVALID_TOKEN=true
-    networks:
-      kong:
 
   search:
     image: afoone/ocrvs-search:${VERSION:-latest}
@@ -157,8 +135,6 @@ services:
       - HEARTH_URL=http://hearth:3447/fhir
       - AUTH_URL=http://auth:4040
       - CHECK_INVALID_TOKEN=true
-    networks:
-      kong:
 
   metrics:
     image: afoone/ocrvs-metrics:${VERSION:-latest}
@@ -178,8 +154,6 @@ services:
       - FHIR_URL=http://openhim-core:5001/fhir
       - SEARCH_URL=http://search:9090/
       - CHECK_INVALID_TOKEN=true
-    networks:
-      kong:
 
   # END User facing services
   auth:
@@ -201,8 +175,6 @@ services:
       - CONFIG_TOKEN_EXPIRY_SECONDS=604800
       - CONFIG_SMS_CODE_EXPIRY_SECONDS=600
       - NOTIFICATION_SERVICE_URL=http://notification:2020/
-    networks:
-      kong:
 
   user-mgnt:
     image: afoone/ocrvs-user-mgnt:${VERSION:-latest}
@@ -220,8 +192,6 @@ services:
       - FHIR_URL=http://openhim-core:5001/fhir
       - HOST=0.0.0.0
       - CHECK_INVALID_TOKEN=true
-    networks:
-      kong:
 
   webhooks:
     image: afoone/ocrvs-webhooks:${VERSION:-latest}
@@ -240,8 +210,6 @@ services:
       - FHIR_URL=http://openhim-core:5001/fhir
       - HOST=0.0.0.0
       - CHECK_INVALID_TOKEN=true
-    networks:
-      kong:
 
   notification:
     image: afoone/ocrvs-notification:${VERSION:-latest}
@@ -258,8 +226,6 @@ services:
       - HOST=0.0.0.0
       - CHECK_INVALID_TOKEN=true
       - RESOURCES_URL=http://resources:3040
-    networks:
-      kong:
 
   resources:
     image: afoone/ocrvs-gambia:latest
@@ -277,9 +243,3 @@ services:
       - CHECK_INVALID_TOKEN=true
     ports:
       - '3040:3040'
-    networks:
-      kong:
-
-networks:
-  kong:
-    external: true
