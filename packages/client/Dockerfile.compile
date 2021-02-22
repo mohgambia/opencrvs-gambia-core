@@ -1,0 +1,14 @@
+FROM node:12 as compiler
+COPY . .
+RUN yarn add @craco/craco
+RUN yarn build
+# RUN mkdir /app
+# RUN npm i -g serve
+# COPY build/ /app/
+# CMD [ "serve", "-s", "app", "-l" , "80"]
+
+FROM nginx:latest
+RUN mkdir -p /usr/share/nginx/html/
+COPY --from=compiler /build /usr/share/nginx/html/
+
+RUN sed -i 's/\/index\.html/\.\/index\.html/g' /usr/share/nginx/html/service-worker.js

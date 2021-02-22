@@ -52,7 +52,7 @@ echo "$PRIV_KEY" | docker secret create jwt-private-key -
 echo "DONE - CREATED KEYS ON `date --iso-8601=ns`"
 
 echo "Setup configuration files and compose file for the deployment domain"
-/tmp/compose/infrastructure/setup-deploy-config.sh localhost '$NETDATA_USER_DETAILS_BASE64' | tee -a $LOG_LOCATION/setup-deploy-config.log
+./infrastructure/setup-deploy-config.sh localhost '$NETDATA_USER_DETAILS_BASE64' | tee -a $LOG_LOCATION/setup-deploy-config.log
 
 echo "create fake clickatell system" 
 docker secret rm clickatell-api-id || true

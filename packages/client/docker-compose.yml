@@ -1,0 +1,7 @@
+version: "3"
+services: 
+  local:
+    image: afoone/ocrvs-client:local
+    build: 
+      context: .
+      dockerfile: Dockerfile.compile
