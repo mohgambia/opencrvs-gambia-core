@@ -1,9 +1,10 @@
 version: '3'
 services:
   local:
-    image: afoone/ocrvs-client:${VERSION:-latest}
+    image: afoone/ocrvs-login:${VERSION:-latest}
     build:
       context: .
       dockerfile: Dockerfile.compiled
     environment:
       - COUNTRY=gmb
+
