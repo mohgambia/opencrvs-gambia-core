@@ -24,6 +24,7 @@ import {
   ATTACHMENT_DOCS_CODE,
   BIRTH_ENCOUNTER_CODE,
   BODY_WEIGHT_CODE,
+  BODY_HEIGHT_CODE,
   BIRTH_TYPE_CODE,
   BIRTH_ATTENDANT_CODE,
   BIRTH_REG_PRESENT_CODE,
@@ -883,6 +884,7 @@ export const typeResolvers: GQLResolver = {
       if (observations) {
         const observationKeys = {
           weightAtBirth: BODY_WEIGHT_CODE,
+          heightAtBirth: BODY_HEIGHT_CODE,
           birthType: BIRTH_TYPE_CODE,
           attendantAtBirth: BIRTH_ATTENDANT_CODE,
           birthRegistrationType: BIRTH_REG_TYPE_CODE,

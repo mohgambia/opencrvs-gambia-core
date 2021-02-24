@@ -21,6 +21,7 @@ import {
   BIRTH_TYPE_CODE,
   ATTACHMENT_DOCS_CODE,
   BODY_WEIGHT_CODE,
+  BODY_HEIGHT_CODE,
   BIRTH_ATTENDANT_CODE,
   BIRTH_REG_TYPE_CODE,
   BIRTH_REG_PRESENT_CODE,
@@ -777,6 +778,18 @@ const builders: IFieldBuilders = {
           OBSERVATION_CATEGORY_VSIGN_DESC,
           BODY_WEIGHT_CODE,
           'Body weight Measured',
+          fhirBundle,
+          context
+        )
+        observation.id = fieldValue as string
+      },
+      weightAtBirth: (fhirBundle, fieldValue, context) => {
+        const observation = selectOrCreateObservationResource(
+          BIRTH_ENCOUNTER_CODE,
+          OBSERVATION_CATEGORY_VSIGN_CODE,
+          OBSERVATION_CATEGORY_VSIGN_DESC,
+          BODY_WEIGHT_CODE,
+          'Body height Measured',
           fhirBundle,
           context
         )
