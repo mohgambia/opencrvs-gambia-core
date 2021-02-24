@@ -783,12 +783,12 @@ const builders: IFieldBuilders = {
         )
         observation.id = fieldValue as string
       },
-      weightAtBirth: (fhirBundle, fieldValue, context) => {
+      heightAtBirth: (fhirBundle, fieldValue, context) => {
         const observation = selectOrCreateObservationResource(
           BIRTH_ENCOUNTER_CODE,
           OBSERVATION_CATEGORY_VSIGN_CODE,
           OBSERVATION_CATEGORY_VSIGN_DESC,
-          BODY_WEIGHT_CODE,
+          BODY_HEIGHT_CODE,
           'Body height Measured',
           fhirBundle,
           context
