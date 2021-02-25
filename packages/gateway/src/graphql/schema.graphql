@@ -81,6 +81,7 @@ type BirthRegistration implements EventRegistration {
   eventLocation: Location
   birthType: BirthType
   weightAtBirth: Float
+  heightAtBirth: Float
   attendantAtBirth: AttendantType
   otherAttendantAtBirth: String
   birthRegistrationType: BirthRegType
@@ -279,6 +280,7 @@ input BirthRegistrationInput {
   eventLocation: LocationInput
   birthType: BirthType
   weightAtBirth: Float
+  heightAtBirth: Float
   attendantAtBirth: AttendantType
   otherAttendantAtBirth: String
   birthRegistrationType: BirthRegType

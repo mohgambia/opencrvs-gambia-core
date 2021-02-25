@@ -211,6 +211,7 @@ export default {
             }
             attendantAtBirth
             weightAtBirth
+            heightAtBirth
             birthType
             eventLocation {
               type

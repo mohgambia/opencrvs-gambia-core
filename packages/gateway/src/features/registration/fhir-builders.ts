@@ -2536,6 +2536,27 @@ const builders: IFieldBuilders = {
       code: 'kg'
     }
   },
+  heightAtBirth: (
+    fhirBundle: ITemplatedBundle,
+    fieldValue: number,
+    context: any
+  ) => {
+    const observation = selectOrCreateObservationResource(
+      BIRTH_ENCOUNTER_CODE,
+      OBSERVATION_CATEGORY_VSIGN_CODE,
+      OBSERVATION_CATEGORY_VSIGN_DESC,
+      BODY_HEIGHT_CODE,
+      'Body height Measured',
+      fhirBundle,
+      context
+    )
+    observation.valueQuantity = {
+      value: fieldValue,
+      unit: 'cm',
+      system: 'http://unitsofmeasure.org',
+      code: 'cm'
+    }
+  },
   attendantAtBirth: (
     fhirBundle: ITemplatedBundle,
     fieldValue: string,

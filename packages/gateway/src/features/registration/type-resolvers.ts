@@ -1015,6 +1015,26 @@ export const typeResolvers: GQLResolver = {
         null
       )
     },
+    async heightAtBirth(composition: ITemplatedComposition, _, authHeader) {
+      const encounterSection = findCompositionSection(
+        BIRTH_ENCOUNTER_CODE,
+        composition
+      )
+      if (!encounterSection || !encounterSection.entry) {
+        return null
+      }
+      const observations = await fetchFHIR(
+        `/Observation?encounter=${encounterSection.entry[0].reference}&code=${BODY_HEIGHT_CODE}`,
+        authHeader
+      )
+      return (
+        (observations &&
+          observations.entry &&
+          observations.entry[0] &&
+          observations.entry[0].resource.valueQuantity.value) ||
+        null
+      )
+    },
     async birthType(composition: ITemplatedComposition, _, authHeader) {
       const encounterSection = findCompositionSection(
         BIRTH_ENCOUNTER_CODE,

@@ -250,6 +250,7 @@ input BirthRegistrationInput {
   eventLocation: LocationInput
   birthType: BirthType # Not in BDRIS2
   weightAtBirth: Float # Not in BDRIS2
+  heightAtBirth: Float # Not in BDRIS2
   attendantAtBirth: AttendantType # Not in BDRIS2
   otherAttendantAtBirth: String
   birthRegistrationType: BirthRegType
@@ -274,6 +275,7 @@ type BirthRegistration implements EventRegistration { # -> Composition
   eventLocation: Location
   birthType: BirthType # -> Observation.valueInteger
   weightAtBirth: Float # -> Observation.valueQuantity (code=kg)
+  heightAtBirth: Float # -> Observation.valueQuantity (code=cm)
   attendantAtBirth: AttendantType # -> Observation.valueString
   otherAttendantAtBirth: String
   birthRegistrationType: BirthRegType # -> Observation.valueString
