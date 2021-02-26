@@ -76,6 +76,8 @@ import {
   getReasonCodeAndDesc,
   removeObservationResource
 } from '@gateway/features/fhir/utils'
+
+import { selectOrCreateInmunizationResource } from '@gateway/features/fhir/utils-immunization'
 import {
   OPENCRVS_SPECIFICATION_URL,
   FHIR_SPECIFICATION_URL,
@@ -131,6 +133,7 @@ function createNameBuilder(sectionCode: string, sectionTitle: string) {
     }
   }
 }
+
 function createIDBuilder(sectionCode: string, sectionTitle: string) {
   return {
     id: async (
@@ -867,6 +870,73 @@ const builders: IFieldBuilders = {
         )
         observation.id = fieldValue as string
       }
+    }
+  },
+  vaccination: {
+    batchNumber: (fhirBundle, fieldValue, context) => {
+      console.log("encounter code", BIRTH_ENCOUNTER_CODE)
+      const immunization = selectOrCreateInmunizationResource(
+        BIRTH_ENCOUNTER_CODE,
+        Date.now().toString(),
+        "",
+        0,
+        fieldValue.toString(),
+        fhirBundle,
+        context
+      )
+      immunization.lotNumber = fieldValue as string
+    },
+    doseGiven1: (fhirBundle, fieldValue, context) => {
+      // const observation = selectOrCreateVaccinationRegister(
+      //   BIRTH_ENCOUNTER_CODE,
+      //   OBSERVATION_CATEGORY_PROCEDURE_CODE,
+      //   OBSERVATION_CATEGORY_PROCEDURE_DESC,
+      //   BIRTH_TYPE_CODE,
+      //   'Birth plurality of Pregnancy',
+      //   fhirBundle,
+      //   context
+      // )
+      // observation.id = fieldValue as string
+      console.log(fieldValue)
+    },
+    manufacturer: (fhirBundle, fieldValue, context) => {
+      // const observation = selectOrCreateVaccinationRegister(
+      //   BIRTH_ENCOUNTER_CODE,
+      //   OBSERVATION_CATEGORY_PROCEDURE_CODE,
+      //   OBSERVATION_CATEGORY_PROCEDURE_DESC,
+      //   BIRTH_TYPE_CODE,
+      //   'Birth plurality of Pregnancy',
+      //   fhirBundle,
+      //   context
+      // )
+      // observation.id = fieldValue as string
+      console.log(fieldValue)
+    },
+    notes: (fhirBundle, fieldValue, context) => {
+      // const observation = selectOrCreateVaccinationRegister(
+      //   BIRTH_ENCOUNTER_CODE,
+      //   OBSERVATION_CATEGORY_PROCEDURE_CODE,
+      //   OBSERVATION_CATEGORY_PROCEDURE_DESC,
+      //   BIRTH_TYPE_CODE,
+      //   'Birth plurality of Pregnancy',
+      //   fhirBundle,
+      //   context
+      // )
+      // observation.id = fieldValue as string
+      console.log(fieldValue)
+    },
+    priorityGroup: (fhirBundle, fieldValue, context) => {
+      // const observation = selectOrCreateVaccinationRegister(
+      //   BIRTH_ENCOUNTER_CODE,
+      //   OBSERVATION_CATEGORY_PROCEDURE_CODE,
+      //   OBSERVATION_CATEGORY_PROCEDURE_DESC,
+      //   BIRTH_TYPE_CODE,
+      //   'Birth plurality of Pregnancy',
+      //   fhirBundle,
+      //   context
+      // )
+      // observation.id = fieldValue as string
+      console.log(fieldValue)
     }
   },
   createdAt: (fhirBundle, fieldValue) => {

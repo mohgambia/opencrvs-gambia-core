@@ -122,6 +122,12 @@ export default {
                 value
               }
             }
+            vaccination {
+              manufacturer
+              priorityGroup1
+              doseGiven1
+
+            }
             informant {
               id
               individual {

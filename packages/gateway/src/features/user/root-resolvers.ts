@@ -29,7 +29,7 @@ import {
   GQLResolver,
   GQLSearchFieldAgentResponse,
   GQLUserIdentifierInput,
-  GQLUserInput
+  GQLUserInput, 
 } from '@gateway/graphql/schema'
 import { logger } from '@gateway/logger'
 import fetch from 'node-fetch'

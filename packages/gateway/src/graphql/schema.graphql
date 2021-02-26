@@ -79,6 +79,7 @@ type BirthRegistration implements EventRegistration {
   father: Person
   informant: RelatedPerson
   eventLocation: Location
+  vaccination: Vaccination
   birthType: BirthType
   weightAtBirth: Float
   heightAtBirth: Float
@@ -277,6 +278,7 @@ input BirthRegistrationInput {
   mother: PersonInput
   father: PersonInput
   informant: RelatedPersonInput
+  vaccination: VaccinationInput
   eventLocation: LocationInput
   birthType: BirthType
   weightAtBirth: Float
@@ -359,6 +361,15 @@ type RelatedPerson {
   otherRelationship: String
   affidavit: [Attachment]
   individual: Person
+}
+
+type Vaccination {
+  _fhirID: ID
+  manufacturer: [String]
+  priorityGroup: [String]
+  batchNumber: String
+  notes: String
+  doseGiven1: String
 }
 
 enum BirthType {
@@ -681,6 +692,15 @@ input RelatedPersonInput {
   otherRelationship: String
   affidavit: [AttachmentInput]
   individual: PersonInput
+}
+
+input VaccinationInput {
+  _fhirID: ID
+  manufacturer: [String]
+  priorityGroup: [String]
+  batchNumber: String
+  notes: String
+  doseGiven1: String
 }
 
 input PrimaryCaregiverInput {

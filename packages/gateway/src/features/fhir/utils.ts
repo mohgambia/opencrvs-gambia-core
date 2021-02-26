@@ -172,6 +172,9 @@ export function selectOrCreateEncounterResource(
   return encounterEntry.resource as fhir.Encounter
 }
 
+
+
+
 export function selectOrCreateObservationResource(
   sectionCode: string,
   categoryCode: string,

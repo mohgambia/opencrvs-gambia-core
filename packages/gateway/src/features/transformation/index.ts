@@ -76,6 +76,7 @@ export default async function transformObj(
   // ensure the sourceObj has Object in its prototype chain
   // graphql-js creates objects with Object.create(null)
   // tslint:disable-next-line
+
   sourceObj = Object.assign({}, sourceObj)
   for (const currentPropName in sourceObj) {
     if (sourceObj.hasOwnProperty(currentPropName)) {
@@ -97,12 +98,21 @@ export default async function transformObj(
         continue
       }
 
-      await transformField(
-        sourceObj[currentPropName],
-        targetObj,
-        fieldBuilders[currentPropName],
-        context
-      )
+      if (currentPropName === 'vaccination') {
+        await transformField(
+          sourceObj[currentPropName],
+          targetObj,
+          fieldBuilders.vaccination,
+          context
+        )
+      } else {
+        await transformField(
+          sourceObj[currentPropName],
+          targetObj,
+          fieldBuilders[currentPropName],
+          context
+        )
+      }
     }
   }
 

@@ -240,6 +240,24 @@ interface EventRegistration {
   createdAt: Date
 }
 
+type Vaccination {
+  _fhirID: ID
+  manufacturer: [String]
+  priorityGroup: [String]
+  batchNumber: String
+  notes: String
+  doseGiven1:String
+}
+
+input VaccinationInput {
+  _fhirID: ID
+  manufacturer: [String]
+  priorityGroup: [String]
+  batchNumber: String
+  notes: String
+  doseGiven1:String
+}
+
 input BirthRegistrationInput {
   _fhirIDMap: Map
   registration: RegistrationInput
@@ -247,6 +265,7 @@ input BirthRegistrationInput {
   mother: PersonInput
   father: PersonInput
   informant: RelatedPersonInput
+  vaccination: VaccinationInput
   eventLocation: LocationInput
   birthType: BirthType # Not in BDRIS2
   weightAtBirth: Float # Not in BDRIS2
@@ -262,7 +281,9 @@ input BirthRegistrationInput {
   primaryCaregiver: PrimaryCaregiverInput # Not in BDRIS2
   createdAt: Date
   updatedAt: Date
-}
+}  
+
+
 
 type BirthRegistration implements EventRegistration { # -> Composition
   id: ID! # long uuid
@@ -273,6 +294,7 @@ type BirthRegistration implements EventRegistration { # -> Composition
   father: Person # -> .section(code='father-details').entry.reference
   informant: RelatedPerson # -> .section(code='informant-details').entry.reference
   eventLocation: Location
+  vaccination: Vaccination
   birthType: BirthType # -> Observation.valueInteger
   weightAtBirth: Float # -> Observation.valueQuantity (code=kg)
   heightAtBirth: Float # -> Observation.valueQuantity (code=cm)
