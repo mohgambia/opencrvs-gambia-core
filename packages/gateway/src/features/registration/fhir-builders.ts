@@ -85,6 +85,14 @@ import {
 } from '@gateway/features/fhir/constants'
 import { IAuthHeader } from '@gateway/common-types'
 
+const getDateString = (): string => {
+  var today = new Date()
+  var dd = String(today.getDate()).padStart(2, '0')
+  var mm = String(today.getMonth() + 1).padStart(2, '0') //January is 0!
+  var yyyy = today.getFullYear()
+  return mm + '/' + dd + '/' + yyyy
+}
+
 function createNameBuilder(sectionCode: string, sectionTitle: string) {
   return {
     use: (fhirBundle: ITemplatedBundle, fieldValue: string, context: any) => {
@@ -128,6 +136,24 @@ function createNameBuilder(sectionCode: string, sectionTitle: string) {
         'name',
         [fieldValue],
         'family',
+        context
+      )
+    },
+    baptismalName: (
+      fhirBundle: ITemplatedBundle,
+      fieldValue: string,
+      context: any
+    ) => {
+      const person = selectOrCreatePersonResource(
+        sectionCode,
+        sectionTitle,
+        fhirBundle
+      )
+      setObjectPropInResourceArray(
+        person,
+        'name',
+        [fieldValue],
+        'text',
         context
       )
     }
@@ -874,13 +900,10 @@ const builders: IFieldBuilders = {
   },
   vaccination: {
     batchNumber: (fhirBundle, fieldValue, context) => {
-      console.log("encounter code", BIRTH_ENCOUNTER_CODE)
+      console.log('encounter code', BIRTH_ENCOUNTER_CODE)
       const immunization = selectOrCreateInmunizationResource(
         BIRTH_ENCOUNTER_CODE,
-        Date.now().toString(),
-        "",
-        0,
-        fieldValue.toString(),
+        getDateString(),
         fhirBundle,
         context
       )
@@ -900,29 +923,25 @@ const builders: IFieldBuilders = {
       console.log(fieldValue)
     },
     manufacturer: (fhirBundle, fieldValue, context) => {
-      // const observation = selectOrCreateVaccinationRegister(
-      //   BIRTH_ENCOUNTER_CODE,
-      //   OBSERVATION_CATEGORY_PROCEDURE_CODE,
-      //   OBSERVATION_CATEGORY_PROCEDURE_DESC,
-      //   BIRTH_TYPE_CODE,
-      //   'Birth plurality of Pregnancy',
-      //   fhirBundle,
-      //   context
-      // )
-      // observation.id = fieldValue as string
-      console.log(fieldValue)
+      const immunization = selectOrCreateInmunizationResource(
+        BIRTH_ENCOUNTER_CODE,
+        getDateString(),
+        fhirBundle,
+        context
+      )
+      immunization.manufacturer =  { reference: fieldValue?.toString() }
     },
     notes: (fhirBundle, fieldValue, context) => {
-      // const observation = selectOrCreateVaccinationRegister(
-      //   BIRTH_ENCOUNTER_CODE,
-      //   OBSERVATION_CATEGORY_PROCEDURE_CODE,
-      //   OBSERVATION_CATEGORY_PROCEDURE_DESC,
-      //   BIRTH_TYPE_CODE,
-      //   'Birth plurality of Pregnancy',
-      //   fhirBundle,
-      //   context
-      // )
-      // observation.id = fieldValue as string
+      const immunization = selectOrCreateInmunizationResource(
+        BIRTH_ENCOUNTER_CODE,
+        getDateString(),
+        fhirBundle,
+        context
+      )
+      immunization.note = [{
+         text: fieldValue?.toString()
+      }]
+      
       console.log(fieldValue)
     },
     priorityGroup: (fhirBundle, fieldValue, context) => {

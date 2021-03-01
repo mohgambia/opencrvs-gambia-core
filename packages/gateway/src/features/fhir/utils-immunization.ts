@@ -12,9 +12,6 @@ import {
 export function selectOrCreateInmunizationResource(
   sectionCode: string,
   vaccinationDate: string,
-  vaccineName: string,
-  doseNumber: number,
-  lotNumber: string,
   fhirBundle: ITemplatedBundle,
   context: any
 ): fhir.Immunization {
@@ -29,9 +26,8 @@ export function selectOrCreateInmunizationResource(
     }
     const immunizationEntry = entry.resource as fhir.Immunization
     const imCoding =
-      immunizationEntry.vaccinationProtocol &&
-      immunizationEntry.vaccinationProtocol[0] &&
-      immunizationEntry.vaccinationProtocol[0].doseSequence === doseNumber
+      immunizationEntry.date &&
+      immunizationEntry.date === vaccinationDate
     if (imCoding) {
       return true
     }
@@ -44,21 +40,17 @@ export function selectOrCreateInmunizationResource(
   /* Existing obseration not found for given type */
   immunization = createImmunizationResource(
     sectionCode,
-    vaccineName,
     fhirBundle,
     context
   )
   return updateImmunizationInfo(
     immunization as fhir.Immunization,
     vaccinationDate,
-    lotNumber,
-    doseNumber
   )
 }
 
 export function createImmunizationResource(
   sectionCode: string,
-  vaccineName: string,
   fhirBundle: ITemplatedBundle,
   context: any
 ): fhir.Immunization {
@@ -93,8 +85,6 @@ export function createImmunizationResource(
   }
   immunizationEntry.resource.vaccineCode = covid19Coding
 
-  immunizationEntry.resource.manufacturer = { reference: vaccineName }
-
   if (encounterEntry && encounter) {
     immunizationEntry.resource.encounter = encounterEntry
   }
@@ -116,8 +106,6 @@ export function createImmunizationEntryTemplate(refUuid: string) {
 export function updateImmunizationInfo(
   immunization: fhir.Immunization,
   vaccinationDate: string,
-  lotNumber: string,
-  doseNumber: number
 ): fhir.Immunization {
   const covid19Coding = {
     coding: [
@@ -129,11 +117,9 @@ export function updateImmunizationInfo(
     ]
   }
 
-  immunization.lotNumber = lotNumber
   immunization.date = vaccinationDate
   immunization.vaccinationProtocol = [
     {
-      doseSequence: doseNumber,
       seriesDoses: 2,
       targetDisease: [covid19Coding],
       doseStatus: {

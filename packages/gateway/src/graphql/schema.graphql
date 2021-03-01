@@ -437,6 +437,7 @@ type HumanName {
   use: String
   firstNames: String
   familyName: String
+  baptismalName: String
 }
 
 type ContactPoint {
@@ -713,6 +714,7 @@ input HumanNameInput {
   use: String
   firstNames: String
   familyName: String
+  baptismalName: String
 }
 
 input UserIdentifierInput {

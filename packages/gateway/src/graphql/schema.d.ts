@@ -461,6 +461,7 @@ export interface GQLHumanName {
   use?: string
   firstNames?: string
   familyName?: string
+  baptismalName?: string
 }
 
 export interface GQLContactPoint {
@@ -748,6 +749,7 @@ export interface GQLHumanNameInput {
   use?: string
   firstNames?: string
   familyName?: string
+  baptismalName?: string
 }
 
 export interface GQLUserIdentifierInput {
@@ -3341,6 +3343,7 @@ export interface GQLHumanNameTypeResolver<TParent = any> {
   use?: HumanNameToUseResolver<TParent>
   firstNames?: HumanNameToFirstNamesResolver<TParent>
   familyName?: HumanNameToFamilyNameResolver<TParent>
+  baptismalName?: HumanNameToBaptismalNameResolver<TParent>
 }
 
 export interface HumanNameToUseResolver<TParent = any, TResult = any> {
@@ -3352,6 +3355,13 @@ export interface HumanNameToFirstNamesResolver<TParent = any, TResult = any> {
 }
 
 export interface HumanNameToFamilyNameResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
+}
+
+export interface HumanNameToBaptismalNameResolver<
+  TParent = any,
+  TResult = any
+> {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
