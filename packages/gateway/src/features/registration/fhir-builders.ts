@@ -77,7 +77,10 @@ import {
   removeObservationResource
 } from '@gateway/features/fhir/utils'
 
-import { selectOrCreateInmunizationResource } from '@gateway/features/fhir/utils-immunization'
+import {
+  selectOrCreateInmunizationResource,
+  covid19Coding
+} from '@gateway/features/fhir/utils-immunization'
 import {
   OPENCRVS_SPECIFICATION_URL,
   FHIR_SPECIFICATION_URL,
@@ -900,7 +903,6 @@ const builders: IFieldBuilders = {
   },
   vaccination: {
     batchNumber: (fhirBundle, fieldValue, context) => {
-      console.log('encounter code', BIRTH_ENCOUNTER_CODE)
       const immunization = selectOrCreateInmunizationResource(
         BIRTH_ENCOUNTER_CODE,
         getDateString(),
@@ -910,17 +912,13 @@ const builders: IFieldBuilders = {
       immunization.lotNumber = fieldValue as string
     },
     doseGiven1: (fhirBundle, fieldValue, context) => {
-      // const observation = selectOrCreateVaccinationRegister(
-      //   BIRTH_ENCOUNTER_CODE,
-      //   OBSERVATION_CATEGORY_PROCEDURE_CODE,
-      //   OBSERVATION_CATEGORY_PROCEDURE_DESC,
-      //   BIRTH_TYPE_CODE,
-      //   'Birth plurality of Pregnancy',
-      //   fhirBundle,
-      //   context
-      // )
-      // observation.id = fieldValue as string
-      console.log(fieldValue)
+      const immunization = selectOrCreateInmunizationResource(
+        BIRTH_ENCOUNTER_CODE,
+        getDateString(),
+        fhirBundle,
+        context
+      )
+      immunization.date = fieldValue as string
     },
     manufacturer: (fhirBundle, fieldValue, context) => {
       const immunization = selectOrCreateInmunizationResource(
@@ -929,7 +927,7 @@ const builders: IFieldBuilders = {
         fhirBundle,
         context
       )
-      immunization.manufacturer =  { reference: fieldValue?.toString() }
+      immunization.manufacturer = { reference: fieldValue?.toString() }
     },
     notes: (fhirBundle, fieldValue, context) => {
       const immunization = selectOrCreateInmunizationResource(
@@ -938,24 +936,33 @@ const builders: IFieldBuilders = {
         fhirBundle,
         context
       )
-      immunization.note = [{
-         text: fieldValue?.toString()
-      }]
-      
+      immunization.note = [
+        {
+          text: fieldValue?.toString()
+        }
+      ]
+
       console.log(fieldValue)
     },
     priorityGroup: (fhirBundle, fieldValue, context) => {
-      // const observation = selectOrCreateVaccinationRegister(
-      //   BIRTH_ENCOUNTER_CODE,
-      //   OBSERVATION_CATEGORY_PROCEDURE_CODE,
-      //   OBSERVATION_CATEGORY_PROCEDURE_DESC,
-      //   BIRTH_TYPE_CODE,
-      //   'Birth plurality of Pregnancy',
-      //   fhirBundle,
-      //   context
-      // )
-      // observation.id = fieldValue as string
-      console.log(fieldValue)
+      const immunization = selectOrCreateInmunizationResource(
+        BIRTH_ENCOUNTER_CODE,
+        getDateString(),
+        fhirBundle,
+        context
+      )
+      immunization.explanation = {
+        reason: [
+          {
+            coding: [
+              {
+                code: fieldValue as string,
+                system: 'COVID-19-PRIORITY-GROUP'
+              }
+            ]
+          }
+        ]
+      }
     }
   },
   createdAt: (fhirBundle, fieldValue) => {

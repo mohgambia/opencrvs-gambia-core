@@ -135,3 +135,14 @@ export function updateImmunizationInfo(
   // setArrayPropInResourceObject(immunization, 'code', coding, 'coding')
   return immunization
 }
+
+
+export const covid19Coding = {
+  coding: [
+    {
+      system: 'http://snomed.info/sct',
+      code: '840534001',
+      display: 'Severe acute respiratory syndrome coronavirus 2 vaccination'
+    }
+  ]
+}
