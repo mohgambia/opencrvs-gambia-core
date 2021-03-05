@@ -37,6 +37,7 @@ enum Relationship {
 
 enum IdentityIDType {
   PASSPORT
+  MY_CHILD_ID
   NATIONAL_ID
   DRIVING_LICENSE
   BIRTH_REGISTRATION_NUMBER
@@ -169,6 +170,7 @@ input PersonInput {
   deceased: DeceasedInput
   nationality: [String] # In BDRIS2 for father and mother only
   educationalAttainment: EducationType # Not in BDRIS2
+  individual: PersonInput
 }
 
 type Person { # -> Patient

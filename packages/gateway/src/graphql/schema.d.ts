@@ -684,6 +684,7 @@ export interface GQLPersonInput {
   deceased?: GQLDeceasedInput
   nationality?: Array<string | null>
   educationalAttainment?: GQLEducationType
+  individual?: GQLPersonInput
 }
 
 export interface GQLLocationInput {
@@ -769,7 +770,8 @@ export const enum GQLRegistrationContactType {
   MOTHER = 'MOTHER',
   FATHER = 'FATHER',
   OTHER = 'OTHER',
-  APPLICANT = 'APPLICANT'
+  APPLICANT = 'APPLICANT',
+  SELF = 'SELF'
 }
 
 export interface GQLRegWorkflow {
@@ -840,6 +842,7 @@ export const enum GQLParentDetailsType {
 
 export const enum GQLIdentityIDType {
   PASSPORT = 'PASSPORT',
+  MY_CHILD_ID = 'MY_CHILD_ID',
   NATIONAL_ID = 'NATIONAL_ID',
   DRIVING_LICENSE = 'DRIVING_LICENSE',
   BIRTH_REGISTRATION_NUMBER = 'BIRTH_REGISTRATION_NUMBER',

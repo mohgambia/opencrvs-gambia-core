@@ -649,6 +649,7 @@ input PersonInput {
   deceased: DeceasedInput
   nationality: [String]
   educationalAttainment: EducationType
+  individual: PersonInput
 }
 
 input LocationInput {
@@ -735,6 +736,7 @@ enum RegistrationContactType {
   FATHER
   OTHER
   APPLICANT
+  SELF
 }
 
 type RegWorkflow {
@@ -805,6 +807,7 @@ enum ParentDetailsType {
 
 enum IdentityIDType {
   PASSPORT
+  MY_CHILD_ID
   NATIONAL_ID
   DRIVING_LICENSE
   BIRTH_REGISTRATION_NUMBER
