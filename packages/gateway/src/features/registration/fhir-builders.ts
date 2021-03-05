@@ -78,8 +78,7 @@ import {
 } from '@gateway/features/fhir/utils'
 
 import {
-  selectOrCreateInmunizationResource,
-  covid19Coding
+  selectOrCreateInmunizationResource
 } from '@gateway/features/fhir/utils-immunization'
 import {
   OPENCRVS_SPECIFICATION_URL,
@@ -910,6 +909,22 @@ const builders: IFieldBuilders = {
         context
       )
       immunization.lotNumber = fieldValue as string
+    },
+    reaction: (fhirBundle, fieldValue, context) => {
+      const immunization = selectOrCreateInmunizationResource(
+        BIRTH_ENCOUNTER_CODE,
+        getDateString(),
+        fhirBundle,
+        context
+      )
+      immunization.reaction = [
+        {
+          reported: true,
+          
+          detail: {
+            reference: fieldValue as string
+          }
+        }]
     },
     doseGiven1: (fhirBundle, fieldValue, context) => {
       const immunization = selectOrCreateInmunizationResource(

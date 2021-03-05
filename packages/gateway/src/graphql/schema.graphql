@@ -704,6 +704,7 @@ input VaccinationInput {
   batchNumber: String
   notes: String
   doseGiven1: String
+  reaction: String
 }
 
 input PrimaryCaregiverInput {

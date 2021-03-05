@@ -739,6 +739,7 @@ export interface GQLVaccinationInput {
   batchNumber?: string
   notes?: string
   doseGiven1?: string
+  reaction?: string
 }
 
 export interface GQLPrimaryCaregiverInput {
