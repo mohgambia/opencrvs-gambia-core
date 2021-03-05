@@ -110,7 +110,7 @@ class SelectVitalEventView extends React.Component<
                 size="large"
                 key="birthevent"
                 name="birthevent"
-                label={intl.formatMessage(constantsMessages.birth)}
+                label="COVID19 Vaccine and Birth Registration"
                 value="birth"
                 id="select_birth_event"
                 selected={this.state.goTo === 'birth' ? 'birth' : ''}
