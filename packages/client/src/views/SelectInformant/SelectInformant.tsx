@@ -143,6 +143,14 @@ const setInformantFields = (
         disabled: false
       },
       {
+        id: `select_informant_${INFORMANT.SELF}`,
+        option: {
+          label: intl.formatMessage(formMessages.self),
+          value: INFORMANT.SELF
+        },
+        disabled: false
+      },
+      {
         id: `select_informant_${INFORMANT.BOTH_PARENTS}`,
         option: {
           label: intl.formatMessage(messages.parents),
@@ -157,14 +165,6 @@ const setInformantFields = (
           value: INFORMANT.SOMEONE_ELSE
         },
         disabled: false
-      },
-      {
-        id: `select_informant_${INFORMANT.SELF}`,
-        option: {
-          label: intl.formatMessage(formMessages.self),
-          value: INFORMANT.SELF
-        },
-        disabled: true
       }
     ]
   } else {

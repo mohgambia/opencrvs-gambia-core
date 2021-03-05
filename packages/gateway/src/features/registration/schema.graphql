@@ -39,6 +39,7 @@ enum BirthRegPresence {
   MOTHER
   FATHER
   OTHER
+  SELF
 }
 
 enum BirthType {
