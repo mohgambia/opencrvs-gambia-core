@@ -705,6 +705,7 @@ input VaccinationInput {
   notes: String
   doseGiven1: String
   reaction: String
+  expiryDate1: Date
 }
 
 input PrimaryCaregiverInput {

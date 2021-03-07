@@ -740,6 +740,7 @@ export interface GQLVaccinationInput {
   notes?: string
   doseGiven1?: string
   reaction?: string
+  expiryDate1?: GQLDate
 }
 
 export interface GQLPrimaryCaregiverInput {

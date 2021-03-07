@@ -77,9 +77,8 @@ import {
   removeObservationResource
 } from '@gateway/features/fhir/utils'
 
-import {
-  selectOrCreateInmunizationResource
-} from '@gateway/features/fhir/utils-immunization'
+import { selectOrCreateInmunizationResource } from '@gateway/features/fhir/utils-immunization'
+import { selectOrCreateOrganizationResource } from '@gateway/features/fhir/utils-manufacturer'
 import {
   OPENCRVS_SPECIFICATION_URL,
   FHIR_SPECIFICATION_URL,
@@ -920,11 +919,12 @@ const builders: IFieldBuilders = {
       immunization.reaction = [
         {
           reported: true,
-          
+
           detail: {
             reference: fieldValue as string
           }
-        }]
+        }
+      ]
     },
     doseGiven1: (fhirBundle, fieldValue, context) => {
       const immunization = selectOrCreateInmunizationResource(
@@ -935,6 +935,15 @@ const builders: IFieldBuilders = {
       )
       immunization.date = fieldValue as string
     },
+    expiryDate1: (fhirBundle, fieldValue, context) => {
+      const immunization = selectOrCreateInmunizationResource(
+        BIRTH_ENCOUNTER_CODE,
+        getDateString(),
+        fhirBundle,
+        context
+      )
+      immunization.expirationDate = fieldValue as string
+    },
     manufacturer: (fhirBundle, fieldValue, context) => {
       const immunization = selectOrCreateInmunizationResource(
         BIRTH_ENCOUNTER_CODE,
@@ -942,7 +951,17 @@ const builders: IFieldBuilders = {
         fhirBundle,
         context
       )
-      immunization.manufacturer = { reference: fieldValue?.toString() }
+      const organization = selectOrCreateOrganizationResource(
+        '' + fieldValue,
+        fhirBundle,
+        context
+      )
+      console.log('manufacturer', organization)
+      immunization.manufacturer = {
+        reference: 'Organization/' + organization.id,
+      }
+
+      console.log(immunization)
     },
     notes: (fhirBundle, fieldValue, context) => {
       const immunization = selectOrCreateInmunizationResource(
