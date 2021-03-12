@@ -367,7 +367,8 @@ export function getListOfLocations(
   >,
   locationType?: LocationType
 ) {
-
+  console.log('location type', locationType, resourceType)
+  console.log('resource', resource)
   return resource[resourceType]
     ? locationType
       ? generateLocations(resource[resourceType], undefined, [locationType])
