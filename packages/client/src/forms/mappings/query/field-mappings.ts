@@ -197,6 +197,36 @@ export const addressToFieldTransformer = (
   return transformedData
 }
 
+export const adverseEffectQueryTransformer = (
+  addressType: string,
+  lineNumber: number = 0,
+  transformedFieldName?: string
+) => (
+  transformedData: IFormData,
+  queryData: any,
+  sectionId: string,
+  field: IFormField
+) => {
+  const address: IAddress | undefined =
+    queryData[sectionId] &&
+    queryData[sectionId].address &&
+    (queryData[sectionId].address as GQLAddress[]).find(
+      addr => addr.type === addressType
+    )
+
+  if (!address) {
+    return transformedData
+  }
+  if (lineNumber > 0) {
+    transformedData[sectionId][field.name] =
+      (address.line && address.line[lineNumber - 1]) || ''
+  } else {
+    transformedData[sectionId][field.name] =
+      address[transformedFieldName ? transformedFieldName : field.name]
+  }
+  return transformedData
+}
+
 export const sameAddressFieldTransformer = (
   fromAddressType: string,
   fromSection: string,

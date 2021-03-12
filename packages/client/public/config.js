@@ -14,7 +14,7 @@ window.config = {
   COUNTRY: 'gmb',
   COUNTRY_LOGO_FILE: 'logo.png',
   DESKTOP_TIME_OUT_MILLISECONDS: 900000, // 15 mins
-  HEALTH_FACILITY_FILTER: 'UPAZILA',
+  HEALTH_FACILITY_FILTER: "",
   LANGUAGES: 'en,bn',
   LOGIN_URL: 'http://localhost:3020/',
   AUTH_URL: 'http://localhost:4040/',

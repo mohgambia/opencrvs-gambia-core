@@ -831,6 +831,7 @@ export const fetchFHIR = (
   method: string = 'GET',
   body: string | undefined = undefined
 ) => {
+  console.log("peticion fhir", `${FHIR_URL}${suffix}`,authHeader, body)
   return fetch(`${FHIR_URL}${suffix}`, {
     method,
     headers: {
@@ -840,6 +841,7 @@ export const fetchFHIR = (
     body
   })
     .then(response => {
+      console.log("respuesta fhir", response)
       return response.json()
     })
     .catch(error => {

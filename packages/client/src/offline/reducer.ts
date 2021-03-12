@@ -139,10 +139,16 @@ function checkIfDone(
   return loopWithState
 }
 
-const FACILITIES_CMD = Cmd.run(() => referenceApi.loadFacilities(), {
-  successActionCreator: actions.facilitiesLoaded,
-  failActionCreator: actions.facilitiesFailed
-})
+const FACILITIES_CMD = Cmd.run(
+  () => {
+    const facilities = referenceApi.loadFacilities()
+    return facilities
+  },
+  {
+    successActionCreator: actions.facilitiesLoaded,
+    failActionCreator: actions.facilitiesFailed
+  }
+)
 
 const LOCATIONS_CMD = Cmd.run(() => referenceApi.loadLocations(), {
   successActionCreator: actions.locationsLoaded,
@@ -184,11 +190,13 @@ function getDataLoadingCommands() {
 }
 
 function updateGlobalConfig() {
+  console.log('update global config')
   return Cmd.run(() => {
     // Replaces the script tag in site head with a fresh one
     const currentConfigElement = Array.from(
       document.querySelectorAll('script')
     ).find(({ src }) => src.indexOf('config.js'))!
+    console.log('current config element', currentConfigElement)
     const head = document.getElementsByTagName('head')[0]
     const newConfigElement = document.createElement('script')
     newConfigElement.src = currentConfigElement.src.replace(

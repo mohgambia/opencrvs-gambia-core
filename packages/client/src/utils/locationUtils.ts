@@ -25,8 +25,8 @@ export function filterLocations(
   const filteredLocations: { [key: string]: ILocation } = {}
   Object.values(locations).forEach((location: ILocation) => {
     if (
-      location.type === allowedType.toString() &&
-      (!match.locationId || location[match.locationLevel] === match.locationId)
+      location.type === allowedType.toString()
+      //&&      (!match.locationId || location[match.locationLevel] === match.locationId)
     ) {
       filteredLocations[location.id] = location
     }
@@ -91,6 +91,8 @@ export function generateLocations(
   filterByLocationTypes?: LocationType[]
 ) {
   let locationArray = Object.values(locations)
+
+  console.log('generating locations', locationArray, locations)
 
   if (filterByLocationTypes) {
     locationArray = locationArray.filter(
