@@ -252,6 +252,7 @@ type Vaccination {
   reaction: String
   expiryDate1: Date
   practitioner: String
+  nextVisit: Date
 }
 
 input VaccinationInput {
@@ -264,6 +265,7 @@ input VaccinationInput {
   reaction: String
   expiryDate1: Date
   practitioner: String
+  nextVisit: Date
 }
 
 input BirthRegistrationInput {

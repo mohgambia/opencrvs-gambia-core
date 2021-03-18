@@ -1033,6 +1033,21 @@ const builders: IFieldBuilders = {
           context
         )
       )
+    },
+    nextVisit:  (fhirBundle, fieldValue, context) => {
+      const immunization = selectOrCreateInmunizationResource(
+        BIRTH_ENCOUNTER_CODE,
+        getDateString(),
+        fhirBundle,
+        context
+      )
+      immunization.site = {
+        coding: [{
+          code: "NEXT VISIT DATE" ,
+          system: "GAMBIA CRVS"
+        }],
+        text: fieldValue as string
+      }
     }
   },
   createdAt: (fhirBundle, fieldValue) => {

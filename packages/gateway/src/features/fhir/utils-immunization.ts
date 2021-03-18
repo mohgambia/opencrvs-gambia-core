@@ -46,7 +46,7 @@ export function selectOrCreateInmunizationResource(
   if (immunization) {
     return immunization.resource as fhir.Immunization
   }
-  /* Existing obseration not found for given type */
+  /* Existing immunization not found for given type */
   immunization = createImmunizationResource(sectionCode, fhirBundle, context)
   return updateImmunizationInfo(
     immunization as fhir.Immunization,

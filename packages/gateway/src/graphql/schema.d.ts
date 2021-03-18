@@ -394,6 +394,10 @@ export interface GQLVaccination {
   batchNumber?: string
   notes?: string
   doseGiven1?: string
+  reaction?: string
+  expiryDate1?: GQLDate
+  practitioner?: string
+  nextVisit?: GQLDate
 }
 
 export const enum GQLBirthType {
@@ -741,6 +745,8 @@ export interface GQLVaccinationInput {
   doseGiven1?: string
   reaction?: string
   expiryDate1?: GQLDate
+  practitioner?: string
+  nextVisit?: GQLDate
 }
 
 export interface GQLPrimaryCaregiverInput {
@@ -3265,6 +3271,10 @@ export interface GQLVaccinationTypeResolver<TParent = any> {
   batchNumber?: VaccinationToBatchNumberResolver<TParent>
   notes?: VaccinationToNotesResolver<TParent>
   doseGiven1?: VaccinationToDoseGiven1Resolver<TParent>
+  reaction?: VaccinationToReactionResolver<TParent>
+  expiryDate1?: VaccinationToExpiryDate1Resolver<TParent>
+  practitioner?: VaccinationToPractitionerResolver<TParent>
+  nextVisit?: VaccinationToNextVisitResolver<TParent>
 }
 
 export interface VaccinationTo_fhirIDResolver<TParent = any, TResult = any> {
@@ -3297,6 +3307,28 @@ export interface VaccinationToNotesResolver<TParent = any, TResult = any> {
 }
 
 export interface VaccinationToDoseGiven1Resolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
+}
+
+export interface VaccinationToReactionResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
+}
+
+export interface VaccinationToExpiryDate1Resolver<
+  TParent = any,
+  TResult = any
+> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
+}
+
+export interface VaccinationToPractitionerResolver<
+  TParent = any,
+  TResult = any
+> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
+}
+
+export interface VaccinationToNextVisitResolver<TParent = any, TResult = any> {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 
