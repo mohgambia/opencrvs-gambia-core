@@ -74,11 +74,12 @@ import {
   setPrimaryCaregiverReference,
   selectObservationResource,
   getReasonCodeAndDesc,
-  removeObservationResource,
+  removeObservationResource
 } from '@gateway/features/fhir/utils'
 
 import { selectOrCreateInmunizationResource } from '@gateway/features/fhir/utils-immunization'
 import { selectOrCreateOrganizationResource } from '@gateway/features/fhir/utils-manufacturer'
+import { selectOrCreatePractitionerResource } from '@gateway/features/fhir/utils-practitioner'
 import {
   OPENCRVS_SPECIFICATION_URL,
   FHIR_SPECIFICATION_URL,
@@ -996,8 +997,6 @@ const builders: IFieldBuilders = {
           text: fieldValue?.toString()
         }
       ]
-
-      console.log(fieldValue)
     },
     priorityGroup: (fhirBundle, fieldValue, context) => {
       const immunization = selectOrCreateInmunizationResource(
@@ -1018,6 +1017,22 @@ const builders: IFieldBuilders = {
           }
         ]
       }
+    },
+    practitioner: (fhirBundle, fieldValue, context) => {
+      const immunization = selectOrCreateInmunizationResource(
+        BIRTH_ENCOUNTER_CODE,
+        getDateString(),
+        fhirBundle,
+        context
+      )
+      immunization.practitioner = []
+      immunization.practitioner.push(
+        selectOrCreatePractitionerResource(
+          fieldValue as string,
+          fhirBundle,
+          context
+        )
+      )
     }
   },
   createdAt: (fhirBundle, fieldValue) => {
