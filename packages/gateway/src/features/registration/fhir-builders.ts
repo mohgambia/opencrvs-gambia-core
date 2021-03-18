@@ -75,7 +75,6 @@ import {
   selectObservationResource,
   getReasonCodeAndDesc,
   removeObservationResource,
-  addObjectPropInResourceArray
 } from '@gateway/features/fhir/utils'
 
 import { selectOrCreateInmunizationResource } from '@gateway/features/fhir/utils-immunization'
@@ -118,7 +117,7 @@ function createNameBuilder(sectionCode: string, sectionTitle: string) {
       setObjectPropInResourceArray(
         person,
         'name',
-        fieldValue.split(' '),
+        [fieldValue],
         'given',
         context
       )
@@ -133,10 +132,13 @@ function createNameBuilder(sectionCode: string, sectionTitle: string) {
         sectionTitle,
         fhirBundle
       )
-      addObjectPropInResourceArray(
+      setObjectPropInResourceArray(
         person,
         'name',
-        fieldValue.split(' '),
+        [
+          person.name ? person.name['given'] && person.name['given'][0] : '',
+          fieldValue
+        ],
         'given',
         context
       )

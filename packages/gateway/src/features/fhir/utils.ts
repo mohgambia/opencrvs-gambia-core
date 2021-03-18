@@ -752,25 +752,6 @@ export function setObjectPropInResourceArray(
   resource[label][context._index[label]][propName] = value
 }
 
-export function addObjectPropInResourceArray(
-  resource: fhir.Resource,
-  label: string,
-  value: string | string[],
-  propName: string,
-  context: any
-) {
-  if (!resource[label]) {
-    resource[label] = []
-  }
-  if (!resource[label][context._index[label]]) {
-    resource[label][context._index[label]] = {}
-  }
-  resource[label][context._index[label]][propName] = [
-    ...value,
-    resource[label][context._index[label]][propName]
-  ]
-}
-
 export function setArrayPropInResourceObject(
   resource: fhir.Resource,
   label: string,
