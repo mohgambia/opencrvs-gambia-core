@@ -9,13 +9,23 @@ import {
  * Vaccionation resource
  * Alfonso Tienda <afoone@hotmail.com>
  */
+
+export const covid19Coding = {
+  coding: [
+    {
+      system: 'http://snomed.info/sct',
+      code: '840534001',
+      display: 'Severe acute respiratory syndrome coronavirus 2 vaccination'
+    }
+  ]
+}
+
 export function selectOrCreateInmunizationResource(
   sectionCode: string,
   vaccinationDate: string,
   fhirBundle: ITemplatedBundle,
   context: any
 ): fhir.Immunization {
-  console.log("fhirBundle", )
   let immunization = fhirBundle.entry.find(entry => {
     if (
       !entry ||
@@ -26,8 +36,7 @@ export function selectOrCreateInmunizationResource(
     }
     const immunizationEntry = entry.resource as fhir.Immunization
     const imCoding =
-      immunizationEntry.date &&
-      immunizationEntry.date === vaccinationDate
+      immunizationEntry.date && immunizationEntry.date === vaccinationDate
     if (imCoding) {
       return true
     }
@@ -38,14 +47,10 @@ export function selectOrCreateInmunizationResource(
     return immunization.resource as fhir.Immunization
   }
   /* Existing obseration not found for given type */
-  immunization = createImmunizationResource(
-    sectionCode,
-    fhirBundle,
-    context
-  )
+  immunization = createImmunizationResource(sectionCode, fhirBundle, context)
   return updateImmunizationInfo(
     immunization as fhir.Immunization,
-    vaccinationDate,
+    vaccinationDate
   )
 }
 
@@ -55,10 +60,7 @@ export function createImmunizationResource(
   context: any
 ): fhir.Immunization {
   const encounter = selectOrCreateEncounterResource(fhirBundle, context)
-  console.log("encounter", encounter)
   const section = findCompositionSectionInBundle(sectionCode, fhirBundle)
-  console.log("section", section)
-
   const ref = uuid()
   const immunizationEntry = createImmunizationEntryTemplate(ref)
   if (!section || !section.entry || !section.entry[0]) {
@@ -105,7 +107,7 @@ export function createImmunizationEntryTemplate(refUuid: string) {
 
 export function updateImmunizationInfo(
   immunization: fhir.Immunization,
-  vaccinationDate: string,
+  vaccinationDate: string
 ): fhir.Immunization {
   const covid19Coding = {
     coding: [
@@ -121,6 +123,7 @@ export function updateImmunizationInfo(
   immunization.vaccinationProtocol = [
     {
       seriesDoses: 2,
+      doseSequence: 1,
       targetDisease: [covid19Coding],
       doseStatus: {
         coding: [
@@ -134,15 +137,4 @@ export function updateImmunizationInfo(
 
   // setArrayPropInResourceObject(immunization, 'code', coding, 'coding')
   return immunization
-}
-
-
-export const covid19Coding = {
-  coding: [
-    {
-      system: 'http://snomed.info/sct',
-      code: '840534001',
-      display: 'Severe acute respiratory syndrome coronavirus 2 vaccination'
-    }
-  ]
 }

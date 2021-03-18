@@ -15,6 +15,7 @@
     "gen:types:watch": "nodemon -e graphql -i src/graphql/schema.graphql -x 'yarn gen:types'",
     "test:compilation": "tsc --noEmit",
     "build": "tsc && copyfiles 'src/**/*.graphql' build/dist",
+    "docker:image:create": "yarn build && docker build --file Dockerfile.compiled --tag afoone/ocrvs-gateway:crvs . && docker push afoone/ocrvs-gateway:crvs",
     "postbuild": "ef-tspm",
     "build:clean": "rm -rf build"
   },

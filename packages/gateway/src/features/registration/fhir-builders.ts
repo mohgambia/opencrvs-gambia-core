@@ -74,7 +74,8 @@ import {
   setPrimaryCaregiverReference,
   selectObservationResource,
   getReasonCodeAndDesc,
-  removeObservationResource
+  removeObservationResource,
+  addObjectPropInResourceArray
 } from '@gateway/features/fhir/utils'
 
 import { selectOrCreateInmunizationResource } from '@gateway/features/fhir/utils-immunization'
@@ -115,6 +116,24 @@ function createNameBuilder(sectionCode: string, sectionTitle: string) {
         fhirBundle
       )
       setObjectPropInResourceArray(
+        person,
+        'name',
+        fieldValue.split(' '),
+        'given',
+        context
+      )
+    },
+    middleName: (
+      fhirBundle: ITemplatedBundle,
+      fieldValue: string,
+      context: any
+    ) => {
+      const person = selectOrCreatePersonResource(
+        sectionCode,
+        sectionTitle,
+        fhirBundle
+      )
+      addObjectPropInResourceArray(
         person,
         'name',
         fieldValue.split(' '),
@@ -958,7 +977,7 @@ const builders: IFieldBuilders = {
       )
       console.log('manufacturer', organization)
       immunization.manufacturer = {
-        reference: 'Organization/' + organization.id,
+        reference: 'Organization/' + organization.id
       }
 
       console.log(immunization)

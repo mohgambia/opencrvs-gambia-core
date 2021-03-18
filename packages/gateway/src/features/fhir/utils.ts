@@ -172,9 +172,6 @@ export function selectOrCreateEncounterResource(
   return encounterEntry.resource as fhir.Encounter
 }
 
-
-
-
 export function selectOrCreateObservationResource(
   sectionCode: string,
   categoryCode: string,
@@ -755,6 +752,25 @@ export function setObjectPropInResourceArray(
   resource[label][context._index[label]][propName] = value
 }
 
+export function addObjectPropInResourceArray(
+  resource: fhir.Resource,
+  label: string,
+  value: string | string[],
+  propName: string,
+  context: any
+) {
+  if (!resource[label]) {
+    resource[label] = []
+  }
+  if (!resource[label][context._index[label]]) {
+    resource[label][context._index[label]] = {}
+  }
+  resource[label][context._index[label]][propName] = [
+    ...value,
+    resource[label][context._index[label]][propName]
+  ]
+}
+
 export function setArrayPropInResourceObject(
   resource: fhir.Resource,
   label: string,
@@ -831,7 +847,7 @@ export const fetchFHIR = (
   method: string = 'GET',
   body: string | undefined = undefined
 ) => {
-  console.log("peticion fhir", `${FHIR_URL}${suffix}`,authHeader, body)
+  console.log('peticion fhir', `${FHIR_URL}${suffix}`, authHeader, body)
   return fetch(`${FHIR_URL}${suffix}`, {
     method,
     headers: {
@@ -841,7 +857,7 @@ export const fetchFHIR = (
     body
   })
     .then(response => {
-      console.log("respuesta fhir", response)
+      console.log('respuesta fhir', response)
       return response.json()
     })
     .catch(error => {
