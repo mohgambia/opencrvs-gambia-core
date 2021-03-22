@@ -395,6 +395,7 @@ export interface GQLVaccination {
   notes?: string
   doseGiven1?: string
   reaction?: string
+  reactionSeverity?: string
   expiryDate1?: GQLDate
   practitioner?: string
   nextVisit?: GQLDate
@@ -744,6 +745,7 @@ export interface GQLVaccinationInput {
   notes?: string
   doseGiven1?: string
   reaction?: string
+  reactionSeverity?: string
   expiryDate1?: GQLDate
   practitioner?: string
   nextVisit?: GQLDate
@@ -3272,6 +3274,7 @@ export interface GQLVaccinationTypeResolver<TParent = any> {
   notes?: VaccinationToNotesResolver<TParent>
   doseGiven1?: VaccinationToDoseGiven1Resolver<TParent>
   reaction?: VaccinationToReactionResolver<TParent>
+  reactionSeverity?: VaccinationToReactionSeverityResolver<TParent>
   expiryDate1?: VaccinationToExpiryDate1Resolver<TParent>
   practitioner?: VaccinationToPractitionerResolver<TParent>
   nextVisit?: VaccinationToNextVisitResolver<TParent>
@@ -3311,6 +3314,13 @@ export interface VaccinationToDoseGiven1Resolver<TParent = any, TResult = any> {
 }
 
 export interface VaccinationToReactionResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
+}
+
+export interface VaccinationToReactionSeverityResolver<
+  TParent = any,
+  TResult = any
+> {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult
 }
 

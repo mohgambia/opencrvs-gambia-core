@@ -938,12 +938,35 @@ const builders: IFieldBuilders = {
         fhirBundle,
         context
       )
+
+      const currentReaction = immunization.reaction
+
       immunization.reaction = [
         {
-          reported: true,
+          reported: true && currentReaction && currentReaction['reported'],
 
           detail: {
             reference: fieldValue as string
+          }
+        }
+      ]
+    },
+    reactionSeverity: (fhirBundle, fieldValue, context) => {
+      const immunization = selectOrCreateInmunizationResource(
+        BIRTH_ENCOUNTER_CODE,
+        getDateString(),
+        fhirBundle,
+        context
+      )
+      const currentReaction = immunization.reaction
+      immunization.reaction = [
+        {
+          reported: (fieldValue as string) === 'Severe',
+          detail: {
+            reference:
+              currentReaction && currentReaction['detail']
+                ? currentReaction['detail']
+                : ''
           }
         }
       ]
@@ -1034,7 +1057,7 @@ const builders: IFieldBuilders = {
         )
       )
     },
-    nextVisit:  (fhirBundle, fieldValue, context) => {
+    nextVisit: (fhirBundle, fieldValue, context) => {
       const immunization = selectOrCreateInmunizationResource(
         BIRTH_ENCOUNTER_CODE,
         getDateString(),
@@ -1042,10 +1065,12 @@ const builders: IFieldBuilders = {
         context
       )
       immunization.site = {
-        coding: [{
-          code: "NEXT VISIT DATE" ,
-          system: "GAMBIA CRVS"
-        }],
+        coding: [
+          {
+            code: 'NEXT VISIT DATE',
+            system: 'GAMBIA CRVS'
+          }
+        ],
         text: fieldValue as string
       }
     }

@@ -1005,12 +1005,13 @@ export async function getRegistrationIds(
   isTask: boolean,
   authHeader: IAuthHeader
 ) {
-  let registrationNumber: string
+  let registrationNumber = ""
   if (eventType === EVENT_TYPE.BIRTH) {
     registrationNumber = BIRTH_REG_NO
   } else if (eventType === EVENT_TYPE.DEATH) {
     registrationNumber = DEATH_REG_NO
   }
+  
   let path
   if (isTask) {
     path = `/Task/${compositionId}`
@@ -1026,12 +1027,15 @@ export async function getRegistrationIds(
   } else {
     throw new Error('getRegistrationIds: Invalid task found')
   }
+
+  console.log("taskresource***" , taskResource, `${OPENCRVS_SPECIFICATION_URL}id/${registrationNumber}`)
   const regIdentifier =
     taskResource.identifier &&
     taskResource.identifier.find(
       (identifier: fhir.Identifier) =>
-        identifier.system ===
-        `${OPENCRVS_SPECIFICATION_URL}id/${registrationNumber}`
+        (identifier.system ===
+        `${OPENCRVS_SPECIFICATION_URL}id/${registrationNumber}`) || (identifier.system ===
+        `${OPENCRVS_SPECIFICATION_URL}id/draft-id`)
     )
   if (!regIdentifier || !regIdentifier.value) {
     throw new Error(

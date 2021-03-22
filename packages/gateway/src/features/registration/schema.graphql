@@ -250,6 +250,7 @@ type Vaccination {
   notes: String
   doseGiven1:String
   reaction: String
+  reactionSeverity: String
   expiryDate1: Date
   practitioner: String
   nextVisit: Date
@@ -263,6 +264,7 @@ input VaccinationInput {
   notes: String
   doseGiven1:String
   reaction: String
+  reactionSeverity: String
   expiryDate1: Date
   practitioner: String
   nextVisit: Date
