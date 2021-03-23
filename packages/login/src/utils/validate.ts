@@ -42,19 +42,20 @@ export const messages: {
   phoneNumberFormat: {
     id: 'validations.phoneNumberFormat',
     defaultMessage:
-      'Must be a valid mobile phone number. Starting with 0. e.g. {example}',
+      'Must be a valid mobile phone number. Starting with . e.g. {example}',
     description:
       'The error message that appears on phone numbers where the first character must be a 0'
   },
   mobilePhoneRegex: {
     id: 'validations.mobilePhoneRegex',
-    defaultMessage: '07[0-9]{9,10}',
+    // defaultMessage: '(2|3|4|5|6|7|9)[0-9]{1}[0-9]{5}',
+    defaultMessage: '(2|3|4|5|6|7|9)[0-9]{1}[0-9]{5}',
     description:
       'The regular expression to use when validating a local mobile phone number'
   },
   mobileNumberFormat: {
     id: 'validations.mobileNumberFormat',
-    defaultMessage: '07123456789',
+    defaultMessage: '3870341',
     description:
       'The format of the mobile number that appears in an error message'
   },
@@ -76,29 +77,29 @@ interface IMobilePhonePattern {
 }
 
 const mobilePhonePatternTable: { [key: string]: IMobilePhonePattern } = {
-  gbr: {
-    pattern: /^07[0-9]{9,10}$/,
-    example: '07123456789',
-    start: '07',
-    num: '10 or 11'
-  },
-  bgd: {
-    pattern: /^01[1-9][0-9]{8}$/,
-    example: '01741234567',
-    start: '01',
-    num: '11'
-  },
-  zmb: {
-    pattern: /^0(7|9)[0-9]{1}[0-9]{7}$/,
-    example: '0970545855',
-    start: '0[7|9]',
-    num: '10'
-  },
-  gmb: {
-    pattern: /^(70|77|98)[0-9]{1}[0-9]{6}$/,
-    example: '70545855',
-    start: '[70|77|98]',
-    num: '9'
+  // gbr: {
+  //   pattern: /^07[0-9]{9,10}$/,
+  //   example: '07123456789',
+  //   start: '07',
+  //   num: '10 or 11'
+  // },
+  // bgd: {
+  //   pattern: /^01[1-9][0-9]{8}$/,
+  //   example: '01741234567',
+  //   start: '01',
+  //   num: '11'
+  // },
+  // zmb: {
+  //   pattern: /^0(7|9)[0-9]{1}[0-9]{7}$/,
+  //   example: '0970545855',
+  //   start: '0[7|9]',
+  //   num: '10'
+  // },
+  gmb: {   // Gambia phone number validation
+    pattern: /^(2|3|4|5|6|7|9)[0-9]{1}[0-9]{5}$/,
+    example: '3870341',
+    start: '[2|3|4|5|6|7|9]',
+    num: '7'
   }
 }
 
