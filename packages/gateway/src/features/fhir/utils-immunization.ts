@@ -35,8 +35,10 @@ export function selectOrCreateInmunizationResource(
       return false
     }
     const immunizationEntry = entry.resource as fhir.Immunization
+    console.log(sectionCode)
     const imCoding =
-      immunizationEntry.date && immunizationEntry.date === vaccinationDate
+      immunizationEntry.date &&
+      immunizationEntry.date === vaccinationDate
     if (imCoding) {
       return true
     }
@@ -88,7 +90,9 @@ export function createImmunizationResource(
   immunizationEntry.resource.vaccineCode = covid19Coding
 
   if (encounterEntry && encounter) {
-    immunizationEntry.resource.encounter = encounterEntry
+    immunizationEntry.resource.encounter = {
+      reference: `${encounterEntry.fullUrl}`
+    }
   }
   fhirBundle.entry.push(immunizationEntry)
 

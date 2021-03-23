@@ -79,7 +79,6 @@ import {
 
 import { selectOrCreateInmunizationResource } from '@gateway/features/fhir/utils-immunization'
 import { selectOrCreateOrganizationResource } from '@gateway/features/fhir/utils-manufacturer'
-import { selectOrCreatePractitionerResource } from '@gateway/features/fhir/utils-practitioner'
 import {
   OPENCRVS_SPECIFICATION_URL,
   FHIR_SPECIFICATION_URL,
@@ -938,13 +937,9 @@ const builders: IFieldBuilders = {
         fhirBundle,
         context
       )
-
-      const currentReaction = immunization.reaction
-
       immunization.reaction = [
         {
-          reported: true && currentReaction && currentReaction['reported'],
-
+          reported: true,
           detail: {
             reference: fieldValue as string
           }
@@ -958,15 +953,18 @@ const builders: IFieldBuilders = {
         fhirBundle,
         context
       )
-      const currentReaction = immunization.reaction
+
+      const currentReference =
+        immunization.reaction &&
+        immunization.reaction[0] &&
+        immunization.reaction[0].detail &&
+        immunization.reaction[0].detail.reference
+
       immunization.reaction = [
         {
-          reported: (fieldValue as string) === 'Severe',
+          reported: (fieldValue as string) === 'severe',
           detail: {
-            reference:
-              currentReaction && currentReaction['detail']
-                ? currentReaction['detail']
-                : ''
+            reference: currentReference
           }
         }
       ]
@@ -988,6 +986,7 @@ const builders: IFieldBuilders = {
         context
       )
       immunization.expirationDate = fieldValue as string
+     
     },
     manufacturer: (fhirBundle, fieldValue, context) => {
       const immunization = selectOrCreateInmunizationResource(
@@ -1001,12 +1000,10 @@ const builders: IFieldBuilders = {
         fhirBundle,
         context
       )
-      console.log('manufacturer', organization)
+      // console.log('manufacturer', organization)
       immunization.manufacturer = {
         reference: 'Organization/' + organization.id
       }
-
-      console.log(immunization)
     },
     notes: (fhirBundle, fieldValue, context) => {
       const immunization = selectOrCreateInmunizationResource(
@@ -1048,14 +1045,13 @@ const builders: IFieldBuilders = {
         fhirBundle,
         context
       )
-      immunization.practitioner = []
-      immunization.practitioner.push(
-        selectOrCreatePractitionerResource(
-          fieldValue as string,
-          fhirBundle,
-          context
-        )
-      )
+      immunization.extension = [
+        {
+          url: 'FULL_PRACTITIONER_NAME',
+          valueString: fieldValue as string
+        }
+      ]
+      console.log('practitiones', immunization)
     },
     nextVisit: (fhirBundle, fieldValue, context) => {
       const immunization = selectOrCreateInmunizationResource(

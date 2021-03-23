@@ -396,9 +396,9 @@ export interface GQLVaccination {
   doseGiven1?: string
   reaction?: string
   reactionSeverity?: string
-  expiryDate1?: GQLDate
+  expiryDate1?: string
   practitioner?: string
-  nextVisit?: GQLDate
+  nextVisit?: string
 }
 
 export const enum GQLBirthType {
@@ -746,9 +746,9 @@ export interface GQLVaccinationInput {
   doseGiven1?: string
   reaction?: string
   reactionSeverity?: string
-  expiryDate1?: GQLDate
+  expiryDate1?: string
   practitioner?: string
-  nextVisit?: GQLDate
+  nextVisit?: string
 }
 
 export interface GQLPrimaryCaregiverInput {

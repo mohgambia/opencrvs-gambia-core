@@ -372,9 +372,9 @@ type Vaccination {
   doseGiven1: String
   reaction: String
   reactionSeverity: String
-  expiryDate1: Date
+  expiryDate1: String
   practitioner: String
-  nextVisit: Date
+  nextVisit: String
 }
 
 enum BirthType {
@@ -711,9 +711,9 @@ input VaccinationInput {
   doseGiven1: String
   reaction: String
   reactionSeverity: String
-  expiryDate1: Date
+  expiryDate1: String
   practitioner: String
-  nextVisit: Date
+  nextVisit: String
 }
 
 input PrimaryCaregiverInput {

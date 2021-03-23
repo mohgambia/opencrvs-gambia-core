@@ -126,7 +126,11 @@ export default {
               manufacturer
               priorityGroup1
               doseGiven1
-
+              expiryDate1
+              practitioner
+              nextVisit
+              reaction
+              reactionSeverity
             }
             informant {
               id
