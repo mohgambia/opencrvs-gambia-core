@@ -49,7 +49,8 @@ import {
   VERIFY_COLLECTOR,
   WORKFLOW_STATUS,
   TEAM_USER_LIST,
-  USER_PROFILE
+  USER_PROFILE,
+  IMMUNIZATION_HOME
 } from '@client/navigation/routes'
 import { getCurrentUserScope } from '@client/utils/authUtils'
 import { OPERATIONAL_REPORT_SECTION } from '@client/views/SysAdmin/Performance/OperationalReport'
@@ -201,6 +202,12 @@ export function goToPerformanceHome(state?: searchedLocation) {
   return state && state.selectedLocation
     ? push(PERFORMANCE_HOME, { selectedLocation: state.selectedLocation })
     : push(PERFORMANCE_HOME)
+}
+
+export function goToImmunizationHome(state?: searchedLocation) {
+  return state && state.selectedLocation
+    ? push(IMMUNIZATION_HOME, { selectedLocation: state.selectedLocation })
+    : push(IMMUNIZATION_HOME)
 }
 
 export function goToPerformanceReportList() {

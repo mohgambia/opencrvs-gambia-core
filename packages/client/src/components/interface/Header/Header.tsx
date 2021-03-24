@@ -20,6 +20,7 @@ import { messages } from '@client/i18n/messages/views/header'
 import {
   goToEvents as goToEventsAction,
   goToHome,
+  goToImmunizationHome,
   goToOperationalReport,
   goToPerformanceHome,
   goToPerformanceReportList,
@@ -90,6 +91,7 @@ type IProps = IntlShapeProps & {
   goToSettings: typeof goToSettings
   goToHomeAction: typeof goToHome
   goToPerformanceHomeAction: typeof goToPerformanceHome
+  goToImmunizationHomeAction: typeof goToImmunizationHome
   goToPerformanceReportListAction: typeof goToPerformanceReportList
   goToOperationalReportAction: typeof goToOperationalReport
   goToTeamSearchAction: typeof goToTeamSearch
@@ -111,7 +113,8 @@ enum ACTIVE_MENU_ITEM {
   APPLICATIONS,
   PERFORMANCE,
   TEAM,
-  USERS
+  USERS,
+  IMMUNIZATION
 }
 
 const StyledPrimaryButton = styled(PrimaryButton)`
@@ -375,6 +378,13 @@ class HeaderComp extends React.Component<IProps, IState> {
     }
   }
 
+  goToImmunizationView(props: IProps) {
+    const { userDetails, goToImmunizationHomeAction } = props
+    if (userDetails && userDetails.role) {
+      return goToImmunizationHomeAction()
+    }
+  }
+
   render() {
     const {
       intl,
@@ -406,6 +416,14 @@ class HeaderComp extends React.Component<IProps, IState> {
             selected:
               enableMenuSelection &&
               activeMenuItem === ACTIVE_MENU_ITEM.APPLICATIONS
+          },
+          {
+            key: 'immunization',
+            title: 'COVID19 Vaccination Campaign',
+            onClick: () => this.goToImmunizationView(this.props),
+            selected:
+              enableMenuSelection &&
+              activeMenuItem === ACTIVE_MENU_ITEM.IMMUNIZATION
           }
         ])
       }
@@ -481,6 +499,8 @@ export const Header = connect(
       ? ACTIVE_MENU_ITEM.PERFORMANCE
       : window.location.href.includes('team')
       ? ACTIVE_MENU_ITEM.TEAM
+      : window.location.href.includes('immunization')
+      ? ACTIVE_MENU_ITEM.IMMUNIZATION
       : ACTIVE_MENU_ITEM.APPLICATIONS,
     language: store.i18n.language,
     userDetails: getUserDetails(store)
@@ -493,6 +513,7 @@ export const Header = connect(
     goToEvents: goToEventsAction,
     goToHomeAction: goToHome,
     goToPerformanceHomeAction: goToPerformanceHome,
+    goToImmunizationHomeAction: goToImmunizationHome,
     goToOperationalReportAction: goToOperationalReport,
     goToPerformanceReportListAction: goToPerformanceReportList,
     goToTeamSearchAction: goToTeamSearch,

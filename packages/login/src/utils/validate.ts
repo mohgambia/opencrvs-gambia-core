@@ -95,7 +95,8 @@ const mobilePhonePatternTable: { [key: string]: IMobilePhonePattern } = {
   //   start: '0[7|9]',
   //   num: '10'
   // },
-  gmb: {   // Gambia phone number validation
+  gmb: {
+    // Gambia phone number validation
     pattern: /^(2|3|4|5|6|7|9)[0-9]{1}[0-9]{5}$/,
     example: '3870341',
     start: '[2|3|4|5|6|7|9]',

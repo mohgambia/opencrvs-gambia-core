@@ -61,6 +61,7 @@ import { ApolloProvider } from 'react-apollo'
 import { Provider } from 'react-redux'
 import { Switch } from 'react-router'
 import { AppStore } from './store'
+import ImmunizationHome from './views/Immunization/ImmunizationHome'
 import { UserList } from './views/SysAdmin/Team/user/UserList'
 
 interface IAppProps {
@@ -298,6 +299,11 @@ export class App extends React.Component<IAppProps> {
                                             exact
                                             path={routes.PERFORMANCE_HOME}
                                             component={PerformanceHome}
+                                          />
+                                          <ProtectedRoute
+                                            exact
+                                            path={routes.IMMUNIZATION_HOME}
+                                            component={ImmunizationHome}
                                           />
                                           <ProtectedRoute
                                             exact

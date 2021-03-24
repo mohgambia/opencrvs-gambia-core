@@ -53,9 +53,11 @@ export const birthEventLocationMutationTransformer = (
   } else {
     console.log(transformedData, draftData, field.name, sectionId)
     console.log('section', draftData[sectionId])
-    transformedData.eventLocation.address[field.name] = `${
-      draftData[sectionId][field.name]
-    }`
+    if (transformedData.eventLocation.address) {
+      transformedData.eventLocation.address[field.name] = `${
+        draftData[sectionId][field.name]
+      }`
+    }
   }
   if (field.name === 'addressLine4') {
     transformedData.eventLocation.partOf = `Location/${
