@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import DatePicker from 'react-datepicker'
 import './ImmunizationForm.css'
+import { getToken } from '@client/utils/authUtils'
 
 import 'react-datepicker/dist/react-datepicker.css'
 
@@ -21,11 +22,28 @@ const ImmunizationForm = () => {
 
   const savePatient = e => {
     e.preventDefault()
-    axios.post('/api/patients', {
-      firstName,
-      lastName,
-      middleName
-    })
+    const url = `${window.config.RESOURCES_URL}/immunization/`
+
+    axios.post(
+      url,
+      {
+        firstName,
+        lastName,
+        middleName,
+        firstDoseDate,
+        nameOfTheVaccine,
+        batchNumber,
+        expirydate,
+        dateOfNextVisit,
+        vaccinatorFullName,
+        aefi: [{ aefiSeverity, aefiDescription }]
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${getToken()}`
+        }
+      }
+    )
   }
 
   return (

@@ -7,8 +7,6 @@ const ImmunizationHome = () => {
   return (
     <SysAdminContentWrapper>
       <Header>COVID19 Immunization Campaign</Header>
-
-      <div>Hello Immunization</div>
       <ImmunizationForm></ImmunizationForm>
     </SysAdminContentWrapper>
   )
