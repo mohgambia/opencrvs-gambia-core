@@ -308,6 +308,13 @@ export class App extends React.Component<IAppProps> {
                                           <ProtectedRoute
                                             exact
                                             path={
+                                              routes.IMMUNIZATION_HOME + '/:id/'
+                                            }
+                                            component={ImmunizationHome}
+                                          />
+                                          <ProtectedRoute
+                                            exact
+                                            path={
                                               routes.PERFORMANCE_REPORT_LIST
                                             }
                                             component={ReportList}
