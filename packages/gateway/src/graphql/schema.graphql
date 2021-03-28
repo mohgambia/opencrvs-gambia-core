@@ -725,6 +725,7 @@ input PrimaryCaregiverInput {
 input HumanNameInput {
   use: String
   firstNames: String
+  middleName: String
   familyName: String
   baptismalName: String
 }

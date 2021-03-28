@@ -2,3 +2,8 @@
   display: grid;
   grid-template-columns: auto auto;
 }
+
+.error {
+  color:red; 
+  font-size: 0.7rem;
+}

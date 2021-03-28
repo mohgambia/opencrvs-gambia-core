@@ -760,6 +760,7 @@ export interface GQLPrimaryCaregiverInput {
 export interface GQLHumanNameInput {
   use?: string
   firstNames?: string
+  middleName?: string
   familyName?: string
   baptismalName?: string
 }

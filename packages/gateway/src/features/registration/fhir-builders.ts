@@ -117,28 +117,7 @@ function createNameBuilder(sectionCode: string, sectionTitle: string) {
       setObjectPropInResourceArray(
         person,
         'name',
-        [fieldValue],
-        'given',
-        context
-      )
-    },
-    middleName: (
-      fhirBundle: ITemplatedBundle,
-      fieldValue: string,
-      context: any
-    ) => {
-      const person = selectOrCreatePersonResource(
-        sectionCode,
-        sectionTitle,
-        fhirBundle
-      )
-      setObjectPropInResourceArray(
-        person,
-        'name',
-        [
-          person.name ? person.name['given'] && person.name['given'][0] : '',
-          fieldValue
-        ],
+        fieldValue.split(' '),
         'given',
         context
       )
@@ -940,31 +919,9 @@ const builders: IFieldBuilders = {
       immunization.reaction = [
         {
           reported: true,
+
           detail: {
             reference: fieldValue as string
-          }
-        }
-      ]
-    },
-    reactionSeverity: (fhirBundle, fieldValue, context) => {
-      const immunization = selectOrCreateInmunizationResource(
-        BIRTH_ENCOUNTER_CODE,
-        getDateString(),
-        fhirBundle,
-        context
-      )
-
-      const currentReference =
-        immunization.reaction &&
-        immunization.reaction[0] &&
-        immunization.reaction[0].detail &&
-        immunization.reaction[0].detail.reference
-
-      immunization.reaction = [
-        {
-          reported: (fieldValue as string) === 'severe',
-          detail: {
-            reference: currentReference
           }
         }
       ]
@@ -986,7 +943,6 @@ const builders: IFieldBuilders = {
         context
       )
       immunization.expirationDate = fieldValue as string
-     
     },
     manufacturer: (fhirBundle, fieldValue, context) => {
       const immunization = selectOrCreateInmunizationResource(
@@ -1000,10 +956,12 @@ const builders: IFieldBuilders = {
         fhirBundle,
         context
       )
-      // console.log('manufacturer', organization)
+      console.log('manufacturer', organization)
       immunization.manufacturer = {
         reference: 'Organization/' + organization.id
       }
+
+      console.log(immunization)
     },
     notes: (fhirBundle, fieldValue, context) => {
       const immunization = selectOrCreateInmunizationResource(
@@ -1017,6 +975,8 @@ const builders: IFieldBuilders = {
           text: fieldValue?.toString()
         }
       ]
+
+      console.log(fieldValue)
     },
     priorityGroup: (fhirBundle, fieldValue, context) => {
       const immunization = selectOrCreateInmunizationResource(
@@ -1036,38 +996,6 @@ const builders: IFieldBuilders = {
             ]
           }
         ]
-      }
-    },
-    practitioner: (fhirBundle, fieldValue, context) => {
-      const immunization = selectOrCreateInmunizationResource(
-        BIRTH_ENCOUNTER_CODE,
-        getDateString(),
-        fhirBundle,
-        context
-      )
-      immunization.extension = [
-        {
-          url: 'FULL_PRACTITIONER_NAME',
-          valueString: fieldValue as string
-        }
-      ]
-      console.log('practitiones', immunization)
-    },
-    nextVisit: (fhirBundle, fieldValue, context) => {
-      const immunization = selectOrCreateInmunizationResource(
-        BIRTH_ENCOUNTER_CODE,
-        getDateString(),
-        fhirBundle,
-        context
-      )
-      immunization.site = {
-        coding: [
-          {
-            code: 'NEXT VISIT DATE',
-            system: 'GAMBIA CRVS'
-          }
-        ],
-        text: fieldValue as string
       }
     }
   },

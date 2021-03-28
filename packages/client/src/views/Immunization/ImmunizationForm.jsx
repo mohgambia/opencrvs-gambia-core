@@ -10,6 +10,7 @@ import PatientData from './PatientData'
 import { storage } from '@client/storage'
 import './styles/header.css'
 import { Redirect } from 'react-router'
+import { validate } from './validators/validator'
 
 const ImmunizationForm = ({ id }) => {
   const [patient, setPatient] = useState({})
@@ -36,6 +37,14 @@ const ImmunizationForm = ({ id }) => {
   const [district, setDistrict] = useState('')
   const [facility, setFacility] = useState('')
   const [place, setPlace] = useState('')
+  const [errors, setErrors] = useState({})
+
+  const validations = {
+    lastName: { required: true },
+    batchNumber: { required: true },
+    vaccinatorFullName: { required: true },
+    nameOfTheVaccine: { required: true }
+  }
 
   const setLocationsOnState = locationsObject => {
     const locationsArray = Object.keys(locationsObject).map(k => ({
@@ -43,10 +52,8 @@ const ImmunizationForm = ({ id }) => {
       name: locationsObject[k].name,
       partOf: locationsObject[k].partOf
     }))
-    console.log(locationsArray)
     setProvinces(locationsArray.filter(l => l.partOf === 'Location/0'))
     setDistricts(locationsArray.filter(l => l.partOf !== 'Location/0'))
-    console.log(provinces, districts)
   }
 
   useEffect(() => {
@@ -85,7 +92,8 @@ const ImmunizationForm = ({ id }) => {
           setFacilities(
             Object.keys(offlineData.facilities).map(k => ({
               id: offlineData.facilities[k].id,
-              name: offlineData.facilities[k].name
+              name: offlineData.facilities[k].name,
+              partOf: offlineData.facilities[k].partOf
             }))
           )
           setLocationsOnState(offlineData.locations)
@@ -100,36 +108,38 @@ const ImmunizationForm = ({ id }) => {
   const savePatient = e => {
     e.preventDefault()
     const url = `${window.config.RESOURCES_URL}/immunization/`
+    const object = {
+      patient: patient.id,
+      firstName,
+      lastName,
+      middleName,
+      firstDoseDate,
+      nameOfTheVaccine,
+      batchNumber,
+      expirydate,
+      dateOfNextVisit,
+      vaccinatorFullName,
+      aefi: [{ aefiSeverity, aefiDescription }],
+      placeofVaccination: {
+        facility,
+        province,
+        district,
+        place
+      }
+    }
 
-    axios
-      .post(
-        url,
-        {
-          patient: patient.id,
-          firstName,
-          lastName,
-          middleName,
-          firstDoseDate,
-          nameOfTheVaccine,
-          batchNumber,
-          expirydate,
-          dateOfNextVisit,
-          vaccinatorFullName,
-          aefi: [{ aefiSeverity, aefiDescription }],
-          placeofVaccination: {
-            facility,
-            province,
-            district,
-            place
-          }
-        },
-        {
+    const validationErrors = validate(object, validations)
+
+    if (Object.keys(validationErrors).length < 1) {
+      axios
+        .post(url, object, {
           headers: {
             Authorization: `Bearer ${getToken()}`
           }
-        }
-      )
-      .then(setRedirect(true))
+        })
+        .then(setRedirect(true))
+    }
+    setErrors(validationErrors)
   }
 
   return (
@@ -149,6 +159,9 @@ const ImmunizationForm = ({ id }) => {
               onChange={e => setFirstName(e.target.value)}
               placeholder="First Name"
             />
+            {errors.firstName && (
+              <div className="error">{errors.firstName}</div>
+            )}
           </div>
           <div className="ui field">
             <label>Middle Name</label>
@@ -159,6 +172,9 @@ const ImmunizationForm = ({ id }) => {
               onChange={e => setMiddleName(e.target.value)}
               placeholder="Middle Name"
             />
+            {errors.middleName && (
+              <div className="error">{errors.middleName}</div>
+            )}
           </div>
           <div className="ui field">
             <label>Last Name</label>
@@ -170,6 +186,7 @@ const ImmunizationForm = ({ id }) => {
               onChange={e => setLastName(e.target.value)}
               placeholder="Last Name"
             />
+            {errors.lastName && <div className="error">{errors.lastName}</div>}
           </div>
         </div>
         <h4 className="ui dividing header">Vaccination Data</h4>
@@ -182,6 +199,9 @@ const ImmunizationForm = ({ id }) => {
                 onChange={date => setFirstDoseDate(date)}
               />
             </div>
+            {errors.firstDoseDate && (
+              <div className="error">{errors.firstDoseDate}</div>
+            )}
           </div>
           <div className="ui field">
             <label>Date of Next Visit (2nd Dose)</label>
@@ -191,6 +211,9 @@ const ImmunizationForm = ({ id }) => {
                 onChange={date => setDateOfNextVisit(date)}
               />
             </div>
+            {errors.dateOfNextVisit && (
+              <div className="error">{errors.dateOfNextVisit}</div>
+            )}
           </div>
         </div>
         <div className="three fields">
@@ -211,6 +234,9 @@ const ImmunizationForm = ({ id }) => {
               <option>NovaVax</option>
               <option>Jhonson&Jhonson - Jansen</option>
             </select>
+            {errors.nameOfTheVaccine && (
+              <div className="error">{errors.nameOfTheVaccine}</div>
+            )}
           </div>
 
           <div className="ui field">
@@ -223,6 +249,9 @@ const ImmunizationForm = ({ id }) => {
               onChange={e => setBatchNumber(e.target.value)}
               placeholder="Batch Number"
             ></input>
+            {errors.batchNumber && (
+              <div className="error">{errors.batchNumber}</div>
+            )}
           </div>
           <div className="ui field">
             <label>Expiry Date</label>
@@ -232,6 +261,9 @@ const ImmunizationForm = ({ id }) => {
                 onChange={date => setExpirydate(date)}
               />
             </div>
+            {errors.expirydate && (
+              <div className="error">{errors.expirydate}</div>
+            )}
           </div>
         </div>
         <div className="ui field">
@@ -244,6 +276,9 @@ const ImmunizationForm = ({ id }) => {
             onChange={e => setVaccinatorFullName(e.target.value)}
             placeholder="Vaccinator FullName"
           />
+          {errors.vaccinatorFullName && (
+            <div className="error">{errors.vaccinatorFullName}</div>
+          )}
         </div>
         <h4 className="ui dividing header">Place of vaccination</h4>
         <div className="inline fields">
@@ -274,9 +309,63 @@ const ImmunizationForm = ({ id }) => {
             </div>
           </div>
         </div>
-        {addressType === 'facility' && (
-          <div className="fields">
-            <div className="six wide field">
+
+        <div className="fields">
+          <div className="four wide field">
+            <label>Province</label>
+            <select
+              className="ui fluid dropdown"
+              value={province}
+              onChange={e => setProvince(e.target.value)}
+            >
+              <option></option>
+              {provinces
+                .sort((i, j) => (i.name > j.name ? 1 : -1))
+                .map(f => (
+                  <option key={f.id} value={f.id}>
+                    {f.name}
+                  </option>
+                ))}
+            </select>
+            {errors.province && <div className="error">{errors.province}</div>}
+          </div>
+          {province && (
+            <div className="four wide field">
+              <label>District</label>
+              <select
+                className="ui fluid dropdown"
+                value={district}
+                onChange={e => setDistrict(e.target.value)}
+              >
+                <option></option>
+                {districts
+                  .filter(d => d.partOf === `Location/${province}`)
+                  .sort((i, j) => (i.name > j.name ? 1 : -1))
+                  .map(f => (
+                    <option key={f.id} value={f.id}>
+                      {f.name}
+                    </option>
+                  ))}
+              </select>
+              {errors.district && (
+                <div className="error">{errors.district}</div>
+              )}
+            </div>
+          )}
+          {district && addressType !== 'facility' && (
+            <div className="eight wide field">
+              <label>Place</label>
+              <input
+                type="text"
+                value={place}
+                onChange={e => setPlace(e.target.value)}
+              />
+              {errors.place && <div className="error">{errors.place}</div>}
+            </div>
+          )}
+          {district && addressType === 'facility' && (
+            <div className="eight wide field">
+              <label>Facility</label>
               <select
                 className="ui fluid dropdown"
                 value={facility}
@@ -291,60 +380,13 @@ const ImmunizationForm = ({ id }) => {
                     </option>
                   ))}
               </select>
+              {errors.facility && (
+                <div className="error">{errors.facility}</div>
+              )}
             </div>
-          </div>
-        )}{' '}
-        {addressType !== 'facility' && (
-          <div className="fields">
-            <div className="four wide field">
-              <label>Province</label>
-              <select
-                className="ui fluid dropdown"
-                value={province}
-                onChange={e => setProvince(e.target.value)}
-              >
-                <option></option>
-                {provinces
-                  .sort((i, j) => (i.name > j.name ? 1 : -1))
-                  .map(f => (
-                    <option key={f.id} value={f.id}>
-                      {f.name}
-                    </option>
-                  ))}
-              </select>
-            </div>
-            {province && (
-              <div className="four wide field">
-                <label>District</label>
-                <select
-                  className="ui fluid dropdown"
-                  value={district}
-                  onChange={e => setDistrict(e.target.value)}
-                >
-                  <option></option>
-                  {districts
-                    .filter(d => d.partOf === `Location/${province}`)
-                    .sort((i, j) => (i.name > j.name ? 1 : -1))
-                    .map(f => (
-                      <option key={f.id} value={f.id}>
-                        {f.name}
-                      </option>
-                    ))}
-                </select>
-              </div>
-            )}
-            {district && (
-              <div className="eight wide field">
-                <label>Place</label>
-                <input
-                  type="text"
-                  value={place}
-                  onChange={e => setPlace(e.target.value)}
-                />
-              </div>
-            )}
-          </div>
-        )}{' '}
+          )}
+        </div>
+
         <h4 className="ui dividing header">Adverse effect</h4>
         <div className="ui field">
           <div className="two fields">
