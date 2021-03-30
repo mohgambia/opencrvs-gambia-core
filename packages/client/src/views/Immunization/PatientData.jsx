@@ -4,7 +4,6 @@ import './styles/icons.css'
 import { getFullName, getIdentifiers } from './ImmunizationList'
 
 const PatientData = ({ patient }) => {
-  console.log('patient', patient)
   return (
     <div>
       <div className="ui card">
@@ -18,10 +17,10 @@ const PatientData = ({ patient }) => {
           />
         </div>
         <div className="content">
-          <a className="header">{patient.name && getFullName(patient)}</a>
+          <a className="header">{patient._id && getFullName(patient)}</a>
           <div className="meta">
             {patient._id ? (
-              <span className="date">Birth Date: {patient.birthDate}</span>
+              <span className="date">Birth Date: {patient.dateOfBirth}</span>
             ) : (
               <span className="date">New Patient</span>
             )}

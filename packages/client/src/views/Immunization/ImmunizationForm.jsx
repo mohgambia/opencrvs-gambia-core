@@ -56,7 +56,7 @@ const ImmunizationForm = ({ id }) => {
   const [
     patientPreviousAllergicReaction,
     setPatientPreviousAllergicReaction
-  ] = useState('')
+  ] = useState('no')
   const [attendantAtBirth, setAttendantAtBirth] = useState('')
   const [typeofBirth, setTypeofBirth] = useState('single')
   const [orderOfBirth, setOrderOfBirth] = useState(1)
@@ -178,7 +178,72 @@ const ImmunizationForm = ({ id }) => {
   }
 
   const populateDate = patient => {
-    console.log('patient', patient)
+    setFirstName(patient.firstName)
+    setLastName(patient.lastName)
+    setMiddleName(patient.middleName)
+    setAddressType(
+      patient.address && patient.address.address ? 'address' : 'facility'
+    )
+    setPatientAddress(patient.address)
+    setNIN(patient.NIN)
+    setAttendantAtBirth(patient.attendantAtBirth)
+    setBaptismalName(patient.baptismalName)
+    setBornInGambia(patient.bornInGambia)
+    setDateOfBirth(patient.dateOfBirth ? new Date(patient.dateOfBirth) : null)
+    setFatherFirstName(patient.father.firstName)
+    setFatherLastName(patient.father.lastName)
+    setFatherMiddleName(patient.father.middleName)
+    setFatherNIN(patient.father.NIN)
+    setFatherDateOfBirth(new Date(patient.father.dateOfBirth))
+    setFatherNationality(patient.father.nationality)
+    setFatherResidentialAddress(patient.father.residentialAddress)
+    setGender(patient.gender)
+    setMotherFirstName(patient.mother.firstName)
+    setMotherMiddleName(patient.mother.middleName)
+    setMotherDateOfBirth(
+      patient.mother.dateOfBirth && new Date(patient.mother.dateOfBirth)
+    )
+    setMotherNationality(patient.mother.nationality)
+    setMotherNIN(patient.mother.NIN)
+    setMotherLastName(patient.mother.lastName)
+    setMotherResidentialAddress(patient.mother.residentialAddress)
+    setMyChildId(patient.myChildId)
+    setNationality(patient.nationality)
+    setPatientOccupation(patient.occupation)
+    setPatient(patient)
+    setPhoneNumber(patient.phoneNumber)
+    setPlaceOfDelivery(patient.placeOfDelivery)
+    setPlaceOfWork(patient.placeOfWork)
+    setPatientPreexistingConditions(patient.preexistingConditions)
+    setpatientPreviousCovid19Infection(
+      patient.previousCovid19Infection &&
+        new Date(patient.previousCovid19Infection)
+    )
+    setPatientPriorityGroups(patient.priorityGroups)
+    setPatientPreviousAllergicReaction(patient.patientPreviousAllergicReaction)
+    setAefiDescription(patient.vaccination[0].aefi[0].aefiDescription)
+    setAefiSeverity(patient.vaccination[0].aefi[0].aefiSeverity)
+    setAefi(!!patient.vaccination[0].aefi[0].aefiDescription)
+    setBatchNumber(patient.vaccination[0].batchNumber)
+    setDateOfNextVisit(
+      patient.vaccination[0].dateOfNextVisit &&
+        new Date(patient.vaccination[0].dateOfNextVisit)
+    )
+    setExpirydate(
+      patient.vaccination[0].expirydate &&
+        new Date(patient.vaccination[0].expirydate)
+    )
+    setFirstDoseDate(
+      patient.vaccination[0].firstDoseDate &&
+        new Date(patient.vaccination[0].firstDoseDate)
+    )
+    setFacility(patient.vaccination[0].placeofVaccination.facility)
+    setDistrict(patient.vaccination[0].placeofVaccination.district)
+    setPlace(patient.vaccination[0].placeofVaccination.place)
+    setProvince(patient.vaccination[0].placeofVaccination.province)
+    setSerialNumber(patient.vaccination[0].serialNumber)
+    setNameOfTheVaccine(patient.vaccination[0].nameOfTheVaccine)
+    setVaccinatorFullName(patient.vaccination[0].vaccinatorFullName)
   }
 
   useEffect(() => {
@@ -206,23 +271,7 @@ const ImmunizationForm = ({ id }) => {
       })
       .then(res => {
         setPatient(res.data)
-        setFirstName(
-          res.data.name[0] && res.data.name[0].given
-            ? res.data.name[0].given[0]
-            : ''
-        )
-        setMiddleName(
-          res.data.name[0] &&
-            res.data.name[0].given &&
-            res.data.name[0].length > 1
-            ? res.data.name[0].given[1]
-            : ''
-        )
-        setLastName(
-          res.data.name[0] && res.data.name[0].family
-            ? res.data.name[0].family[0]
-            : ''
-        )
+        populateDate(res.data)
       })
   }, [])
 
@@ -251,6 +300,7 @@ const ImmunizationForm = ({ id }) => {
       priorityGroups: patientPriorityGroups,
       preexistingConditions: patientPreexistingConditions,
       previousCovid19Infection: patientPreviousCovid19Infection,
+      patientPreviousAllergicReaction,
       attendantAtBirth,
       placeOfDelivery,
       address: patientAddress,
@@ -264,6 +314,7 @@ const ImmunizationForm = ({ id }) => {
           expirydate,
           dateOfNextVisit,
           vaccinatorFullName,
+
           aefi: [{ aefiSeverity, aefiDescription }],
           placeofVaccination: {
             facility,
@@ -296,13 +347,23 @@ const ImmunizationForm = ({ id }) => {
     const validationErrors = validate(object, validations)
 
     if (Object.keys(validationErrors).length < 1) {
-      axios
-        .post(url, object, {
-          headers: {
-            Authorization: `Bearer ${getToken()}`
-          }
-        })
-        .then(setRedirect(true))
+      if (patient._id) {
+        axios
+          .put(url + `${patient._id}/`, object, {
+            headers: {
+              Authorization: `Bearer ${getToken()}`
+            }
+          })
+          .then(setRedirect(true))
+      } else {
+        axios
+          .post(url, object, {
+            headers: {
+              Authorization: `Bearer ${getToken()}`
+            }
+          })
+          .then(setRedirect(true))
+      }
     }
     setErrors(validationErrors)
   }
@@ -541,6 +602,7 @@ const ImmunizationForm = ({ id }) => {
             <label>Date of Birth</label>
             <div className="datepicker-full">
               <DatePicker
+                showYearDropdown
                 selected={dateOfBirth}
                 onChange={date => setDateOfBirth(date)}
               />
@@ -718,20 +780,23 @@ const ImmunizationForm = ({ id }) => {
         <div className="two fields">
           <div className="field">
             <label>History of COVID19 Infection (Date, if infection)</label>
-            <DatePicker
-              selected={patientPreviousCovid19Infection}
-              onChange={date => setpatientPreviousCovid19Infection(date)}
-            />
+            <div className="datepicker-full">
+              <DatePicker
+                isClearable
+                selected={patientPreviousCovid19Infection}
+                onChange={date => setpatientPreviousCovid19Infection(date)}
+              />
+            </div>
           </div>
           <div className="field">
             <label>Previous Allergic Reaction</label>
             <select
-              selected={patientPreviousAllergicReaction}
+              value={patientPreviousAllergicReaction}
               onChange={e => setPatientPreviousAllergicReaction(e.target.value)}
             >
               <option value="minor">Yes, minor</option>
               <option value="severe">Yes, severe (anaphylaxis)</option>
-              <option value="">No</option>
+              <option value="no">No</option>
             </select>
           </div>
         </div>
@@ -784,6 +849,7 @@ const ImmunizationForm = ({ id }) => {
             <label>Date of Birth</label>
             <div className="datepicker-full">
               <DatePicker
+                showYearDropdown
                 selected={motherDateOfBirth}
                 onChange={date => setMotherDateOfBirth(date)}
               />
@@ -868,6 +934,7 @@ const ImmunizationForm = ({ id }) => {
             <label>Date of Birth</label>
             <div className="datepicker-full">
               <DatePicker
+                showYearDropdown
                 selected={fatherDateOfBirth}
                 onChange={date => setFatherDateOfBirth(date)}
               />
@@ -1151,7 +1218,7 @@ const ImmunizationForm = ({ id }) => {
         )}
         <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
           <button className="ui button positive" onClick={savePatient}>
-            Save
+            {patient._id ? 'Update Patient' : 'Save'}
           </button>
           <a href="/immunization">
             <button className="ui button negative">Cancel</button>
