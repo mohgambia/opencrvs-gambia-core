@@ -5,20 +5,15 @@ import './styles/table.css'
 import './styles/buttons.css'
 import './styles/icons.css'
 
-export const getFullName = name => {
-  return `${name[0].given ? name[0].given.join(' ') : ''}  ${
-    name[0].family ? name[0].family.join(' ') : ''
-  }`
+export const getFullName = patient => {
+  return `${patient.firstName}  ${patient.middleName} ${patient.lastName}`
 }
 
-export const getIdentifiers = identifiers => {
+export const getIdentifiers = patient => {
   return (
     <div>
-      {(identifiers || []).map(i => (
-        <div key={i.type}>
-          <em>{i.type}</em>: {i.value}{' '}
-        </div>
-      ))}
+      {patient.NIN && <div>{`NIN: ${patient.NIN}`}</div>}
+      {patient.myChildId && <div>{`myChildId: ${patient.myChildId}`}</div>}
     </div>
   )
 }
@@ -26,13 +21,16 @@ export const getIdentifiers = identifiers => {
 const PatientRow = ({ patient }) => {
   return (
     <tr>
-      <td>{getFullName(patient.name)}</td>
-      <td>{patient.birthDate}</td>
-      <td>{patient.gender}</td>
-      <td>{getIdentifiers(patient.identifier)}</td>
+      <td>{getFullName(patient)}</td>
       <td>
-        <a href={`/immunization/${patient.id}`}>
-          <button className="primary mini ui button">1st Dose</button>
+        {patient.dateOfBirth &&
+          new Date(patient.dateOfBirth).toLocaleDateString()}
+      </td>
+      <td>{patient.gender === 'M' ? 'Male' : 'Female'}</td>
+      <td>{getIdentifiers(patient)}</td>
+      <td>
+        <a href={`/immunization/${patient._id}`}>
+          <button className="primary mini ui button">Edit</button>
         </a>
       </td>
     </tr>
@@ -72,13 +70,11 @@ const ImmunizationList = () => {
   const [searchToday, setSearchToday] = useState(false)
 
   const getPatientsWithParams = params => {
-    console.log('parmas', params)
-    let url = `http://localhost:3040/patients/?_count=${count}&_getpagesoffset=${offset}`
+    let url = `${window.config.RESOURCES_URL}/patients/?_count=${count}&_getpagesoffset=${offset}`
     if (params) {
       url += params
     }
 
-    console.log(url)
     axios
       .get(url, {
         headers: {
@@ -86,16 +82,15 @@ const ImmunizationList = () => {
         }
       })
       .then(res => {
-        setPatients(
-          res.data.data && res.data.data.entry ? res.data.data.entry : []
-        )
-        setTotal(res.data.data && res.data.data.total ? res.data.data.total : 0)
+        console.log(res.data)
+        setPatients(res.data)
+        // setTotal(res.data.data && res.data.data.total ? res.data.data.total : 0)
       })
   }
 
   useEffect(() => {
     getPatientsWithParams()
-  }, [count, offset])
+  }, [])
 
   const searchPatients = () => {
     let url = ''
@@ -193,12 +188,16 @@ const ImmunizationList = () => {
             <th>Birth Date</th>
             <th>Gender</th>
             <th>Identifiers</th>
-            <th></th>
+            <th>
+              <a href={`/immunization/new/`}>
+                <button className="positive mini ui button">New Patient</button>
+              </a>
+            </th>
           </tr>
         </thead>
         <tbody>
           {patients.map(i => (
-            <PatientRow key={i.fullUrl} patient={i.resource} />
+            <PatientRow key={i._id} patient={i} />
           ))}
         </tbody>
       </table>

@@ -19,6 +19,7 @@ import { v4 as uuid } from 'uuid'
 const ImmunizationForm = ({ id }) => {
   // utils
   const [redirect, setRedirect] = useState(false)
+  const [patient, setPatient] = useState({})
 
   // locations
   const [facilities, setFacilities] = useState([])
@@ -32,7 +33,7 @@ const ImmunizationForm = ({ id }) => {
   const [phoneNumber, setPhoneNumber] = useState('')
 
   // Patient
-  const [patient, setPatient] = useState({})
+
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [middleName, setMiddleName] = useState('')
@@ -160,7 +161,11 @@ const ImmunizationForm = ({ id }) => {
       ))
 
   const getNationalityOptions = () =>
-    countries.map(i => <option value={i.code}>{i.name}</option>)
+    countries.map(i => (
+      <option key={i.code} value={i.code}>
+        {i.name}
+      </option>
+    ))
 
   const setLocationsOnState = locationsObject => {
     const locationsArray = Object.keys(locationsObject).map(k => ({
@@ -172,9 +177,29 @@ const ImmunizationForm = ({ id }) => {
     setDistricts(locationsArray.filter(l => l.partOf !== 'Location/0'))
   }
 
+  const populateDate = patient => {
+    console.log('patient', patient)
+  }
+
   useEffect(() => {
+    storage.getItem('USER_DETAILS').then(res => console.log(JSON.parse(res)))
+    storage.getItem('offline').then(res => {
+      const offlineData = JSON.parse(res)
+      console.log(offlineData)
+      setFacilities(
+        Object.keys(offlineData.facilities).map(k => ({
+          id: offlineData.facilities[k].id,
+          name: offlineData.facilities[k].name,
+          partOf: offlineData.facilities[k].partOf
+        }))
+      )
+      setLocationsOnState(offlineData.locations)
+    })
+    if (id === 'new') {
+      return
+    }
     axios
-      .get(`http://localhost:3040/patients/${id}/`, {
+      .get(`${window.config.RESOURCES_URL}/patients/${id}/`, {
         headers: {
           Authorization: `Bearer ${getToken()}`
         }
@@ -198,22 +223,6 @@ const ImmunizationForm = ({ id }) => {
             ? res.data.name[0].family[0]
             : ''
         )
-
-        storage
-          .getItem('USER_DETAILS')
-          .then(res => console.log(JSON.parse(res)))
-        storage.getItem('offline').then(res => {
-          const offlineData = JSON.parse(res)
-          console.log(offlineData)
-          setFacilities(
-            Object.keys(offlineData.facilities).map(k => ({
-              id: offlineData.facilities[k].id,
-              name: offlineData.facilities[k].name,
-              partOf: offlineData.facilities[k].partOf
-            }))
-          )
-          setLocationsOnState(offlineData.locations)
-        })
       })
   }, [])
 
@@ -301,7 +310,7 @@ const ImmunizationForm = ({ id }) => {
   return (
     <div className="container two-columns">
       {redirect && <Redirect to="/immunization" />}
-      <PatientData patient={patient} />
+      {patient && <PatientData patient={patient} />}
       <div className="register-form ui form">
         <h4 className="ui dividing header">Patient Born in Gambia</h4>
         <div className="inline fields">
@@ -350,7 +359,9 @@ const ImmunizationForm = ({ id }) => {
             onChange={e => setNationality(e.target.value)}
           >
             {countries.map(i => (
-              <option value={i.code}>{i.name}</option>
+              <option key={i.code} value={i.code}>
+                {i.name}
+              </option>
             ))}
           </select>
         </div>
@@ -801,7 +812,7 @@ const ImmunizationForm = ({ id }) => {
             />
           </div>
         </div>
-        <div class="field">
+        <div className="field">
           <label>Place of usual residence</label>
           <textarea
             value={motherResidentialAddress}
@@ -885,7 +896,7 @@ const ImmunizationForm = ({ id }) => {
             />
           </div>
         </div>
-        <div class="field">
+        <div className="field">
           <label>Place of usual residence</label>
           <textarea
             value={fatherResidentialAddress}

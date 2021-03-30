@@ -18,14 +18,18 @@ const PatientData = ({ patient }) => {
           />
         </div>
         <div className="content">
-          <a className="header">{patient.name && getFullName(patient.name)}</a>
+          <a className="header">{patient.name && getFullName(patient)}</a>
           <div className="meta">
-            <span className="date">Birth Date: {patient.birthDate}</span>
+            {patient._id ? (
+              <span className="date">Birth Date: {patient.birthDate}</span>
+            ) : (
+              <span className="date">New Patient</span>
+            )}
           </div>
           <div className="description"></div>
         </div>
         <div className="extra content">
-          {patient && getIdentifiers(patient.identifier)}
+          {patient && getIdentifiers(patient)}
         </div>
       </div>
     </div>
