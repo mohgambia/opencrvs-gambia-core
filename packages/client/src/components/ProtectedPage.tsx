@@ -9,7 +9,7 @@
  * Copyright (C) The OpenCRVS Authors. OpenCRVS and the OpenCRVS
  * graphic logo are (registered/a) trademark(s) of Plan International.
  */
-import * as React from 'react'
+import React, { PropsWithChildren } from 'react'
 import PageVisibility from 'react-page-visibility'
 import { SecureAccount } from '@client/views/SecureAccount/SecureAccountView'
 import { Unlock } from '@client/views/Unlock/Unlock'
@@ -25,7 +25,6 @@ import { refreshToken } from '@client/utils/authUtils'
 import { REFRESH_TOKEN_CHECK_MILLIS } from '@client/utils/constants'
 import { connect } from 'react-redux'
 import { refreshOfflineData } from '@client/offline/actions'
-import { PropsWithChildren } from 'react'
 import styled from 'styled-components'
 import { Spinner } from '@opencrvs/components/lib/interface'
 import { ForgotPIN } from '@client/views/Unlock/ForgotPIN'

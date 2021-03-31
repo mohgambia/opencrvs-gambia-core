@@ -82,7 +82,6 @@ const ImmunizationList = () => {
         }
       })
       .then(res => {
-        console.log(res.data)
         setPatients(res.data)
         // setTotal(res.data.data && res.data.data.total ? res.data.data.total : 0)
       })
