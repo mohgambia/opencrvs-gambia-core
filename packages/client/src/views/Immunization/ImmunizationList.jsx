@@ -3,6 +3,7 @@ import { getToken } from '@client/utils/authUtils'
 import axios from 'axios'
 import './styles/table.css'
 import './styles/buttons.css'
+import './styles/form.css'
 import './styles/icons.css'
 
 export const getFullName = patient => {
@@ -89,7 +90,7 @@ const ImmunizationList = () => {
 
   useEffect(() => {
     getPatientsWithParams()
-  }, [])
+  }, [count])
 
   const searchPatients = () => {
     let url = ''
@@ -162,7 +163,26 @@ const ImmunizationList = () => {
         </div>
       </div>
 
-      <h3>Patient List</h3>
+      <div className="ui form">
+        <div className="two fields">
+          <div className="field">
+            <h3>Patient List</h3>
+          </div>
+          <div className="ui field">
+            <label>Number of results</label>
+            <select
+              className="ui fluid dropdown"
+              value={count}
+              onChange={e => setCount(parseInt(e.target.value))}
+            >
+              <option value={10}>10</option>
+              <option value={25}>25</option>
+              <option value={50}>50</option>
+              <option value={100}>100</option>
+            </select>
+          </div>
+        </div>
+      </div>
       <table className="ui green striped table">
         <thead>
           <tr>
