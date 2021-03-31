@@ -10,7 +10,7 @@ const ImmunizationHome = () => {
 
   return (
     <SysAdminContentWrapper>
-      <Header>COVID19 Immunization Campaign</Header>
+      <Header>The Gambia COVID-19 Vaccination Form</Header>
       {!id && <ImmunizationList></ImmunizationList>}
       {id && <ImmunizationForm id={id}></ImmunizationForm>}
     </SysAdminContentWrapper>

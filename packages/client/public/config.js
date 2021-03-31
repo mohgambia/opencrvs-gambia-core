@@ -15,11 +15,11 @@ window.config = {
   COUNTRY_LOGO_FILE: 'logo.png',
   DESKTOP_TIME_OUT_MILLISECONDS: 900000, // 15 mins
   HEALTH_FACILITY_FILTER: "",
-  LANGUAGES: 'en,bn',
-  LOGIN_URL: 'http://localhost:3020/',
-  AUTH_URL: 'http://localhost:4040/',
-  API_GATEWAY_URL: 'http://localhost:7070/',
-  RESOURCES_URL: 'http://localhost:3040/gmb',
+  LANGUAGES: 'en',
+  LOGIN_URL: 'http://login.crvs.gm',
+  AUTH_URL: 'http://auth.crvs.gm',
+  API_GATEWAY_URL: '/',
+  RESOURCES_URL: 'https://resources.crvs.gm',
   CERTIFICATE_PRINT_CHARGE_FREE_PERIOD: 45, // days
   CERTIFICATE_PRINT_CHARGE_UP_LIMIT: 1825, // 5 years =  (5 * 365) days
   CERTIFICATE_PRINT_LOWEST_CHARGE: 25, // taka

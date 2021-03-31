@@ -63,7 +63,7 @@ const ImmunizationList = () => {
   const [patients, setPatients] = useState([])
   const [total, setTotal] = useState(0)
   const [offset, setOffset] = useState(0)
-  const [count, setCount] = useState(10)
+  const [count, setCount] = useState(25)
   const [searchGiven, setSearchGiven] = useState('')
   const [searchLast, setSearchLast] = useState('')
   const [searchNIN, setSearchNIN] = useState('')
@@ -95,13 +95,13 @@ const ImmunizationList = () => {
   const searchPatients = () => {
     let url = ''
     if (searchGiven) {
-      url += `&given:contains=${searchGiven}`
+      url += `&firstName=${searchGiven}`
     }
     if (searchLast) {
-      url += `&family:contains=${searchLast}`
+      url += `&lastName=${searchLast}`
     }
     if (searchNIN) {
-      url += `&identifier=${searchNIN}`
+      url += `&NIN=${searchNIN}`
     }
     if (searchToday) {
       const date = new Date()
@@ -127,11 +127,11 @@ const ImmunizationList = () => {
   return (
     <div className="immunization-list">
       <div className="ui small form">
-        <div className="three fields">
+        <div className="four fields">
           <div className="ui field ">
             <input
               type="text"
-              placeholder="Given or middle name..."
+              placeholder="Given name..."
               value={searchGiven}
               onChange={e => setSearchGiven(e.target.value)}
             />
@@ -139,7 +139,7 @@ const ImmunizationList = () => {
           <div className="ui field">
             <input
               type="text"
-              placeholder="Lastname..."
+              placeholder="Last name..."
               value={searchLast}
               onChange={e => setSearchLast(e.target.value)}
             />
@@ -147,36 +147,19 @@ const ImmunizationList = () => {
           <div className="ui field">
             <input
               type="text"
-              placeholder="ID (NIN or MyChild, Full ID)"
+              placeholder="ID (NIN)"
               value={searchNIN}
               onChange={e => setSearchNIN(e.target.value)}
             />
           </div>
-        </div>
-        <div className="inline fields">
-          {/* <div className="ui field">
-            <input
-              type="text"
-              placeholder="MyChildId..."
-              value={searchMyChildId}
-              onChange={e => setSearchMyChildId(e.target.value)}
-            />
-          </div> */}
-          <div className="ui field">
-            <input
-              type="checkbox"
-              placeholder="ID (NIN or MyChild, Full ID)"
-              value={searchToday}
-              onChange={e => setSearchToday(!searchToday)}
-            />
-            <label>Only registered today</label>
+          <div className="inline fields">
+            <button className="ui button positive" onClick={searchPatients}>
+              Search
+            </button>
+            <button className="ui button negative" onClick={resetSearch}>
+              Reset
+            </button>
           </div>
-          <button className="ui button positive" onClick={searchPatients}>
-            Search
-          </button>
-          <button className="ui button negative" onClick={resetSearch}>
-            Reset
-          </button>
         </div>
       </div>
 

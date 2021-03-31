@@ -425,7 +425,7 @@ class HeaderComp extends React.Component<IProps, IState> {
           },
           {
             key: 'immunization',
-            title: 'COVID19 Vaccination Campaign',
+            title: 'The Gambia COVID-19 Vaccination Form',
             onClick: () => this.goToImmunizationView(this.props),
             selected:
               enableMenuSelection &&
