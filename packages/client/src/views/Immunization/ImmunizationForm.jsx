@@ -281,6 +281,7 @@ const ImmunizationForm = ({ id }) => {
       middleName,
       baptismalName,
       NIN,
+      age,
       patientVaccineRegisterNumber,
       myChildId,
       nationality,
@@ -482,6 +483,14 @@ const ImmunizationForm = ({ id }) => {
             {errors.dateOfBirth && (
               <div className="error">{errors.dateOfBirth}</div>
             )}
+          </div>
+          <div className="field">
+            <label>Age</label>
+            <input
+              type="text"
+              value={age}
+              onChange={e => setAge(e.target.value)}
+            />
           </div>
         </div>
         <h5>Place of delivery</h5>
@@ -739,14 +748,6 @@ const ImmunizationForm = ({ id }) => {
                     selected={motherDateOfBirth}
                     onChange={date => setMotherDateOfBirth(date)}
                   />
-                  <div className="field">
-                    <label>Age</label>
-                    <input
-                      type="text"
-                      value={age}
-                      onChange={e => setAge(e.target.value)}
-                    />
-                  </div>
                 </div>
                 {errors.motherDateOfBirth && (
                   <div className="error">{errors.motherDateOfBirth}</div>
