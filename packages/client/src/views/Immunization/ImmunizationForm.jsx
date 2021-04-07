@@ -648,7 +648,7 @@ const ImmunizationForm = ({ id }) => {
         </div>
         <div className="two fields">
           <div className="field">
-            <label>History of COVID19 Infection (Date, if infection)</label>
+            <label>History of COVID-19 Infection (Date, if infection)</label>
             <div className="datepicker-full">
               <DatePicker
                 dateFormat="dd/MM/yyyy"
