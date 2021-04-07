@@ -23,7 +23,6 @@ import {
   getDistrictOptions,
   getNationalityOptions
 } from './extraData/options'
-import ImmunizationRecordForm from './components/ImmunizationRecordForm'
 
 const ImmunizationForm = ({ id }) => {
   // utils
@@ -100,6 +99,7 @@ const ImmunizationForm = ({ id }) => {
   const [motherMiddleName, setMotherMiddleName] = useState('')
   const [motherLastName, setMotherLastName] = useState('')
   const [motherNationality, setMotherNationality] = useState('GM')
+  const [motherAge, setMotherAge] = useState('')
   const [motherNIN, setMotherNIN] = useState('')
   const [motherDateOfBirth, setMotherDateOfBirth] = useState(new Date())
   const [motherMaritalStatuts, setMotherMaritalStatuts] = useState('')
@@ -119,6 +119,7 @@ const ImmunizationForm = ({ id }) => {
   const [fatherLastName, setFatherLastName] = useState('')
   const [fatherNationality, setFatherNationality] = useState('GM')
   const [fatherDateOfBirth, setFatherDateOfBirth] = useState(new Date())
+  const [fatherAge, setFatherAge] = useState('')
   const [fatherMaritalStatus, setFatherMaritalStatus] = useState('')
   const [fatherOccupation, setFatherOccupation] = useState('')
   const [fatherLevelOfEducation, setFatherLevelOfEducation] = useState('')
@@ -183,6 +184,7 @@ const ImmunizationForm = ({ id }) => {
     setFatherMiddleName(patient.father.middleName)
     setFatherNIN(patient.father.NIN)
     setFatherDateOfBirth(new Date(patient.father.dateOfBirth))
+    setFatherAge(patient.fatherAge)
     setFatherNationality(patient.father.nationality)
     setFatherResidentialAddress(patient.father.residentialAddress)
     setGender(patient.gender)
@@ -193,6 +195,7 @@ const ImmunizationForm = ({ id }) => {
     )
     setPatientVaccineRegisterNumber(patient.patientVaccineRegisterNumber)
     setMotherNationality(patient.mother.nationality)
+    setMotherAge(patient.motherAge)
     setMotherNIN(patient.mother.NIN)
     setMotherLastName(patient.mother.lastName)
     setMotherResidentialAddress(patient.mother.residentialAddress)
@@ -281,12 +284,12 @@ const ImmunizationForm = ({ id }) => {
       middleName,
       baptismalName,
       NIN,
-      age,
       patientVaccineRegisterNumber,
       myChildId,
       nationality,
       gender,
       dateOfBirth,
+      age,
       placeOfWork,
       priorityGroups: patientPriorityGroups,
       preexistingConditions: patientPreexistingConditions,
@@ -320,6 +323,7 @@ const ImmunizationForm = ({ id }) => {
         middleName: motherMiddleName,
         lastName: motherLastName,
         dateOfBirth: motherDateOfBirth,
+        age: motherAge,
         nationality: motherNationality,
         NIN: motherNIN,
         residentialAddress: motherResidentialAddress
@@ -329,6 +333,7 @@ const ImmunizationForm = ({ id }) => {
         middleName: fatherMiddleName,
         lastName: fatherLastName,
         dateOfBirth: fatherDateOfBirth,
+        age: fatherAge,
         nationality: fatherNationality,
         NIN: fatherNIN,
         residentialAddress: fatherResidentialAddress
@@ -483,14 +488,6 @@ const ImmunizationForm = ({ id }) => {
             {errors.dateOfBirth && (
               <div className="error">{errors.dateOfBirth}</div>
             )}
-          </div>
-          <div className="field">
-            <label>Age</label>
-            <input
-              type="text"
-              value={age}
-              onChange={e => setAge(e.target.value)}
-            />
           </div>
         </div>
         <h5>Place of delivery</h5>
@@ -753,6 +750,14 @@ const ImmunizationForm = ({ id }) => {
                   <div className="error">{errors.motherDateOfBirth}</div>
                 )}
               </div>
+                <div className="field">
+                    <label>Age</label>
+                    <input
+                      type="text"
+                      value={motherAge}
+                      onChange={e => setMotherAge(e.target.value)}
+                    />
+                  </div>
               <div className="field">
                 <label>NIN</label>
                 <input
@@ -834,6 +839,14 @@ const ImmunizationForm = ({ id }) => {
                   <div className="error">{errors.fatherDateOfBirth}</div>
                 )}
               </div>
+              <div className="field">
+                    <label>Age</label>
+                    <input
+                      type="text"
+                      value={fatherAge}
+                      onChange={e => setFatherAge(e.target.value)}
+                    />
+                  </div>
               <div className="field">
                 <label>NIN</label>
                 <input
@@ -1098,7 +1111,6 @@ const ImmunizationForm = ({ id }) => {
             </div>
           </div>
         )}
-        <ImmunizationRecordForm></ImmunizationRecordForm>
         <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
           <button className="ui button positive" onClick={savePatient}>
             {patient._id ? 'Update Patient' : 'Save'}
