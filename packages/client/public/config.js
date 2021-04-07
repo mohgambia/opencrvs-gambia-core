@@ -3,7 +3,7 @@
 //   COUNTRY: 'gmb',
 //   COUNTRY_LOGO_FILE: 'logo.png',
 //   DESKTOP_TIME_OUT_MILLISECONDS: 900000, // 15 mins
-//   HEALTH_FACILITY_FILTER: "",
+//   HEALTH_FACILITY_FILTER: '',
 //   LANGUAGES: 'en',
 //   LOGIN_URL: 'http://login.crvs.gm',
 //   AUTH_URL: 'http://auth.crvs.gm',
@@ -27,7 +27,7 @@ window.config = {
   COUNTRY: 'gmb',
   COUNTRY_LOGO_FILE: 'logo.png',
   DESKTOP_TIME_OUT_MILLISECONDS: 900000, // 15 mins
-  HEALTH_FACILITY_FILTER: "",
+  HEALTH_FACILITY_FILTER: '',
   LANGUAGES: 'en,bn',
   LOGIN_URL: 'http://localhost:3020/',
   AUTH_URL: 'http://localhost:4040/',

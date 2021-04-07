@@ -23,6 +23,7 @@ import {
   getDistrictOptions,
   getNationalityOptions
 } from './extraData/options'
+import ImmunizationRecordForm from './components/ImmunizationRecordForm'
 
 const ImmunizationForm = ({ id }) => {
   // utils
@@ -1086,6 +1087,7 @@ const ImmunizationForm = ({ id }) => {
             </div>
           </div>
         )}
+        <ImmunizationRecordForm></ImmunizationRecordForm>
         <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
           <button className="ui button positive" onClick={savePatient}>
             {patient._id ? 'Update Patient' : 'Save'}
