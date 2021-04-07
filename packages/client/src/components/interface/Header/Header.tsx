@@ -168,7 +168,7 @@ class HeaderComp extends React.Component<IProps, IState> {
             icon: <ApplicationBlack />,
             iconHover: <ApplicationBlue />,
             onClick: () => this.goToImmunizationView(this.props),
-            label: 'COVID19'
+            label: 'COVID-19'
           }
         ])
       }
