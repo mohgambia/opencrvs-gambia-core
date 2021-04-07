@@ -51,6 +51,7 @@ const ImmunizationForm = ({ id }) => {
   const [nationality, setNationality] = useState('GM')
   const [gender, setGender] = useState('M')
   const [dateOfBirth, setDateOfBirth] = useState(new Date())
+  const [age, setAge] = useState('')
   const [placeOfWork, setPlaceOfWork] = useState('')
   const [patientPriorityGroups, setPatientPriorityGroups] = useState([])
   const [
@@ -176,6 +177,7 @@ const ImmunizationForm = ({ id }) => {
     setBaptismalName(patient.baptismalName)
     setBornInGambia(patient.bornInGambia)
     setDateOfBirth(patient.dateOfBirth ? new Date(patient.dateOfBirth) : null)
+    setAge(patient.age)
     setFatherFirstName(patient.father.firstName)
     setFatherLastName(patient.father.lastName)
     setFatherMiddleName(patient.father.middleName)
@@ -618,7 +620,7 @@ const ImmunizationForm = ({ id }) => {
         <div className="two fields">
           <div className="field">
             <label>
-              COVID19 Priority group, select one or more of the Following
+              COVID-19 Priority group, select one or more of the Following
             </label>
             <Select
               defaultValue={[]}
@@ -649,7 +651,7 @@ const ImmunizationForm = ({ id }) => {
         </div>
         <div className="two fields">
           <div className="field">
-            <label>History of COVID19 Infection (Date, if infection)</label>
+            <label>History of COVID-19 Infection (Date, if infection)</label>
             <div className="datepicker-full">
               <DatePicker
                 dateFormat="dd/MM/yyyy"
@@ -737,6 +739,14 @@ const ImmunizationForm = ({ id }) => {
                     selected={motherDateOfBirth}
                     onChange={date => setMotherDateOfBirth(date)}
                   />
+                  <div className="field">
+                    <label>Age</label>
+                    <input
+                      type="text"
+                      value={age}
+                      onChange={e => setAge(e.target.value)}
+                    />
+                  </div>
                 </div>
                 {errors.motherDateOfBirth && (
                   <div className="error">{errors.motherDateOfBirth}</div>

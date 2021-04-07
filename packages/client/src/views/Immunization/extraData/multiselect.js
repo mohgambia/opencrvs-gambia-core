@@ -94,5 +94,9 @@ export const preexistingConditions = [
   {
     value: 'COPD',
     label: 'COPD - Chronic Obstructive Pulmonary Disease'
+  },
+  {
+    value: 'None',
+    label: 'None'
   }
 ]
